@@ -1,0 +1,368 @@
+//基础css基类代码，包括：1、基础颜色；2、基础样式；3、基础类
+
+@default-op: #fff;
+@default-title: #666666; //标题
+@default-text: #333333; //正文
+@default-tip: #999999; //提示文案字体颜色
+@default-icon: #8e949e; //图标 （辅助色可用于背景上弱化标题）
+@default-dividing: #eaebed; //分割线
+@default-mongolia: rgba(0, 0, 0, 0.45); //蒙层
+@default-background: #f7f8fa; //背景
+@default-blockbg: #fff; //块状背景色
+@default-gray: #f2f4f5; //辅助灰
+@default-border: #dcdee1;
+@default-boxshadow-main: rgba(0, 0, 0, 0.1);
+@default-boxshadow-bolck: rgba(45, 52, 59, 0.2);
+@default-block-shadow: 0px 1px 4px 0px @default-boxshadow-bolck;
+@default-main-shadow: 0px 8px 10px 0px @default-boxshadow-main;
+@default-disable: #c5c8ce; //失效、提示
+@default-placeholder: #999999; //placeholder字体颜色
+@default-selectbg: #f7f8fa; //下拉列表，选中和hover对应的背景颜色
+@default-footer-btn-bg: #f7f8fa; //卡片对应底部按钮的颜色
+@default-invert-bg: #2a2c37; //反色背景
+
+@default-primary-color: #1690ff; //主题颜色
+@default-primary-active-color: #1381e5; //主题active颜色
+@default-primary-hover-color: #44a6ff; //主题hover颜色
+@default-link-color: #1690ff; //链接颜色
+@default-primary-grey: #e6f6ff; //主色弱化
+
+@default-info-color: #1690ff;
+@default-info-active-color: #1381e5;
+@default-info-hover-color: #44a6ff;
+
+@default-success-color: #15bf81;
+@default-success-active-color: #12ab73;
+@default-success-hover-color: #43cb9a;
+
+@default-warning-color: #ffba5a;
+@default-warning-active-color: #e5a750;
+@default-warning-hover-color: #ffc77b;
+@default-warning-bg-color: #ffeacd;
+
+@default-error-color: #ff6666;
+@default-error-active-color: #e55b5b;
+@default-error-hover-color: #ff8484;
+
+@default-pink-color: #ffd1d1;
+@default-yellow-color: #ffeacd;
+
+@default-pending-color: #8e949f; //待处理
+
+@dark-op: #151824; //#1B2431
+@dark-title: fade(#fff, 60%); //标题
+@dark-text: fade(#fff, 87%); //正文
+@dark-tip: fade(#fff, 38%); //提示文案字体颜色
+@dark-icon: fade(#fff, 60%); //图标 #716e6e
+@dark-dividing: fade(#fff, 12%); //#323A46; //分割线
+@dark-mongolia: fade(#e5e5e5, 30%); //蒙层
+@dark-background: #151824; //#1B2431; //背景
+@dark-blockbg: #2a2c37; //#1B2431; //块状背景
+@dark-gray: #1e212c; //辅助灰 #444343
+@dark-border: #4f515a; //#323A46;
+@dark-boxshadow-main: rgba(255, 255, 255, 0.2);
+@dark-boxshadow-bolck: rgba(255, 255, 255, 0.2);
+@dark-block-shadow: 0px 2px 2px 0px @dark-boxshadow-bolck;
+@dark-main-shadow: 0px 8px 10px 0px @dark-boxshadow-main;
+@dark-disable: fade(#fff, 30%); //失效、提示
+@dark-placeholder: fade(#fff, 38%); //placeholder字体颜色
+@dark-selectbg: fade(#fff, 30%); //下拉列表，选中和hover对应的背景颜色
+@dark-footer-btn-bg: #31343e; //卡片对应底部按钮的颜色
+@dark-invert-bg: #fff; //反色背景
+
+@dark-primary-color: #33c9dc; //主题颜色
+@dark-primary-active-color: #43cdde; //主题active颜色
+@dark-primary-hover-color: #58d3e3; //主题hover颜色
+@dark-link-color: #33c9dc; //链接颜色
+@dark-primary-grey: @dark-gray;
+@dark-modal-header-bg: #252833; //模态框头部颜色
+@dark-modal-background: #31343e; //模态框背景
+
+@dark-info-color: #33aaff;
+@dark-info-active-color: #2f9ceb;
+@dark-info-hover-color: #5bbbff;
+
+@dark-success-color: #43cb9a;
+@dark-success-active-color: #3dbb8d;
+@dark-success-hover-color: #68d5ae;
+
+@dark-warning-color: #ffc77b;
+@dark-warning-active-color: #ebb771;
+@dark-warning-hover-color: #ffd295;
+@dark-warning-bg-color: #ffeacd;
+
+@dark-error-color: #ff8484;
+@dark-error-active-color: #eb7979;
+@dark-error-hover-color: #ff9c9c;
+
+@dark-pink-color: #ce6f71;
+@dark-yellow-color: #ce9950;
+
+@dark-pending-color: #8e949f; //待处理
+
+//备份代码
+
+@title-color: #262626; //标题 85%
+@text-color: #595959; //正文 65%
+@icon-color: #8c8c8c; //图标 45%
+@dividing-color: #e5e5e5; //分割线 10%
+
+@mongolia-color: fade(#1e282c, 70%); //蒙层
+@background-color: #e0e5e9; //背景
+@gray-color: #f5f6fa; //辅助灰
+@menu-background: #1f232b; //左侧菜单背景色
+@border-color-base: fade(@black, 10%);
+
+@bg-shadow: 0px 10px 35px 0px rgba(0, 0, 0, 0.1);
+@white: #fff;
+@black: @title-color;
+@bg-op-color: #fff;
+
+//color
+@primary-color: #00bcd4;
+@primary-active-color: #03abc1;
+@primary-hover-color: #4dcfe1;
+@primary-grey: #e0f8fb; //主色弱化
+
+@info-color: #2d84fb;
+@info-active-color: #2979e7;
+@info-hover-color: #6ca9fc;
+
+@success-color: #25b865;
+@success-active-color: #1f9a54;
+@success-hover-color: #4fc37d;
+
+@processing-color: @primary-color;
+
+@warning-color: #f9a825;
+@warning-active-color: #e49a21;
+@warning-hover-color: #fac266;
+
+@error-color: #f71010;
+@error-active-color: #d8000f;
+@error-hover-color: #f95858;
+
+// 节点样式
+@node-stroke: #f1f1f6;
+@node-fill: #f1f1f6;
+@node-icon: #0d1c2e;
+@node-name: @black;
+@node-removeIcon: @black;
+@node-start-icon: #81d553;
+@node-end-icon: #ff625a;
+// pending节点
+@node-pending-stroke: #2987f8;
+@node-pending-fill: #2987f8;
+@node-pending-icon: #0d1c2e;
+// succeed节点
+@node-succeed-stroke: #25b966;
+@node-succeed-fill: #25b966;
+@node-succeed-icon: #0d1c2e;
+// running节点
+@node-running-stroke: #f1f1f6;
+@node-running-fill: #f1f1f6;
+@node-running-icon: #0d1c2e;
+@node-running-progress: blue;
+// 线样式
+@link-stroke: #89969f;
+
+@link-color: @primary-color;
+@switch-bg: #b2ecf2; //开关背景
+@list-select-bg: #e6f3f8; //li选中颜色
+//base
+@font-family: PingFangSC, 'helvetica neue', 'hiragino sans gb', arial, 'microsoft yahei ui', 'microsoft yahei', simsun, sans-serif;
+@font-size-base: 13px; //通用字号，区别于正文字号
+@font-size-small: 12px;
+@font-size-large: 16px; //16px
+@font-size-min: 10px;
+
+//topnav
+@top-height: 56px;
+//actionbar
+@actionbar-height: 56px;
+
+//maintitle
+@maintitle-height: 56px;
+
+//font-size
+@font-size-login: 28px; //登录页系统名称
+@line-height-login: 36px;
+@font-size-modal: 18px; //弹窗对话框标题文字
+@line-height-modal: 26px;
+@font-size-chart: 16px; //大屏展示统计图标题
+@line-height-chart: 24px;
+@font-size-menu: 14px; //一二级菜单
+@line-height-menu: 22px;
+@font-size-text: 13px; //正文、基本字号
+@line-height-text: 21px;
+@font-size-table: 12px; //表格头部、错误提示
+@line-height-table: 20px;
+
+// vertical paddings
+@padding-outer: 0px;
+@padding-bg: 36px;
+@padding-lg: 24px; // containers
+@padding-md: 16px; // small containers and buttons
+@padding-sm: 12px; // Form controls and items
+@padding-xs: 8px; // small items
+@body-padding: @padding-md;
+@margin-base: @padding-md @padding-lg;
+@block-radius: 2px; //块状元素圆角
+
+//button
+@btn-padding-base: 0 @padding-md; //0 16px
+@btn-padding-large: 0 @padding-md; //0 16px
+@btn-padding-small: 0 @padding-xs; //0 8px
+@btn-border-radius: 2px; //按钮圆角
+
+// Small screen / tablet
+@screen-sm: 800px;
+@screen-sm-min: @screen-sm;
+@screen-sm-max: (@screen-sm-min - 1);
+
+// Medium screen / desktop
+@screen-md: 1024px;
+@screen-md-min: @screen-md;
+@screen-md-max: (@screen-md-min - 1);
+
+// Large screen / wide desktop
+@screen-lg: 1280px;
+@screen-lg-min: @screen-lg;
+@screen-lg-max: (@screen-lg-min - 1);
+
+// Extra large screen / full hd
+@screen-xl: 1400px;
+@screen-xl-min: @screen-xl;
+@screen-xl-max: (@screen-xl-min - 1);
+
+// Extra extra large screen / large descktop
+@screen-xxl: 1920px;
+@screen-xxl-min: @screen-xxl;
+@screen-xxl-max: (@screen-xxl-min - 1);
+
+.ta(@type) {
+  text-align: @type;
+}
+
+.fz(@size, @height) {
+  font-size: @size;
+  line-height: @height;
+}
+
+.text-shadow(@prop) {
+  -webkit-text-shadow: @prop;
+  text-shadow: @prop;
+}
+
+.transition(@prop) {
+  -webkit-transition: @prop;
+  -o-transition: @prop;
+  transition: @prop;
+}
+
+.transform(@prop) {
+  -ms-transform: @prop;
+  -moz-transform: @prop;
+  -webkit-transform: @prop;
+  -o-transform: @prop;
+  transform: @prop;
+}
+
+.animation(@prop) {
+  -moz-animation: @prop;
+  -webkit-animation: @prop;
+  -o-animation: @prop;
+  animation: @prop;
+}
+
+.box-shadow(@prop) {
+  -moz-box-shadow: @prop;
+  -webkit-box-shadow: @prop;
+  box-shadow: @prop;
+}
+
+.box-sizing(@type) {
+  -webkit-box-sizing: @type;
+  -moz-box-sizing: @type;
+  box-sizing: @type;
+}
+
+.clearfix() {
+  &:after {
+    visibility: hidden;
+    clear: both;
+    display: block;
+    content: '';
+    height: 0;
+  }
+}
+
+.opacity(@opacity) {
+  opacity: @opacity;
+  @opacity-ie: (@opacity * 100);
+  -ms-filter: ~'progid:DXImageTransform.Microsoft.Alpha(Opacity=@{opacity-ie})';
+  filter: ~'alpha(opacity=@{opacity-ie})';
+}
+
+.overflow() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+}
+
+.border-radius(@prop) {
+  -moz-border-radius: @prop;
+  -webkit-border-radius: @prop;
+  border-radius: @prop;
+}
+
+.background-gradient(@prop) {
+  background: -webkit-linear-gradient(@prop);
+  background: -o-linear-gradient(@prop);
+  background: -moz-linear-gradient(@prop);
+  background: linear-gradient(@prop);
+}
+
+.tsfont() {
+  font-family: ts;
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  text-decoration: inherit;
+  font-variant: normal;
+  text-transform: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.keyframes (@prefix, @name, @content) when (@prefix=def) {
+  @keyframes @name {
+    @content();
+  }
+}
+
+.keyframes (@prefix, @name, @content) when (@prefix=moz) {
+  @-moz-keyframes @name {
+    @content();
+  }
+}
+
+.keyframes (@prefix, @name, @content) when (@prefix=o) {
+  @-o-keyframes @name {
+    @content();
+  }
+}
+
+.keyframes (@prefix, @name, @content) when (@prefix=webkit) {
+  @-webkit-keyframes @name {
+    @content();
+  }
+}
+
+.keyframes (@prefix, @name, @content) when (@prefix=all) {
+  .keyframes(moz, @name, @content);
+  .keyframes(o, @name, @content);
+  .keyframes(webkit, @name, @content);
+  .keyframes(def, @name, @content);
+}

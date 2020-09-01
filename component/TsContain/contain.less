@@ -1,0 +1,93 @@
+@import (reference) '~@assets/css/my-theme.less';
+
+@contain-prev: tscontain-;
+//头部固定
+.tscontain-container {
+  height: 100%;
+
+  .tscontain-header {
+    padding: 0 24px;
+    height: @actionbar-height;
+    line-height: calc(@actionbar-height - 2px);
+    position: relative;
+    z-index: 2;
+    width: 100%;
+
+    .span-black {
+      cursor: pointer;
+      position: relative;
+      padding-right: 24px;
+
+      &.ts-angle-left:before {
+        padding-right: 10px;
+      }
+
+      &:after {
+        content: '';
+        width: 1px;
+        top: 18px;
+        bottom: 18px;
+        right: 0px;
+        position: absolute;
+      }
+    }
+
+    .title-text {
+      font-size: 16px;
+      display: inline-block;
+    }
+  }
+
+  .tscontain-body {
+    padding-right: @padding-outer;
+    padding-left: @padding-outer;
+    height: calc(100vh - @top-height - @actionbar-height - 2px);
+    z-index: 1;
+    position: relative;
+    overflow: auto;
+    width: 100%;
+  }
+}
+.@{contain-prev}header {
+  margin-bottom: -1px;
+}
+
+.@{contain-prev}body {
+  &.side-left {
+    padding-left: 200px;
+
+    .@{contain-prev}left {
+      position: fixed;
+      height: calc(100vh - @top-height - @actionbar-height - 2px);
+      top: @top-height + @actionbar-height;
+      left: 0;
+      bottom: 0;
+      overflow: auto;
+      width: 200px;
+    }
+
+    .@{contain-prev}right {
+      height: calc(100vh - @top-height - @actionbar-height - 2px);
+      overflow: auto;
+    }
+  }
+
+  &.side-right {
+    padding-right: 200px;
+
+    .@{contain-prev}right {
+      position: fixed;
+      height: calc(100vh - @top-height - @actionbar-height - 2px);
+      top: @top-height + @actionbar-height;
+      right: 0;
+      bottom: 0;
+      overflow: auto;
+      width: 200px;
+    }
+
+    .@{contain-prev}left {
+      height: calc(100vh - @top-height - @actionbar-height - 2px);
+      overflow: auto;
+    }
+  }
+}

@@ -1,0 +1,162 @@
+@import (reference) '~@assets/css/my-theme.less';
+
+.theme(@bg-body, @footer-btn-bg,@primary-color,@primary-grey) {
+  @card-prev: tscard-;
+
+  .@{card-prev}container {
+    padding: @padding-xs;
+
+    .@{card-prev}body {
+      min-height: 72px;
+      overflow: hidden;
+      background-color: @bg-body;
+    }
+
+    .@{card-prev}ul {
+      .clearfix();
+
+      .@{card-prev}li {
+        float: left;
+        padding: @padding-xs;
+        &.li-selected{
+          .@{card-prev}inner,.@{card-prev}body {
+            background-color: @primary-grey;
+          }
+        }
+        .@{card-prev}inner {
+          position: relative;
+        }
+
+        .@{card-prev}header,
+        .@{card-prev}body,
+        .@{card-prev}footer,
+        .@{card-prev}modal {
+          padding: @padding-xs;
+
+          &:empty {
+            display: none;
+            width: 0;
+            height: 0;
+          }
+        }
+        .@{card-prev}header {
+          .action-group {
+            background: @bg-body;
+            .action-item {
+              &:after {
+                top: 2px;
+                bottom: 2px;
+              }
+            }
+          }
+        }
+
+        .@{card-prev}footer {
+          height: 34px;
+          background-color: @footer-btn-bg;
+        }
+        &.li-fixed {
+          .@{card-prev}header {
+            opacity: 0;
+          }
+          &:hover {
+            .@{card-prev}header {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+    .@{card-prev}page {
+      text-align: center;
+
+      .@{card-prev}pageul {
+        display: inline-block;
+      }
+
+      .@{card-prev}pageli {
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin: 6px 8px;
+        background: @primary-color;
+        border-radius: 50%;
+        cursor: pointer;
+        position: relative;
+        color: @white;
+        &.toggle {
+          width: 14px;
+          height: 14px;
+          margin: 4px;
+        }
+
+        &.current {
+          cursor: auto;
+          transform: scale(1.4);
+          // width: 14px;
+          // height: 14px;
+          // margin: 4px;
+          background: @primary-color;
+        }
+
+        &.toggle {
+          .toggle-btn {
+            transform: scale(0.6);
+            display: block;
+            width: 14px;
+            height: 14px;
+            line-height: 14px;
+          }
+        }
+
+        &::before {
+          //扩大分页器点击域
+          content: '';
+          position: absolute;
+          top: -7px;
+          right: -7px;
+          bottom: -7px;
+          left: -7px;
+        }
+
+        .@{card-prev}pagenum {
+          position: absolute;
+          top: -18px;
+          right: -8px;
+          font-size: 10px;
+          height: 16px;
+          line-height: 16px;
+          word-break: keep-all;
+          padding: 0 8px;
+          border-radius: 2px;
+          display: none;
+        }
+
+        &:hover {
+          .@{card-prev}pagenum {
+            display: block;
+          }
+        }
+
+        &.disabled {
+          cursor: not-allowed;
+          pointer-events: none;
+          opacity: 0.9;
+        }
+      }
+
+      .@{card-prev}more {
+        float: left;
+      }
+    }
+  }
+}
+
+html {
+  .theme(@default-blockbg, @default-footer-btn-bg, @default-primary-color,@default-primary-grey);
+
+  &.theme-dark {
+    .theme(@dark-blockbg, @dark-footer-btn-bg, @dark-primary-color,@dark-primary-grey);
+  }
+}

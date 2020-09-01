@@ -1,0 +1,110 @@
+@import (reference) '~@assets/css/my-theme.less';
+@modal-prv: tsmodal-;
+
+.@{modal-prv}wrap {
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 100%;
+  z-index: 1000;
+  background-color: @mongolia-color;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+  .@{modal-prv}container {
+    width: 500px;
+    margin: 0 auto;
+    position: relative;
+    outline: 0;
+    top: 100px;
+    background-color: #fff;
+    border: 0;
+    border-radius: @btn-border-radius;
+    background-clip: padding-box;
+    box-shadow: @bg-shadow;
+  }
+
+  .@{modal-prv}header,
+  .@{modal-prv}content,
+  .@{modal-prv}footer {
+    padding: @padding-sm @padding-md;
+  }
+
+  .@{modal-prv}header {
+    border-bottom: 1px solid @border-color-base;
+    position: relative;
+    height: 47px;
+
+    > * {
+      display: block;
+      font-size: @font-size-modal;
+      line-height: @line-height-modal;
+      padding-right: @padding-md;
+      .overflow();
+      max-width: 100%;
+    }
+  }
+
+  .@{modal-prv}footer {
+    border-top: 1px solid @border-color-base;
+    text-align: right;
+
+    button:not(:first-of-type) {
+      margin-left: @padding-xs;
+    }
+
+    .ts-spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      line-height: 20px;
+      margin-right: 2px;
+      font-size: 15px;
+      animation: tsloading 1.4s infinite linear;
+    }
+  }
+
+  .@{modal-prv}content {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .btn-close {
+    position: absolute;
+    top: @padding-sm;
+    right: 6px;
+    height: @line-height-modal;
+    line-height: @line-height-modal;
+    color: @icon-color;
+    width: @padding-md;
+    padding: 0;
+    font-size: @font-size-base;
+    cursor: pointer;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .btn-fullscreen {
+    position: absolute;
+    top: @padding-sm;
+    right: 28px;
+    height: @line-height-modal;
+    line-height: @line-height-modal;
+    color: @icon-color;
+    width: @padding-md;
+    padding: 0;
+    font-size: @font-size-base;
+    cursor: pointer;
+    opacity: 0.6;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
