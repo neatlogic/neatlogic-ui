@@ -1,8 +1,8 @@
 {
   "name": "techsure-ui",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "private": false,
-  "main": "dist/tsui.umd.min.js",
+  "main": "dist/techsure-ui.umd.min.js",
   "author": "techsure",
   "scripts": {
     "serve": "node --max_old_space_size=4096 node_modules/.bin/vue-cli-service serve --open",
@@ -46,8 +46,5 @@
     "last 2 versions",
     "not dead",
     "not ie <= 8"
-  ],
-  "publishConfig": {
-    "registry": "http://192.168.0.88:9008/nexus/repository/npm-private/"
-  }
+  ]
 }

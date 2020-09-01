@@ -1,24 +1,26 @@
-import Loading from './Loading';
-import NoData from './NoData';
-import TimeSelect from './TimeSelect';
-import TsBebouchSearch from './TsBebouchSearch';
-import TsBreadcrumb from './TsBreadcrumb';
-import TsCard from './TsCard';
-import TsCkeditor from './TsCkeditor';
-import TsCodemirror from './TsCodemirror';
-import TsContain from './TsContain';
-import TsDialog from './TsDialog';
-import TsForm from './TsForm';
-import TsLayout from './TsLayout';
-import TsQuartz from './TsQuartz';
-import TsRow from './TsRow';
-import TsTable from './TsTable';
-import TsUlList from './TsUlList';
-import UpLoad from './UpLoad';
-import UploadDialog from './UploadDialog';
-import UserCard from './UserCard';
-import UserSelect from './UserSelect';
-import TsZtree from './TsZtree';
+import Vue from 'vue';
+
+import Loading from './Loading/Loading.vue';
+import NoData from './NoData/NoData.vue';
+import TimeSelect from './TimeSelect/TimeSelect.vue';
+import TsBebouchSearch from './TsBebouchSearch/TsBebouchSearch.vue';
+import TsBreadcrumb from './TsBreadcrumb/TsBreadcrumb.vue';
+import TsCard from './TsCard/TsCard.vue';
+import TsCkeditor from './TsCkeditor/TsCkeditor.vue';
+import TsCodemirror from './TsCodemirror/TsCodemirror.vue';
+import TsContain from './TsContain/TsContain.vue';
+import TsDialog from './TsDialog/TsDialog.vue';
+import TsForm from './TsForm/TsForm.vue';
+import TsLayout from './TsLayout/TsLayout.vue';
+import TsQuartz from './TsQuartz/TsQuartz.vue';
+import TsRow from './TsRow/TsRow.vue';
+import TsTable from './TsTable/TsTable.vue';
+import TsUlList from './TsUlList/TsUlList.vue';
+import UpLoad from './UpLoad/UpLoad.vue';
+import UploadDialog from './UploadDialog/UploadDialog.vue';
+import UserCard from './UserCard/UserCard.vue';
+import UserSelect from './UserSelect/UserSelect.vue';
+import TsZtree from './TsZtree/TsZtree.vue';
 
 const components = {
   Loading,
@@ -43,5 +45,26 @@ const components = {
   UserSelect,
   TsZtree
 };
+TsDialog.install = function(_Vue, options) {
+  _Vue.prototype.$createDialog = config => {
+    let instance = null;
+    const TsDialogConstructor = _Vue.extend(TsDialog);
+    config.isShow = true;
+    config.width = config.width || '500px';
+    config.type = config.type || 'modal';
+    !config.title && (config.hasHeader = false);
+    let oDiv = document.createElement('div');
+    document.body.appendChild(oDiv);
+    instance = new TsDialogConstructor({ propsData: config }).$mount(oDiv);
+    Object.assign(instance, config);
+    instance.closeDailog = function() {
+      config.isShow = false;
+      instance.isShow = false;
+    };
+  };
+};
+Object.keys(components).forEach(name => {
+  Vue.component(name, components[name]);
+});
 
 export default components;

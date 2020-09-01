@@ -23,5 +23,9 @@ src/
 
 vue.config.js
 babel.config.js
+.editorconfig 
+.eslintrc.js  
+.prettierrc.json 
+vue-path-injector.js
 *.map
 *.html
