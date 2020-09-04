@@ -30,9 +30,9 @@
   </div>
 </template>
 <script>
-import { directive as ClickOutside } from '@directives/v-click-outside-x';
-import axios from '@api/http.js';
-import avatar from '@assets/images/default-avatar.png';
+import { directive as ClickOutside } from '../../directives/v-click-outside-x';
+import axios from '../../api/http.js';
+import avatar from '../../static/images/default-avatar.png';
 export default {
   name: 'GroupCard',
   directives: { ClickOutside },

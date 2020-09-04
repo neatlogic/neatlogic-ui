@@ -13,7 +13,6 @@
       </template>
       <template v-else>{{ selectedList[0] ? selectedList[0][textName] : '' }}</template>
     </span>
-
     <div v-else :class="borderClass" :style="getStyle">
       <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="getClass" class="select-body">
         <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
@@ -53,10 +52,10 @@
 </template>
 
 <script>
-import axios from '@api/http.js';
-import formMixins from '@mixins/formMixins.js';
-import formScrollMixins from '@mixins/formScrollMixins.js';
-import { directive as ClickOutside } from '@directives/v-click-outside-x';
+import axios from '../../api/http.js';
+import formMixins from '../../mixins/formMixins.js';
+import formScrollMixins from '../../mixins/formScrollMixins.js';
+import { directive as ClickOutside } from '../../directives/v-click-outside-x';
 export default {
   name: 'TsFormSelect',
   tagComponent: 'TsForm',

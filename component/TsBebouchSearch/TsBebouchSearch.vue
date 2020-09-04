@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import axios from '@api/http.js';
+import axios from '../../api/http.js';
 export default {
   name: '',
   components: {},

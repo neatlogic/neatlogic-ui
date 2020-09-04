@@ -234,7 +234,7 @@ export default {
 };
 </script>
 <style lang="less">
-@import (reference) '~@assets/css/my-theme.less';
+@import (reference) '../../static/css/my-theme.less';
 .upload {
   .ivu-upload {
     width: 125px;

@@ -9,8 +9,8 @@
   </div>
 </template>
 <script>
-import formMixins from '@mixins/formMixins.js';
-import validtorJson from '@component/TsForm/TsValidtor.js';
+import formMixins from '../../mixins/formMixins.js';
+import validtorJson from './TsValidtor.js';
 export default {
   name: 'TsFormInput',
   tagComponent: 'TsForm',

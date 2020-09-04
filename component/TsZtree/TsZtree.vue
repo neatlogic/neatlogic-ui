@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import '@assets/js/jquery-1.11.1.js';
+import '../../static/js/jquery-1.11.1.js';
 import './js/jquery.ztree.all.min.js';
-import axios from '@api/http.js';
+import axios from '../../api/http.js';
 export default {
   name: 'TsZtree',
   components: {},

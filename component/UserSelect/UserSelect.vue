@@ -50,10 +50,10 @@
 </template>
 <script>
 //差一个点击其他地方收起的，还有单选模式的，还有滚动时定位重新计算
-import axios from '@api/http.js';
-import formMixins from '@mixins/formMixins.js';
-import formScrollMixins from '@mixins/formScrollMixins.js';
-import { directive as ClickOutside } from '@directives/v-click-outside-x';
+import axios from '../../api/http.js';
+import formMixins from '../../mixins/formMixins.js';
+import formScrollMixins from '../../mixins/formScrollMixins.js';
+import { directive as ClickOutside } from '../../directives/v-click-outside-x';
 export default {
   name: 'UserSelect',
   tagComponent: 'TsForm',

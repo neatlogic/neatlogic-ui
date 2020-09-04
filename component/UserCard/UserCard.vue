@@ -24,12 +24,12 @@
   </div>
 </template>
 <script>
-import avatar1 from '@assets/images/default-avatar.png';
-import avatar2 from '@assets/images/role-avatar.png';
-import avatar3 from '@assets/images/team-avatar.png';
-import axios from '@api/http.js';
+import avatar1 from '../../static/images/default-avatar.png';
+import avatar2 from '../../static/images/role-avatar.png';
+import avatar3 from '../../static/images/team-avatar.png';
+import axios from '../../api/http.js';
 import UserInfo from './UserInfo.vue';
-import { directive as ClickOutside } from '@directives/v-click-outside-x';
+import { directive as ClickOutside } from '../../directives/v-click-outside-x';
 export default {
   name: 'UserCard',
   directives: { ClickOutside },

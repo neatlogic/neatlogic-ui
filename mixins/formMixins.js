@@ -51,7 +51,7 @@ export default {
     filterValid(validateList) {
       let _this = this;
       let resultValidtorJson = [];
-      let validtorJson = require('@component/TsForm/TsValidtor').default;
+      let validtorJson = require('../component/TsForm/TsValidtor').default;
 
       if (validateList && validateList.length > 0) {
         //默认值的初始化

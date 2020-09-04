@@ -1,9 +1,8 @@
-/* eslint-disable */
 <template>
   <ul :id="id" class="ztree"></ul>
 </template>
 <script>
-import '@assets/js/jquery-1.11.1.js';
+import '../../static/js/jquery-1.11.1.js';
 import './js/jquery.ztree.all.min.js';
 export default {
   name: 'TsCheckZtree',
@@ -16,22 +15,14 @@ export default {
     id: { type: String, required: true },
     initAsyncyZtree: String //异步加载，当值改变时重绘ztree
   },
-  watch: {
-    url: function(val, oldVal) {
-      //通过url来获取数据
-      this.getZtree();
-    },
-    zNodes: function(val, oldVal) {
-      //通过zNodes来获取数据
-      this.getZtree();
-    },
-    initAsyncyZtree: function(val, oldVal) {
-      //通过异步来获取数据
-      this.getZtree();
-    }
-  },
   data: function() {
     return {};
+  },
+  mounted() {
+    this.getZtree();
+    if (this.setting.addDomList && this.setting.addDomList.length > 0) {
+      $('ul#' + this.id).addClass('hoverDom');
+    }
   },
   methods: {
     getZtree: function() {
@@ -105,10 +96,18 @@ export default {
       return returnValue;
     }
   },
-  mounted() {
-    this.getZtree();
-    if (this.setting.addDomList && this.setting.addDomList.length > 0) {
-      $('ul#' + this.id).addClass('hoverDom');
+  watch: {
+    url: function(val, oldVal) {
+      //通过url来获取数据
+      this.getZtree();
+    },
+    zNodes: function(val, oldVal) {
+      //通过zNodes来获取数据
+      this.getZtree();
+    },
+    initAsyncyZtree: function(val, oldVal) {
+      //通过异步来获取数据
+      this.getZtree();
     }
   }
 };
@@ -116,4 +115,3 @@ export default {
 <style scoped>
 @import 'css/zTreeStyle.css';
 </style>
-/* eslint-disable */

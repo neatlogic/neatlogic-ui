@@ -228,7 +228,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@import (reference) '../../assets/css/theme.less';
+@import (reference) '../../static/css/theme.less';
 
 .import-text {
   vertical-align: 1.5px;

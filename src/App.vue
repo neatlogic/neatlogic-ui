@@ -4,6 +4,7 @@
   </div>
 </template>
 <script>
+//import NoData from '@component/NoData/NoData.vue';
 export default {
   name: '',
   components: {},

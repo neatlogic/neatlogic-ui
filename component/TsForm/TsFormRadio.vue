@@ -13,8 +13,8 @@
   </div>
 </template>
 <script>
-import axios from '@api/http.js';
-import formMixins from '@mixins/formMixins.js';
+import axios from '../../api/http.js';
+import formMixins from '../../mixins/formMixins.js';
 export default {
   name: 'TsFormRadio',
   tagComponent: 'TsForm',

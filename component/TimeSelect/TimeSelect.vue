@@ -28,9 +28,9 @@
   </div>
 </template>
 <script>
-import TsFormDatePicker from '@component/TsForm/TsFormDatePicker';
-import TransferDom from '@directives/transfer-dom';
-import { directive as ClickOutside } from '@directives/v-click-outside-x';
+import TsFormDatePicker from '../TsForm/TsFormDatePicker';
+import TransferDom from '../../directives/transfer-dom';
+import { directive as ClickOutside } from '../../directives/v-click-outside-x';
 export default {
   name: 'TimeSelect',
   components: { TsFormDatePicker },

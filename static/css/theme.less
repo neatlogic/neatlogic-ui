@@ -1,0 +1,2297 @@
+//公共样式：皮肤
+
+@import (reference) './my-theme.less';
+
+.theme(@type,@op-color, @title-color, @text-color, @icon-color, @dividing-color, @mongolia-color, @background-color, @blockbg-color, @gray-color, @border-color-base, @boxshadow-main, @boxshadow-bolck, @disable-color, @disabled-bg, @primary-grey, @selected-bg , @placeholder-color, @topo-node, @footer-btn-bg, @block-shadow, @main-shadow, @tip-color, @primary-color, @primary-active-color, @primary-hover-color, @link-color, @info-color, @info-active-color, @info-hover-color, @success-color , @success-active-color , @success-hover-color, @warning-color, @warning-active-color, @warning-hover-color,@warning-bg-color, @error-color, @error-active-color, @error-hover-color,@invert-bg,@pending-color) {
+  // @disable-color : tint(@icon-color, 70%);
+  @bg-shadow: 0px 10px 35px 0px @boxshadow-main;
+  @white: @op-color;
+  @black: @title-color;
+
+  @inputbg-color: @blockbg-color;
+  //outer
+  @top-shadow: 0px 1px 4px 0px @boxshadow-main;
+  @top-bg-color: @blockbg-color;
+
+  @left-bg-color: @gray-color;
+  @mainside-bg-color: @background-color;
+  //table
+  @th-bg-color: @gray-color;
+  @td-bg-color: @blockbg-color;
+  @td-hover-bg-color: @primary-grey;
+
+  @block-shadow: 0px 1px 4px 0px @boxshadow-bolck;
+  @block-hover-shadow: 0px 4px 8px 0px @boxshadow-bolck;
+  //scrollbar
+  @scrollbar-track-color: @gray-color;
+  @scrollbar-thumb-color: @dividing-color;
+  @scrollbar-thumb-hovercolor: @icon-color;
+  //列表
+  @li-hover-bg-color: @primary-grey;
+
+  [class^='ts-'],
+  [class*=' ts-'],
+  .ts {
+    &:before {
+      opacity: 0.8;
+    }
+  }
+
+  body {
+    color: @text-color;
+    background: @background-color;
+  }
+
+  color: @black;
+  a {
+    color: @primary-color;
+    &:hover {
+      color: @primary-hover-color;
+    }
+  }
+  .topnav {
+    background-color: @top-bg-color;
+    box-shadow: @top-shadow;
+
+    .topnav-logo {
+      background-image: url('../images/logo_big_@{type}.png');
+    }
+
+    .topnav-menu {
+      .topnav-menu-divider {
+        background-color: @border-color-base;
+      }
+
+      .topnav-menu-list {
+        .apps-icon {
+          &-active,
+          &:hover {
+            color: @primary-active-color;
+          }
+        }
+        .menu-group-list {
+          .module-group {
+            .module-name {
+              color: @text-color;
+              &:hover {
+                color: @primary-active-color;
+              }
+              &::after {
+                background-color: @dividing-color;
+              }
+            }
+            .menu-group {
+              .menu-name {
+                color: @text-color;
+                &:hover {
+                  color: @primary-active-color;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .topnav-menu-module {
+        .module-item {
+          color: @text-color;
+          &:hover,
+          &-active {
+            color: @primary-active-color;
+            &::after {
+              background-color: @primary-active-color;
+            }
+          }
+        }
+      }
+    }
+
+    .topnav-user {
+      .user-info {
+        color: @title-color;
+        .user-image {
+          background: @gray-color;
+          color: @primary-color;
+        }
+      }
+
+      .dropdown-menu {
+        color: @text-color;
+      }
+    }
+  }
+
+  //leftmenu
+  .leftmenu {
+    background: @left-bg-color;
+
+    .menubar {
+      background: @left-bg-color;
+      border-right: 1px solid @border-color-base;
+
+      .toggle-btn {
+        background: @blockbg-color;
+        box-shadow: @top-shadow;
+
+        &:hover {
+          background: @primary-color;
+          color: @op-color;
+
+          &:before {
+            color: @op-color;
+          }
+        }
+      }
+
+      .menu_content {
+        .menu_link {
+          // .title {
+          //     color: @text-color;
+          // }
+
+          .link {
+            &:hover {
+              a {
+                color: @primary-color;
+
+                &:before {
+                  color: @primary-color;
+                }
+              }
+            }
+
+            a {
+              color: @text-color;
+            }
+
+            &.active {
+              a {
+                color: @primary-color;
+
+                &:before {
+                  color: @primary-color;
+                }
+              }
+
+              &:after {
+                background: @primary-color;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  //layout布局
+  .body-row {
+    background: @background-color;
+
+    .body-left-title {
+      border-bottom: 1px solid @border-color-base;
+
+      &.no-border {
+        border-bottom: 0 none;
+      }
+    }
+
+    .rowtoggle {
+      .split {
+        background: @blockbg-color;
+      }
+
+      .content {
+        .hideLeft-left,
+        .hideRight-right {
+          background: @mainside-bg-color;
+        }
+
+        .hideLeft-left {
+          border-right: 1px solid @dividing-color;
+        }
+
+        .hideRight-right {
+          border-left: 1px solid @dividing-color;
+        }
+
+        .hideRight-btn,
+        .hideLeft-btn {
+          background: @blockbg-color;
+          color: @icon-color;
+        }
+
+        .hideRight-btn {
+          &:before {
+            border-color: transparent transparent @gray-color transparent;
+          }
+
+          &:after {
+            border-color: transparent @gray-color transparent transparent;
+          }
+        }
+
+        .hideLeft-btn {
+          &:before {
+            border-color: transparent transparent transparent @gray-color;
+          }
+
+          &:after {
+            border-color: @gray-color transparent transparent transparent;
+          }
+        }
+      }
+    }
+  }
+
+  .tsscroll-container,
+  div,
+  span,
+  ul,
+  li,
+  i,
+  p {
+    &:hover {
+      &::-webkit-scrollbar-track,
+      &::-webkit-scrollbar-track-piece {
+        background: transparent;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: @scrollbar-thumb-color;
+      }
+
+      &::-webkit-scrollbar-thumb:hover {
+        background: @scrollbar-thumb-hovercolor;
+      }
+    }
+  }
+
+  //ztree 插件
+  .ztree {
+    color: @text-color;
+
+    li {
+      a {
+        color: @text-color;
+
+        &.curSelectedNode {
+          background-color: transparent;
+          color: @primary-color;
+        }
+
+        input.rename {
+          border: 1px solid @border-color-base;
+        }
+
+        &.tmpTargetNode_prev,
+        &.tmpTargetNode_next,
+        &.tmpTargetNode_inner {
+          &::before {
+            color: @success-color;
+          }
+        }
+
+        &.tmpTargetNode_inner {
+          background-color: fade(@primary-hover-color, 10%);
+        }
+      }
+
+      ul {
+        &::before {
+          border-left: 1px dotted @border-color-base;
+        }
+        span.button.roots_docu:before,span.button.center_docu:before, span.button.bottom_docu:before{
+          border-top: 1px dotted @border-color-base;
+        }
+      }
+    }
+
+    &.zTreeDragUL {
+      background-color: @background-color;
+    }
+  }
+
+  //操作分类组
+  .action-group {
+    .action-item {
+      .icon {
+        &:before {
+          margin-right: 4px;
+        }
+      }
+
+      &:not(.disable):hover {
+        color: @primary-color;
+
+        &::before {
+          color: @primary-color;
+        }
+
+        .icon {
+          &:before {
+            color: @primary-color;
+          }
+        }
+      }
+
+      &.active {
+        color: @primary-color;
+
+        .icon {
+          &:before {
+            color: @primary-color;
+          }
+        }
+      }
+
+      &.disable {
+        color: @disable-color;
+        cursor: not-allowed;
+
+        .icon {
+          &:before {
+            color: @disable-color;
+          }
+        }
+      }
+
+      &:after {
+        background-color: @dividing-color;
+      }
+    }
+
+    &.no-line {
+      .action-item {
+        &:after {
+          background-color: transparent;
+        }
+      }
+    }
+  }
+
+  .tableaction-container {
+    .table-dropdown {
+      .ivu-dropdown-menu {
+        background: @background-color;
+
+        .ivu-dropdown-item {
+          &:not(:last-of-type) {
+            &:after {
+              background: @border-color-base;
+            }
+          }
+
+          &:hover {
+            background: transparent;
+          }
+        }
+      }
+    }
+  }
+
+  //头部固定
+  .tscontain-container {
+    background: @background-color;
+
+    .tscontain-header {
+      background: @background-color;
+      border-bottom: 1px solid @dividing-color;
+
+      .span-black {
+        color: @text-color;
+
+        &.ts-angle-left:before {
+          color: @icon-color;
+        }
+
+        &:hover {
+          color: @primary-color;
+
+          &.ts-angle-left:before {
+            color: @primary-color;
+          }
+        }
+
+        &:after {
+          background-color: @dividing-color;
+        }
+      }
+
+      .title-text {
+        color: @title-color;
+      }
+    }
+  }
+
+  //栅格块
+  .list-box {
+    .overvivew-main {
+      background: @blockbg-color;
+      border: 1px solid @border-color-base;
+      color: @text-color;
+      box-shadow: @block-shadow;
+
+      &:hover {
+        box-shadow: @block-hover-shadow;
+      }
+
+      &.isStop {
+        background: @background-color;
+        box-shadow: none;
+
+        &:hover {
+          box-shadow: @block-shadow;
+        }
+      }
+
+      .btn-list {
+        background: @footer-btn-bg;
+        color: @icon-color;
+      }
+
+      .tag-title {
+        color: @primary-color;
+      }
+
+      .title {
+        .title-left {
+          .tips-bg {
+            color: @op-color;
+            background-color: @primary-color;
+          }
+        }
+      }
+    }
+  }
+
+  //头部固定
+  .div-second-contain {
+    background: @background-color;
+
+    .second-top {
+      background: @background-color;
+
+      .span-black {
+        color: @title-color;
+
+        &.ts-angle-left:before {
+          color: @icon-color;
+        }
+
+        &:hover {
+          color: @primary-color;
+
+          &.ts-angle-left:before {
+            color: @primary-color;
+          }
+        }
+
+        &:after {
+          background-color: @dividing-color;
+        }
+      }
+    }
+  }
+
+  //关联数字
+  .reference-number {
+    color: @warning-color;
+    background-color: rgba(216, 110, 51, 0.1);
+  }
+
+  //table
+  .table-body {
+    border-top: 1px solid @border-color-base;
+  }
+
+  .tstable-container {
+    border-top: 1px solid @border-color-base;
+    .btn-setting {
+      .icon-setting {
+        background: @th-bg-color;
+
+        &:hover {
+          color: @primary-color;
+        }
+      }
+    }
+
+    &.fixtop {
+      .tstable-main {
+        th {
+          background: @th-bg-color;
+        }
+      }
+
+      &:after {
+        background: @th-bg-color;
+      }
+    }
+
+    .tstable-body {
+      th,
+      td {
+        border-bottom: 1px solid @border-color-base;
+      }
+
+      th {
+        background: @th-bg-color;
+
+        .btn-resize {
+          &:after {
+            background: @border-color-base;
+          }
+        }
+      }
+
+      thead {
+        background: @th-bg-color;
+        color: @title-color;
+      }
+
+      tbody {
+        background: @td-bg-color;
+        color: @text-color;
+
+        tr {
+          &:hover {
+            background: @td-hover-bg-color;
+
+            .action-bg {
+              background: @td-hover-bg-color;
+            }
+
+            .tstable-action {
+              .tstable-action-ul {
+                background: @td-hover-bg-color;
+
+                li {
+                  &.disable {
+                    color: @disable-color;
+
+                    .icon:before {
+                      color: @disable-color;
+                    }
+                  }
+
+                  &:not(.disable):hover {
+                    color: @primary-color;
+
+                    .icon:before {
+                      color: @primary-color;
+                    }
+
+                    &.icon:before {
+                      color: @primary-color;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.selected {
+            background-color: @primary-grey;
+          }
+        }
+      }
+
+      .tstable-selection {
+        border: 1px solid @border-color-base;
+        background: @op-color;
+
+        &:not([disabled]):hover {
+          border-color: @primary-color;
+          cursor: pointer;
+        }
+
+        &.selected {
+          border-color: @primary-color;
+          background-color: @primary-color;
+
+          &:after {
+            border: 2px solid @op-color;
+            border-color: transparent transparent @op-color @op-color;
+          }
+        }
+
+        &.disabled {
+          background: @disable-color;
+          border-color: @disable-color;
+
+          &:hover {
+            border-color: @disable-color;
+          }
+        }
+
+        &.some {
+          background-color: @primary-color;
+          border-color: @primary-color;
+
+          &:after {
+            background: @op-color;
+          }
+        }
+      }
+
+      .tstable-action {
+        .tstable-action-ul {
+          background: @op-color;
+        }
+      }
+    }
+  }
+
+  .tstable-page {
+    background: @background-color;
+  }
+
+  .sort-container {
+    .sort-thead {
+      background: @th-bg-color;
+      border-bottom: 1px solid @border-color-base;
+    }
+  }
+
+  //下拉
+  .dropdown-container {
+    background: @op-color;
+    box-shadow: 0 1px 6px @boxshadow-bolck;
+
+    .dropdown-li {
+      &.disabled {
+        cursor: not-allowed;
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      &:not(.disabled) {
+        &:hover {
+          background-color: @selected-bg;
+        }
+      }
+
+      &.selected {
+        color: @primary-color;
+        background-color: @selected-bg;
+      }
+    }
+  }
+
+  .ivu-dropdown-menu {
+    .select-li,
+    .userselect-li {
+      &.hover:not(.ivu-dropdown-item-disabled) {
+        background-color: @selected-bg;
+      }
+    }
+  }
+
+  //块状布局
+  .block-container {
+    // border: 1px solid @border-color-base;
+    background: @blockbg-color;
+    box-shadow: @block-shadow;
+
+    &:hover {
+      box-shadow: @block-hover-shadow;
+    }
+  }
+
+  //卡片式分页
+  // .tscard-container {
+  //   .tscard-page {
+  //     .tscard-pageli {
+  //       background: @dividing-color;
+  //       color:@white;
+  //       .tscard-pagenum{
+  //         color:@text-color;
+  //       }
+  //     }
+  //   }
+  // }
+
+  // 提示框
+  .tooltip-box {
+    .tooltip {
+      background: @op-color;
+      box-shadow: @block-shadow;
+
+      &.tipright {
+        &:before {
+          border-right: 7px solid @dividing-color;
+        }
+
+        &:after {
+          border-right: 6px solid @op-color;
+        }
+      }
+
+      &.tipleft {
+        &:before {
+          border-left: 7px solid @dividing-color;
+        }
+
+        &:after {
+          border-left: 6px solid @op-color;
+        }
+      }
+
+      &.tiptop {
+        &:before {
+          border-top: 7px solid @dividing-color;
+        }
+
+        &:after {
+          border-top: 6px solid @op-color;
+        }
+      }
+
+      &.tipbottom {
+        &:before {
+          border-bottom: 7px solid @dividing-color;
+        }
+
+        &:after {
+          border-bottom: 6px solid @op-color;
+        }
+      }
+
+      .tooltip-title {
+        border-color: @disable-color;
+      }
+
+      .tooltip-content {
+        .label {
+          color: @icon-color;
+        }
+      }
+    }
+  }
+
+  //tabs切换颜色
+  .order-tabs-title {
+    .active {
+      color: @primary-active-color;
+      border-color: @primary-active-color;
+      .title-box {
+        color: @primary-active-color;
+        border-color: @primary-active-color;
+      }
+    }
+  }
+
+  // 块状选择框样式
+  .select-box {
+    background-color: @op-color;
+    border-color: transparent;
+
+    &.active {
+      border-color: @primary-color;
+
+      .select-icon {
+        background: @primary-color;
+        border-color: @primary-color;
+        color: @op-color;
+      }
+
+      .ts-check::before {
+        color: @op-color;
+      }
+    }
+
+    .select-icon {
+      border-color: @disable-color;
+    }
+  }
+
+  .bg-grey {
+    background: @background-color;
+  }
+  .bg-hover-grey {
+    cursor: pointer;
+    &:hover {
+      background: @background-color;
+    }
+  }
+  .bg-op {
+    background-color: @op-color;
+  }
+
+  .bg-block {
+    background-color: @blockbg-color;
+  }
+  .bg-selected{
+    background-color: @primary-grey;    
+  }
+  .item-selected{
+    background-color: @primary-grey;    
+    color:@primary-color;
+  }
+  .bg-modal {
+    background-color: @op-color;
+  }
+
+  .bg-three {
+    background-color: @left-bg-color;
+  }
+
+  .bg-footer-btn {
+    background-color: @footer-btn-bg;
+  }
+  .bg-success {
+    background-color: fade(@success-color, 10%);
+  }
+  .block-shadow {
+    box-shadow: @block-shadow;
+  }
+
+  .block-border {
+    border: 1px solid @border-color-base;
+  }
+
+  .main-shadow {
+    box-shadow: @main-shadow;
+  }
+
+  .text-title {
+    //标题  #666666;
+    color: @title-color;
+  }
+
+  .text-default {
+    //#333333
+    color: @text-color;
+  }
+
+  .text-op {
+    //相反色
+    color: @op-color;
+  }
+
+  .text-icon {
+    //#333333
+    color: @text-color;
+  }
+
+  .text-action {
+    color: @text-color;
+
+    &:before {
+      margin-right: 4px;
+    }
+
+    &:hover {
+      color: @primary-color;
+
+      &[class^='ts-'],
+      &[class*=' ts-'],
+      &.ts {
+        &:before {
+          color: @primary-color;
+        }
+      }
+    }
+  }
+
+  .text-tip {
+    //提示999999
+    color: @tip-color;
+  }
+
+  .text-tip-active {
+    cursor: pointer;
+    color: @tip-color;
+    &:hover {
+      color: @primary-hover-color;
+    }
+  }
+
+  .text-href,
+  .text-primary {
+    color: @primary-color;
+
+    &:before {
+      margin-right: 4px;
+      color: @primary-color;
+    }
+    .ivu-input,
+    .ivu-select-arrow {
+      color: @primary-color;
+      border-color: @primary-color !important;
+    }
+  }
+
+  .text-info {
+    color: @info-color;
+
+    &:before {
+      color: @info-color;
+    }
+  }
+
+  .text-grey {
+    //#8E949E（辅助色可用于背景上弱化标题）
+    color: @icon-color;
+
+    &:before {
+      color: @icon-color;
+    }
+  }
+
+  .text-danger {
+    //删除，警告
+    color: @error-color;
+
+    &:before {
+      color: @error-color;
+    }
+  }
+  .border-error {
+    border: 1px solid @error-color;
+  }
+  .text-warning {
+    color: @warning-color;
+
+    &:before {
+      color: @warning-color;
+    }
+  }
+
+  .text-success {
+    color: @success-color;
+
+    &:before {
+      color: @success-color;
+    }
+  }
+
+  .bg-shadow {
+    box-shadow: @block-shadow;
+  }
+  .bg-primary {
+    background: @primary-color;
+  }
+  .bg-completa {
+    //完成
+    background: @success-color;
+  }
+  .bg-abort {
+    //取消
+    background: @warning-color;
+  }
+  .bg-pending {
+    //待处理
+    background: @pending-color;
+  }
+  .bg-warning {
+    background: @warning-bg-color;
+  }
+  .block-primary {
+    background: fade(@primary-color, 10%);
+    border: 1px solid @primary-color;
+  }
+  .border-color {
+    border-color: @border-color-base !important;
+  }
+
+  .dividing-color {
+    //分割线的边框
+    border-color: @dividing-color !important;
+  }
+
+  .border-primary {
+    border-color: @primary-color !important;
+  }
+  .dividing-bg-color {
+    background-color: @dividing-color;
+  }
+
+  .li-active {
+    //选中背景色和字体颜色
+    background-color: @li-hover-bg-color;
+    &.li-text {
+      color: @primary-color;
+    }
+  }
+
+  .li-hover {
+    //hover状态背景色
+    &:hover {
+      background-color: @li-hover-bg-color;
+    }
+  }
+
+  .footer {
+    background-color: @op-color;
+    box-shadow: 0px -1px 2px 0px @default-boxshadow-bolck;
+  }
+
+  // 消息
+  .notify-detail {
+    background-color: @background-color;
+    border-left: 1px solid @border-color-base;
+
+    &:hover {
+      box-shadow: @block-shadow;
+    }
+
+    .time-list {
+      border: 1px solid @border-color-base;
+      background-color: @blockbg-color;
+
+      &:hover {
+        box-shadow: @block-shadow;
+      }
+    }
+  }
+
+  //tsform
+  .tsForm-border-bottom {
+    .ivu-input,
+    .ivu-select-selection {
+      border: none;
+      border-bottom: 1px solid @border-color-base;
+      border-radius: 0 !important;
+    }
+  }
+
+  .tsForm-border-border,
+  .tsForm-border-border.tsForm-item {
+    .ivu-input,
+    .ivu-select-selection {
+      border: 1px solid @border-color-base;
+      background-color: @inputbg-color;
+      border-radius: 2px;
+    }
+
+    .ivu-input {
+      padding-left: 8px;
+    }
+  }
+
+  .tsForm-border-none {
+    .ivu-input,
+    .ivu-select-selection {
+      border: none;
+    }
+  }
+
+  .tsForm-border-bottom.tsForm-item {
+    .ivu-input,
+    .ivu-select-selection {
+      border: none;
+      border-bottom: 1px solid @border-color-base;
+      border-radius: 0;
+    }
+  }
+
+  .tsForm-border-border.tsForm-item {
+    .ivu-input,
+    .ivu-select-selection {
+      border: 1px solid @border-color-base;
+      background-color: @inputbg-color;
+      border-radius: 2px;
+    }
+  }
+  .tsForm-border-none.tsForm-item {
+    .ivu-input,
+    .ivu-select-selection {
+      border: none;
+    }
+  }
+
+  .tsForm-item .tsForm-formItem-error,
+  .tsForm-formItem-error {
+    .ivu-input,
+    .ivu-select-selection {
+      border-color: @error-color;
+    }
+  }
+
+  .form-error-tip {
+    color: @error-color;
+  }
+
+  //btn
+  .btn-green-op {
+    border: 1px solid @success-color;
+    background: fade(@success-color, 10%);
+    color: @success-color;
+
+    .icon {
+      &:before {
+        color: @success-color;
+      }
+    }
+  }
+
+  //必填参数
+  .require-label {
+    &:before {
+      color: @error-color;
+    }
+  }
+
+  //仿照input的placeholder
+  .empty-placeholder {
+    &:before {
+      color: @placeholder-color;
+    }
+  }
+
+  //placeholder
+  input {
+    &::-webkit-input-placeholder {
+      color: @placeholder-color !important;
+    }
+  }
+
+  input::-moz-placeholder {
+    color: @placeholder-color !important;
+  }
+
+  /* firefox 19+ */
+  input:-ms-input-placeholder {
+    color: @placeholder-color !important;
+  }
+
+  /* ie */
+  input:-moz-placeholder {
+    color: @placeholder-color !important;
+  }
+
+  input {
+    caret-color: @title-color;
+  }
+
+  //表单编辑阴影.formsetting-container
+  .formsetting-container {
+    box-shadow: -3px 0 3px @boxshadow-main;
+  }
+
+  //右侧编辑框（流程编辑）
+  .setting-box {
+    > .name {
+      //顶部标题编辑
+      .title {
+        color: @icon-color;
+      }
+    }
+
+    .edit-setting {
+      //可编辑区域
+      background-color: @blockbg-color;
+      color: @text-color;
+    }
+
+    .control-setting {
+      //开关操作区
+      > .label {
+        color: @icon-color;
+      }
+
+      .tip {
+        //提示信息
+        color: @disable-color;
+      }
+    }
+
+    .permission-list {
+      .list {
+        .content {
+          .second-title {
+            color: @icon-color;
+          }
+        }
+      }
+    }
+
+    .add-btn {
+      color: @primary-color;
+
+      &:before {
+        color: @primary-color;
+      }
+    }
+  }
+
+  //ckeditor
+  .ck-rounded-corners .ck.ck-editor__top .ck-sticky-panel .ck-toolbar {
+    border-color: @border-color-base;
+    background: @background-color;
+  }
+
+  .ck.ck-editor__main > .ck-editor__editable:not(.ck-focused) {
+    border-color: @border-color-base;
+    border-top: 0 none;
+    background: @op-color;
+  }
+
+  .ck.ck-toolbar .ck.ck-toolbar__separator {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .ck.ck-editor__main {
+    > .ck-editor__editable {
+      &:hover,
+      &:focus {
+        border-color: @primary-color;
+        background: @op-color;
+      }
+    }
+  }
+  .cke_editable {
+    color: @text-color;
+    td,
+    th {
+      border-color: @border-color-base;
+      border-spacing: 0;
+    }
+  }
+  .checkbox-container {
+    border: 1px solid @border-color-base;
+    background: @op-color;
+    transition: all 0.3s;
+
+    &:not(.disable):hover {
+      cursor: pointer;
+      border-color: @primary-color;
+    }
+
+    .icon-check {
+      opacity: 0;
+      transition: all 0.3s;
+      transform: scale(0, 0);
+
+      &:before {
+        color: @op-color;
+      }
+    }
+
+    &.disable {
+      background: @gray-color;
+    }
+
+    &.selected {
+      border-color: @primary-color;
+      background: @primary-color;
+
+      .icon-check {
+        opacity: 1;
+        transform: scale(1, 1);
+      }
+    }
+  }
+  .form-block {
+    .block-left {
+      color: @text-color;
+    }
+  }
+  .search-top {
+    border-bottom: 1px solid @dividing-color;
+    background-color: @background-color;
+  }
+
+  //topo
+  .node-itemul {
+    .node-bg {
+      path {
+        fill: @topo-node;
+      }
+    }
+
+    .node-icon {
+      fill: @text-color;
+    }
+  }
+
+  //工单处理气泡框
+  .activity-step {
+    .tag-bubble {
+      position: relative;
+      border-radius: 0px 8px 8px 8px;
+
+      .tag-arrow {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        left: -8px;
+        top: 0px;
+      }
+
+      .tag-arrow * {
+        display: block;
+        position: absolute;
+        border-style: dashed solid solid dashed;
+        font-size: 0;
+        line-height: 0;
+      }
+
+      .tag-arrow em {
+        border-color: @background-color @background-color transparent transparent;
+        border-width: 4px 4px;
+      }
+    }
+  }
+
+  // 服务目录
+  .serviceDilog {
+    //服务目录的对话框
+    .search-input {
+      color: @text-color;
+      background: @inputbg-color;
+    }
+    .more-item {
+      .text {
+        color: @text-color;
+      }
+    }
+  }
+
+  // 箭头图标
+  .arrow {
+    border-right-color: @default-icon;
+    &::before {
+      border-right-color: @background-color;
+    }
+  }
+
+  // 用户设置页
+  .user_setting {
+    .title {
+      color: @title-color;
+    }
+    .convenience {
+      .setting-top {
+        background-color: @gray-color;
+      }
+      .setting-content {
+        .item {
+          border-top: 1px solid @dividing-color;
+        }
+      }
+    }
+    .defaultpage-manage {
+      .module-list {
+        .module {
+          background-color: @blockbg-color;
+          border: 1px solid @border-color-base;
+          &:hover {
+            box-shadow: @block-hover-shadow;
+          }
+          &-default {
+            background-color: fade(@primary-active-color, 10%);
+          }
+        }
+      }
+      .menu-list {
+        .ivu-select-selection {
+          border: 1px solid @border-color-base;
+        }
+      }
+    }
+  }
+  .tssort {
+    color: @primary-color;
+    &:before {
+      border-color: transparent transparent @border-color-base transparent;
+    }
+    &:after {
+      border-color: @border-color-base transparent transparent transparent;
+    }
+    &.up {
+      &:after {
+        border-color: @primary-color transparent transparent transparent;
+      }
+    }
+    &.down {
+      &:before {
+        border-color: transparent transparent @primary-color transparent;
+      }
+    }
+  }
+  //iview
+  @iv-prev: ivu-;
+
+  .@{iv-prev}table th {
+    background: @th-bg-color;
+  }
+
+  .@{iv-prev}input {
+    border-bottom: 1px solid @border-color-base;
+    color: @text-color;
+  }
+
+  .ivu-input-word-count {
+    background-color: transparent;
+  }
+
+  .@{iv-prev}form-item-error {
+    .@{iv-prev}input {
+      border-bottom: 1px solid @error-color;
+    }
+  }
+
+  .@{iv-prev}cascader .@{iv-prev}input {
+    background-color: transparent;
+    border-bottom: 1px solid @border-color-base;
+  }
+
+  .@{iv-prev}input[disabled],
+  fieldset[disabled] .@{iv-prev}input {
+    background-color: @disabled-bg;
+    //color: @gray-color;
+  }
+
+  .input-border {
+    .@{iv-prev}input {
+      border: 1px solid @border-color-base;
+      background: @inputbg-color;
+      border-radius: 2px;
+    }
+
+    .@{iv-prev}form-item-error,
+    .tsForm-formItem-error {
+      .@{iv-prev}cascader .@{iv-prev}input,
+      .@{iv-prev}select-selection,
+      .@{iv-prev}input {
+        border-color: @error-color;
+      }
+    }
+
+    .@{iv-prev}cascader .@{iv-prev}input,
+    .@{iv-prev}select-selection {
+      border: 1px solid @border-color-base;
+      background: @inputbg-color;
+      border-radius: 2px;
+    }
+  }
+
+  .@{iv-prev}input-prefix i,
+  .@{iv-prev}input-suffix i {
+    color: @text-color;
+  }
+
+  //btn
+  .@{iv-prev}btn {
+    border-color: @border-color-base;
+    color: @text-color;
+    background: @op-color;
+    &:hover {
+      border-color: @primary-hover-color;
+      color: @primary-hover-color;
+    }
+
+    &.bg-trans {
+      background: transparent;
+    }
+  }
+
+  .@{iv-prev}btn-default {
+    &:focus {
+      color: @primary-color;
+      border-color: @primary-color;
+    }
+  }
+
+  .@{iv-prev}btn-primary {
+    color: @bg-op-color;
+    background-color: @primary-color;
+    border-color: @primary-color;
+
+    &:hover {
+      background-color: @primary-hover-color;
+      color: @bg-op-color;
+      border-color: @primary-hover-color;
+    }
+    &.@{iv-prev}btn-ghost {
+      color: @primary-color;
+      border-color: @primary-color;
+
+      &:hover {
+        background-color: @blockbg-color;
+      }
+    }
+  }
+
+  .@{iv-prev}btn-info {
+    color: @bg-op-color;
+    background-color: @info-color;
+    border-color: @info-color;
+
+    &:hover {
+      background-color: @info-hover-color;
+      border-color: @info-hover-color;
+      border-color: @info-hover-color;
+    }
+
+    &.@{iv-prev}btn-ghost {
+      color: @info-color;
+      border-color: @info-color;
+    }
+  }
+
+  .@{iv-prev}btn-success {
+    color: @bg-op-color;
+    background-color: @success-color;
+    border-color: @success-color;
+
+    &:hover {
+      background-color: @success-hover-color;
+      color: @bg-op-color;
+      border-color: @success-hover-color;
+    }
+    &.@{iv-prev}btn-ghost {
+      color: @success-color;
+      border-color: @success-color;
+    }
+  }
+
+  .@{iv-prev}btn-warning {
+    color: @bg-op-color;
+    background-color: @warning-color;
+    border-color: @warning-color;
+
+    &:hover {
+      background-color: @warning-hover-color;
+      color: @bg-op-color;
+      border-color: @warning-hover-color;
+    }
+    &.@{iv-prev}btn-ghost {
+      color: @warning-color;
+      border-color: @warning-color;
+    }
+  }
+
+  .@{iv-prev}btn-error {
+    color: @bg-op-color;
+    background-color: @error-color;
+    border-color: @error-color;
+
+    &:hover {
+      background-color: @error-hover-color;
+      color: @bg-op-color;
+      border-color: @error-hover-color;
+    }
+
+    &.@{iv-prev}btn-ghost {
+      color: @error-color;
+      border-color: @error-color;
+    }
+  }
+
+  .@{iv-prev}btn-text {
+    background-color: transparent;
+
+    &:focus {
+      color: @primary-color;
+    }
+
+    &:hover {
+      color: @primary-color;
+      background-color: transparent;
+    }
+  }
+
+  .@{iv-prev}btn-ghost {
+    background: transparent;
+
+    &:hover {
+      color: @bg-op-color;
+    }
+  }
+
+  //lable
+  .@{iv-prev}form-item-label {
+    color: @title-color;
+  }
+
+  .@{iv-prev}form-item:focus-within {
+    > .@{iv-prev}form-item-label {
+      color: @primary-color;
+    }
+  }
+
+  //input
+  .@{iv-prev}input {
+    border-color: @border-color-base;
+
+    &:not([disabled]):focus,
+    &:not([disabled]):hover {
+      border-color: @primary-color;
+      // box-shadow: 0 0 0 2px fade(@primary-color, 10%);input
+    }
+  }
+
+  //select
+  .@{iv-prev}select {
+    color: @text-color;
+  }
+
+  .@{iv-prev}select-selection {
+    border-radius: 0;
+    border-bottom: 1px solid @border-color-base;
+
+    .@{iv-prev}select-input {
+      color: @text-color;
+    }
+
+    .@{iv-prev}tag {
+      border-color: @border-color-base;
+      background-color: @dividing-color;
+    }
+
+    &:hover {
+      border-color: @primary-color !important;
+
+      // box-shadow: 0 0 0 2px fade(@primary-color,10%);
+      &.@{iv-prev}select-selection-focused {
+        border-color: @primary-color !important;
+        //box-shadow: 0 0 0 2px fade(@primary-color, 10%);
+      }
+    }
+  }
+
+  .@{iv-prev}select-visible .@{iv-prev}select-selection {
+    border-color: @primary-color !important;
+    // box-shadow: 0 0 0 2px fade(@primary-color, 10%);
+  }
+
+  .@{iv-prev}form-item-error {
+    .@{iv-prev}select-selection {
+      border-bottom: 1px solid @error-color;
+    }
+  }
+  .@{iv-prev}page-item,
+  .@{iv-prev}page-prev,
+  .@{iv-prev}page-next {
+    &:hover {
+      a {
+        color: @primary-color;
+      }
+    }
+  }
+  .@{iv-prev}page-item-active {
+    background-color: @primary-color;
+
+    a {
+      color: @bg-op-color;
+    }
+
+    &:hover {
+      a {
+        color: @bg-op-color;
+      }
+    }
+  }
+
+  .@{iv-prev}select-dropdown {
+    background-color: @blockbg-color;
+    box-shadow: 0 1px 6px @boxshadow-bolck;
+
+    .@{iv-prev}dropdown-item-divided:before {
+      background-color: transparent;
+    }
+
+    .@{iv-prev}dropdown-item {
+      color: @text-color;
+      border-color: @border-color-base;
+
+      .overflow();
+
+      &:hover {
+        background-color: @selected-bg;
+      }
+
+      &.selected {
+        color: @primary-color;
+        background-color: @selected-bg;
+      }
+
+      &.@{iv-prev}dropdown-item-disabled {
+        color: fade(@text-color, 80%);
+        background-color: transparent !important;
+      }
+    }
+  }
+
+  .@{iv-prev}select-item {
+    color: @text-color;
+
+    &:hover {
+      background-color: @selected-bg;
+    }
+  }
+
+  .@{iv-prev}select-item-focus {
+    background-color: transparent;
+  }
+
+  .@{iv-prev}select-item-selected {
+    background-color: @selected-bg;
+    color: @primary-color;
+  }
+
+  .@{iv-prev}select-multiple {
+    .@{iv-prev}select-item-focus {
+      background-color: transparent;
+    }
+
+    .@{iv-prev}select-item-selected {
+      background-color: @selected-bg;
+      color: @primary-color;
+
+      &:hover {
+        background-color: @selected-bg;
+      }
+    }
+  }
+
+  //dropdown
+
+  .@{iv-prev}dropdown-item-selected {
+    color: @primary-color;
+    background-color: @selected-bg;
+  }
+
+  //picker
+  .@{iv-prev}time-picker-cells-cell-selected,
+  .@{iv-prev}time-picker-cells-cell-selected:hover,
+  .@{iv-prev}time-picker-cells-cell:hover {
+    background-color: @selected-bg;
+    color: @primary-color;
+
+    em {
+      background-color: @selected-bg;
+    }
+  }
+
+  .@{iv-prev}time-picker-cells-cell-selected {
+    color: @primary-color;
+  }
+
+  .@{iv-prev}date-picker-cells-cell:hover,
+  .@{iv-prev}date-picker-cells-cell-selected,
+  .@{iv-prev}date-picker-cells-cell-selected:hover {
+    em {
+      box-shadow: none;
+      background-color: @primary-color;
+      color: @op-color;
+    }
+  }
+  .@{iv-prev}date-picker-cells-focused,
+  .@{iv-prev}date-picker-cells-focused:hover {
+    em {
+      box-shadow: none;
+    }
+  }
+  .ivu-date-picker-cells-cell-today {
+    em:after {
+      background-color: @primary-color;
+    }
+  }
+
+  //radio
+  .@{iv-prev}radio {
+    .@{iv-prev}radio-inner {
+      background-color: transparent;
+      border-color: @border-color-base;
+    }
+
+    &:hover {
+      .@{iv-prev}radio-inner {
+        border-color: @primary-color;
+      }
+    }
+
+    &.@{iv-prev}radio-checked{
+      .@{iv-prev}radio-inner {
+        border-color: @primary-color;
+        background-color: transparent;
+        &:after {
+          background-color: @primary-color;
+        }
+      }
+    } 
+  }
+
+  .tsform-radio-readonly {
+    .@{iv-prev}radio-disabled .@{iv-prev}radio-inner {
+      border-color: @primary-color;
+      background-color: transparent;
+
+      &:after {
+        background-color: @primary-color;
+      }
+    }
+
+    .@{iv-prev}radio-checked .@{iv-prev}radio-inner {
+      border-color: @primary-color;
+      background-color: transparent;
+    }
+  }
+
+  .@{iv-prev}radio-group-button {
+    .@{iv-prev}ivu-radio-wrapper {
+      background-color: @blockbg-color;
+    }
+
+    .@{iv-prev}radio-wrapper-checked {
+      background-color: @blockbg-color;
+    }
+  }
+  .radioblock{
+    .@{iv-prev}radio-wrapper-checked {
+      background-color: @primary-grey;
+      color: @primary-color;
+    }    
+  }
+  //Checkbox
+  .@{iv-prev}checkbox-inner {
+    border: 1px solid @border-color-base;
+    background-color: @op-color;
+  }
+
+  .@{iv-prev}checkbox {
+    &:hover {
+      .@{iv-prev}checkbox-inner {
+        border-color: @primary-color;
+      }
+    }
+  }
+
+  .tsform-checkbox-readonly {
+    .@{iv-prev}checkbox-disabled .@{iv-prev}checkbox-inner {
+      border-color: @primary-color;
+      background-color: transparent;
+    }
+
+    .@{iv-prev}checkbox-checked .@{iv-prev}checkbox-inner {
+      border-color: @primary-color;
+      background-color: @primary-color;
+    }
+  }
+
+  .@{iv-prev}checkbox-checked .@{iv-prev}checkbox-inner {
+    border: 1px solid @primary-color;
+    background-color: @primary-color;
+
+    &:after {
+      color: @bg-op-color;
+    }
+  }
+
+  .@{iv-prev}checkbox-indeterminate .@{iv-prev}checkbox-inner {
+    border: 1px solid @primary-color;
+    background-color: @primary-color;
+
+    &:after {
+      left: 2.5px;
+      top: 7px;
+      border: 2px solid #fff;
+      border-top: 0;
+      border-left: 0;
+    }
+  }
+
+  //switch
+  .@{iv-prev}switch {
+    background-color: @border-color-base;
+    border-color: transparent;
+
+    &:focus {
+      box-shadow: none;
+    }
+
+    &.@{iv-prev}switch-checked {
+      //border-color:fade(@primary-color, 20%);
+      background-color: fade(@primary-color, 20%);
+    }
+
+    &.@{iv-prev}switch-checked:after {
+      background-color: @primary-color;
+    }
+  }
+
+  .@{iv-prev}switch:after {
+    box-shadow: @block-shadow;
+  }
+
+  .@{iv-prev}steps {
+    .@{iv-prev}steps-title {
+      background: @background-color;
+      cursor: pointer;
+      margin-bottom: 0;
+      margin-top: 4px;
+    }
+
+    .@{iv-prev}steps-head {
+      background: @background-color;
+
+      .@{iv-prev}steps-item {
+        &.@{iv-prev}steps-status-process {
+          .@{iv-prev}steps-head-inner {
+            background-color: @primary-color;
+            color: @title-color;
+          }
+
+          .ivu-steps-tail > i {
+            background-color: @border-color-base;
+          }
+        }
+
+        &.@{iv-prev}steps-status-wait .@{iv-prev}steps-head-inner,
+        .@{iv-prev}steps-head-inner {
+          background-color: @blockbg-color;
+        }
+
+        .@{iv-prev}steps-tail > i:after {
+          background: @border-color-base;
+        }
+      }
+    }
+  }
+
+  .@{iv-prev}steps-item.@{iv-prev}steps-status-process .@{iv-prev}steps-tail > i {
+    background-color: @border-color-base;
+  }
+
+  .@{iv-prev}steps-item.ivu-steps-status-wait .@{iv-prev}steps-head-inner {
+    background-color: @blockbg-color;
+  }
+
+  .@{iv-prev}avatar {
+    background-color: @left-bg-color;
+  }
+
+  .@{iv-prev}form-label-right {
+    > .@{iv-prev}form-item-label {
+      color: @title-color;
+    }
+  }
+
+  .@{iv-prev}timeline-item-head {
+    background: @blockbg-color;
+  }
+
+  .@{iv-prev}timeline-item-tail {
+    border-left: 2px solid @dividing-color;
+  }
+
+  //upload
+  .@{iv-prev}upload-drag {
+    background: @op-color;
+    border-color: @border-color-base;
+  }
+
+  //tag
+  .@{iv-prev}tag {
+    &-default {
+      border-color: @border-color-base;
+      background-color: @dividing-color;
+    }
+
+    .@{iv-prev}tag-text {
+      color: @text-color;
+    }
+
+    .@{iv-prev}icon-ios-close {
+      color: @icon-color;
+    }
+  }
+
+  //cascader
+  .@{iv-prev}cascader {
+    .@{iv-prev}cascader-menu-item {
+      color: @text-color;
+
+      &:hover {
+        background-color: @selected-bg;
+      }
+
+      &.@{iv-prev}cascader-menu-item-active {
+        background-color: @selected-bg;
+      }
+    }
+
+    .@{iv-prev}select-dropdown {
+      max-height: inherit;
+    }
+  }
+
+  .@{iv-prev}cascader-menu {
+    border-color: @border-color-base;
+  }
+
+  //loading
+  .@{iv-prev}spin-fix {
+    background-color: fade(@background-color, 90%);
+  }
+
+  //table
+
+  .@{iv-prev}table {
+    border-color: @border-color-base;
+    color: @text-color;
+    background-color: @blockbg-color;
+
+    th,
+    td {
+      border-color: @border-color-base;
+    }
+
+    .@{iv-prev}table-cell-tree {
+      background-color: @blockbg-color;
+      border-color: @border-color-base;
+    }
+  }
+
+  .@{iv-prev}table-border th,
+  .@{iv-prev}table-border td {
+    border-color: @border-color-base;
+  }
+
+  .@{iv-prev}table td {
+    background-color: @blockbg-color;
+  }
+
+  .@{iv-prev}table-row-highlight td,
+  tr.@{iv-prev}table-row-highlight.@{iv-prev}table-row-hover td,
+  .@{iv-prev}table-stripe .ivu-table-body tr.@{iv-prev}table-row-highlight:nth-child(2n) td,
+  .@{iv-prev}table-stripe .@{iv-prev}table-fixed-body tr.@{iv-prev}table-row-highlight:nth-child(2n) td,
+  .@{iv-prev}table-row-hover td {
+    background-color: @td-hover-bg-color;
+  }
+
+  //card
+  .@{iv-prev}card {
+    background-color: @blockbg-color;
+    color: @text-color;
+    border-color: @border-color-base;
+    &:hover {
+      box-shadow: @block-shadow;
+    }
+    .@{iv-prev}card-head {
+      border-color: @border-color-base;
+      color: @text-color;
+    }
+  }
+
+  .@{iv-prev}card-head p,
+  .@{iv-prev}card-head-inner {
+    color: @title-color;
+  }
+
+  .@{iv-prev}cell {
+    color: @text-color;
+    border-color: @border-color-base;
+
+    &:hover {
+      background-color: @selected-bg;
+    }
+  }
+
+  //carousel
+  .@{iv-prev}carousel-arrow {
+    background-color: fade(@mongolia-color, 50%);
+    color: @title-color;
+
+    &:hover {
+      background-color: @mongolia-color;
+    }
+  }
+
+  //tab
+  .@{iv-prev}tabs {
+    color: @text-color;
+  }
+
+  .@{iv-prev}poptip-inner {
+    background-color: @blockbg-color;
+    box-shadow: @block-shadow;
+  }
+
+  .@{iv-prev}poptip-title-inner {
+    color: @title-color;
+  }
+
+  .@{iv-prev}poptip-body-content {
+    color: @text-color;
+  }
+
+  .@{iv-prev}poptip-popper[x-placement^='bottom'] .@{iv-prev}poptip-arrow:after {
+    border-bottom-color: @blockbg-color;
+  }
+
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-center,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-left,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-right {
+    background-color: transparent;
+  }
+
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-center:before,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-left:before,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-right:before,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-center:after,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-left:after,
+  .@{iv-prev}divider-horizontal.@{iv-prev}divider-with-text-right:after {
+    border-color: @dividing-color;
+  }
+
+  .@{iv-prev}divider {
+    color: @title-color;
+    background: @dividing-color;
+  }
+
+  //message
+  .@{iv-prev}message-notice-content {
+    background: @blockbg-color;
+    box-shadow: @block-shadow;
+  }
+
+  .@{iv-prev}notice-notice {
+    background: @blockbg-color;
+    box-shadow: @block-shadow;
+
+    .@{iv-prev}notice-desc {
+      color: @text-color;
+    }
+
+    .@{iv-prev}notice-title {
+      color: @text-color;
+    }
+  }
+
+  //Tabs
+  .@{iv-prev}tabs {
+    .@{iv-prev}tabs-bar {
+      border-color: @dividing-color;
+    }
+    .@{iv-prev}tabs-nav {
+      .@{iv-prev}tabs-ink-bar {
+        background-color: @primary-active-color;
+      }
+      .@{iv-prev}tabs-tab {
+        &:hover {
+          color: @primary-hover-color;
+        }
+      }
+      .@{iv-prev}tabs-tab-active {
+        color: @primary-active-color;
+      }
+    }
+  }
+
+  //tooltip
+  .@{iv-prev}tooltip-inner {
+    background-color: @invert-bg;
+    box-shadow: @block-shadow;
+    color: @op-color;
+  }
+  .@{iv-prev}tooltip-popper[x-placement='bottom'] .@{iv-prev}tooltip-arrow {
+    border-bottom-color: @invert-bg;
+  }
+  .@{iv-prev}tooltip-popper[x-placement='top'] .@{iv-prev}tooltip-arrow {
+    border-top-color: @invert-bg;
+  }
+  .@{iv-prev}tooltip-popper[x-placement='left'] .@{iv-prev}tooltip-arrow {
+    border-left-color: @invert-bg;
+  }
+  .@{iv-prev}tooltip-popper[x-placement='right'] .@{iv-prev}tooltip-arrow {
+    border-right-color: @invert-bg;
+  }
+  .@{iv-prev}tooltip-light {
+    .@{iv-prev}tooltip-inner {
+      background-color: @blockbg-color;
+      color: @text-color;
+    }
+    &.@{iv-prev}tooltip-popper[x-placement^='bottom'] {
+      .@{iv-prev}tooltip-arrow {
+        border-bottom-color: @blockbg-color;
+        &::after {
+          border-bottom-color: @blockbg-color;
+        }
+      }
+    }
+    &.@{iv-prev}tooltip-popper[x-placement^='top'] {
+      .@{iv-prev}tooltip-arrow {
+        border-bottom-color: @blockbg-color;
+        &::after {
+          border-top-color: @blockbg-color;
+        }
+      }
+    }
+    &.@{iv-prev}tooltip-popper[x-placement^='left'] {
+      .@{iv-prev}tooltip-arrow {
+        border-bottom-color: @blockbg-color;
+        &::after {
+          border-left-color: @blockbg-color;
+        }
+      }
+    }
+    &.@{iv-prev}tooltip-popper[x-placement^='right'] {
+      border-bottom-color: @blockbg-color;
+      .@{iv-prev}tooltip-arrow {
+        &::after {
+          border-right-color: @blockbg-color;
+        }
+      }
+    }
+  }
+
+  // layout
+  .@{iv-prev}layout {
+    &-sider {
+      background-color: @background-color;
+      // background-color: @blockbg-color;
+      border-right: 1px solid @border-color-base;
+      margin-left: -1px;
+    }
+    &-content {
+      background-color: @background-color;
+    }
+  }
+
+  // drawer
+  .@{iv-prev}drawer {
+    &-mask {
+      background-color: @mongolia-color;
+    }
+    &-header {
+      border-bottom: 1px solid @border-color-base;
+      &-inner {
+        color: @text-color;
+      }
+    }
+    &-content {
+      background-color: @blockbg-color;
+    }
+    &-drag-move-trigger {
+      background-color: @blockbg-color;
+    }
+  }
+  .ivu-tabs-card > .ivu-tabs-bar .ivu-tabs-tab {
+    background-color: @blockbg-color;
+  }
+}
+
+.ivu-date-picker-cells-cell-range:before {
+  .theme & {
+    background-color: @default-primary-grey;
+  }
+  .theme-dark & {
+    background-color: @dark-selectbg;
+  }
+}
+
+@default-type: 'white';
+@dark-type: 'dark';
+html {
+  .theme(@default-type, @default-op, @default-title, @default-text, @default-icon, @default-dividing, @default-mongolia, @default-background, @default-blockbg, @default-gray, @default-border, @default-boxshadow-main, @default-boxshadow-bolck, @default-disable, @default-footer-btn-bg, @default-primary-grey, @default-selectbg, @default-placeholder, @default-op, @default-footer-btn-bg, @default-block-shadow, @default-main-shadow, @default-tip, @default-primary-color, @default-primary-active-color, @default-primary-hover-color, @default-link-color, @default-info-color, @default-info-active-color, @default-info-hover-color, @default-success-color, @default-success-active-color, @default-success-hover-color, @default-warning-color, @default-warning-active-color, @default-warning-hover-color, @default-warning-bg-color, @default-error-color, @default-error-active-color, @default-error-hover-color, @default-invert-bg, @default-pending-color);
+
+  &.theme-dark {
+    .theme(@dark-type, @dark-op, @dark-title, @dark-text, @dark-icon, @dark-dividing, @dark-mongolia, @dark-background, @dark-blockbg, @dark-gray, @dark-border, @dark-boxshadow-main, @dark-boxshadow-bolck, @dark-disable, @dark-border, @dark-primary-grey, @dark-selectbg, @dark-placeholder, @dark-dividing, @dark-footer-btn-bg, @dark-block-shadow, @dark-main-shadow, @dark-tip, @dark-primary-color, @dark-primary-active-color, @dark-primary-hover-color, @dark-link-color, @dark-info-color, @dark-info-active-color, @dark-info-hover-color, @dark-success-color, @dark-success-active-color, @dark-success-hover-color, @dark-warning-color, @dark-warning-active-color, @dark-warning-hover-color, @dark-warning-bg-color, @dark-error-color, @dark-error-active-color, @dark-error-hover-color, @dark-invert-bg, @dark-pending-color);
+  }
+}

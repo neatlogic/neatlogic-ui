@@ -98,7 +98,7 @@
   </div>
 </template>
 <script>
-import TransferDom from '@directives/transfer-dom';
+import TransferDom from '../../directives/transfer-dom';
 
 export default {
   name: 'TsDialog',

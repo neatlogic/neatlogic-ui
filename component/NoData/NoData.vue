@@ -1,13 +1,14 @@
 <template>
   <div :class="className">
     <div class="content">
-      <img src="@assets//images/error/nodata.png" :class="type === 'small' ? 'small' : ''" />
+      <img :src="nodata" :class="type === 'small' ? 'small' : ''" />
       <p v-if="type === 'small'" class="text-grey">{{ errortext }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import nodata from '../../static/images/error/nodata.png';
 export default {
   name: 'NoData',
   props: {
@@ -26,7 +27,8 @@ export default {
   },
   data() {
     return {
-      errortext: this.text
+      errortext: this.text,
+      nodata: nodata
     };
   }
 };

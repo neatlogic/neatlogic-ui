@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import axios from 'axios';
 import ViewUI from 'view-design';
-import utils from '@assets/js/util';
+import utils from '../static/js/util';
 
 Vue.prototype.$axios = axios;
 const tip = (msg, onClose, name) => {

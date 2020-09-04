@@ -1,6 +1,6 @@
 {
   "name": "techsure-ui",
-  "version": "0.1.2",
+  "version": "0.1.4",
   "private": false,
   "main": "dist/techsure-ui.umd.min.js",
   "author": "techsure",
@@ -42,9 +42,12 @@
     "rules": {}
   },
   "browserslist": [
-    "> 1%",
+    "> 0.2%",
     "last 2 versions",
     "not dead",
     "not ie <= 8"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "http://192.168.0.88:9008/nexus/repository/npm-private/"
+  }
 }

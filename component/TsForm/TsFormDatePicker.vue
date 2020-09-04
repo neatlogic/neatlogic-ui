@@ -17,8 +17,8 @@
   </div>
 </template>
 <script>
-import formMixins from '@mixins/formMixins.js';
-import formScrollMixins from '@mixins/formScrollMixins.js';
+import formMixins from '../../mixins/formMixins.js';
+import formScrollMixins from '../../mixins/formScrollMixins.js';
 export default {
   name: 'TsFormDatePicker',
   tagComponent: 'TsForm',

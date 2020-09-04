@@ -1,4 +1,4 @@
-import axios from '@api/http.js';
+import axios from '../../http.js';
 
 const download = {
   bind(el, binding) {

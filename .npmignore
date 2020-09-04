@@ -1,7 +1,6 @@
 
 .DS_Store
 node_modules
-/dist
 
 .idea
 .vscode
@@ -11,13 +10,6 @@ node_modules
 *.sln
 *.sw*
 
-assets/
-component/
-plugins/
-directives/
-filters/
-mixins/
-api/
 public/
 src/
 
