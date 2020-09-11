@@ -21,6 +21,13 @@ import UploadDialog from './UploadDialog/UploadDialog.vue';
 import UserCard from './UserCard/UserCard.vue';
 import UserSelect from './UserSelect/UserSelect.vue';
 import TsZtree from './TsZtree/TsZtree.vue';
+import TsFormInput from './TsForm/TsFormInput';
+import TsFormSelect from './TsForm/TsFormSelect';
+import TsFormRadio from './TsForm/TsFormRadio';
+import TsFormCheckbox from './TsForm/TsFormCheckbox';
+import TsFormDatePicker from './TsForm/TsFormDatePicker';
+import TsFormTree from './TsForm/TsFormTree';
+import TsFormSwitch from './TsForm/TsFormSwitch';
 
 const components = {
   Loading,
@@ -43,7 +50,14 @@ const components = {
   UploadDialog,
   UserCard,
   UserSelect,
-  TsZtree
+  TsZtree,
+  TsFormInput,
+  TsFormSelect,
+  TsFormRadio,
+  TsFormCheckbox,
+  TsFormDatePicker,
+  TsFormTree,
+  TsFormSwitch
 };
 TsDialog.install = function(_Vue, options) {
   _Vue.prototype.$createDialog = config => {

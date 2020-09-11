@@ -1,5 +1,5 @@
 <template>
-  <div :class="className">
+  <div :class="className" class="text-center">
     <div class="content">
       <img :src="nodata" :class="type === 'small' ? 'small' : ''" />
       <p v-if="type === 'small'" class="text-grey">{{ errortext }}</p>
@@ -33,7 +33,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .nodata {
   text-align: center;
   .small {
