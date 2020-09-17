@@ -1,6 +1,6 @@
 <!-- 授权 -->
 <template>
-  <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" class="form-li" :class="borderClass" @click.stop>
+  <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" class="form-li" :class="borderClass" :style="getStyle" @click.stop>
     <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
       <div class="search-contain" @click="isVisible = !isVisible">
         <span class="search-input ivu-select-selection empty-placeholder" :placeholder="placeholder">{{ showText }}</span>
@@ -75,7 +75,11 @@ export default {
     transfer: {
       type: Boolean,
       default: true
-    }
+    },
+    width: {
+      type: [String, Number],
+      default: '100%'
+    }    
   },
   data() {
     let _this = this;
@@ -279,6 +283,17 @@ export default {
         resultJson['tsForm-item'] = true;
       }
       this.className && (resultJson[this.className] = true);
+      return resultJson;
+    },
+    getStyle: function() {
+      let _this = this;
+      let resultJson = {};
+
+      if (typeof _this.width == 'number') {
+        resultJson.width = _this.width + 'px';
+      } else if (typeof _this.width == 'string') {
+        resultJson.width = _this.width;
+      }
       return resultJson;
     }
   },

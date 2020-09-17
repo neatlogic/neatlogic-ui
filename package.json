@@ -1,6 +1,6 @@
 {
   "name": "techsure-ui",
-  "version": "0.1.5",
+  "version": "0.1.0",
   "private": false,
   "main": "dist/techsure-ui.umd.min.js",
   "author": "techsure",
@@ -10,6 +10,10 @@
     "lint": "vue-cli-service lint --fix",
     "lib": "vue-cli-service build --target lib --name techsure-ui component/index.js",
     "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.techsure.cn:7070/codedriver/codedriver-webs/webs-ui.git"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -48,6 +52,6 @@
     "not ie <= 8"
   ],
   "publishConfig": {
-    "registry": "http://192.168.0.88:9008/nexus/repository/npm-private/"
+    "registry": "http://techsure.cn:9008/nexus/repository/npm-private/"
   }
 }

@@ -77,8 +77,5 @@ TsDialog.install = function(_Vue, options) {
     };
   };
 };
-Object.keys(components).forEach(name => {
-  Vue.component(name, components[name]);
-});
 
 export default components;

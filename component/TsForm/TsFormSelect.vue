@@ -69,7 +69,7 @@ export default {
     name: String,
     value: {
       //默认值
-      type: [String, Number, Array],
+      type: [String, Number, Array, Boolean],
       default: function() {
         if (this.multiple == true) {
           return new Array();
