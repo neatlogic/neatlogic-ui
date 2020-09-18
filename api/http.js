@@ -4,7 +4,7 @@ import ViewUI from 'view-design';
 import utils from '../static/js/util';
 
 Vue.prototype.$axios = axios;
-const tip = (msg, onClose, name) => {
+const tip = (msg, onClose, name, title, type = 'error') => {
   let config = {
     title: '接口异常',
     desc: msg
@@ -17,7 +17,7 @@ const tip = (msg, onClose, name) => {
     Object.assign(config, {
       name: name + new Date().getTime()
     });
-  ViewUI.Notice.error(config);
+  ViewUI.Notice[type](config);
 };
 var instance = Vue.prototype.$axios.create({
   //创建axios实例
@@ -33,14 +33,37 @@ instance.CancelToken = axios.CancelToken;
  * 携带当前页面路由，以期在登录页面完成登录后返回当前页面
  */
 const toLogin = () => {
-  try {
-    let path = Vue.prototype.$tsrouter.currentRoute.fullPath == '/' ? window.location.href.split(MODULEID + '.html#')[1] : Vue.prototype.$tsrouter.currentRoute.fullPath;
-    window.location.href = HOME + '/login.html#?tenant=' + TENANT + '&redirect=' + MODULEID + '.html#' + path;
-  } catch (e) {
-    console.log(e);
-    window.location.href = HOME + '/login.html#?tenant=' + TENANT;
+  if (!NONAUTH) {
+    try {
+      let path = Vue.prototype.$tsrouter.currentRoute.fullPath == '/' ? window.location.href.split(MODULEID + '.html#')[1] : Vue.prototype.$tsrouter.currentRoute.fullPath;
+      window.location.href = HOME + '/login.html#?tenant=' + TENANT + '&redirect=' + MODULEID + '.html#' + path;
+    } catch (e) {
+      console.log(e);
+      window.location.href = HOME + '/login.html#?tenant=' + TENANT;
+    }
+  } else {
+    // try {
+    //   top.location.href = HOME;
+    // } catch (e) {
+    //   console.log(e);
+    // }
   }
 };
+//20200918_zqp_针对put格式的数据object需要处理成serialize格式
+const serializeOject = (data) => {
+  let str = '';
+  if (typeof data == 'string' || !data) {
+    str = data || '';
+  } else { 
+    try {
+      Object.entries(data).forEach(([key, value], index) => {
+        str += key + '=' + value + (index < Object.entries(data).length - 1 ? '&' : '');
+      });
+    } catch (error) { console.log(error); }
+  }
+  return str;
+};
+
 //调用接口
 instance.interceptors.request.use(config => {
   const token = utils.getCookie('codedriver_authorization');
@@ -49,6 +72,11 @@ instance.interceptors.request.use(config => {
   }
   if (config.method === 'post') {
     config.data = JSON.stringify(config.data || {});
+  } else if (config.method === 'put') {
+    config.headers = Object.assign(config.headers, {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    config.data = serializeOject(config.data || null);
   }
   return config;
 });
@@ -120,6 +148,10 @@ const errorHandle = res => {
           des: '暂无访问权限'
         }
       });
+      break;
+    case 520:
+      //已知的接口问题
+      tip(other, null, res.config.url, '提示', 'info');
       break;
     default:
       try {

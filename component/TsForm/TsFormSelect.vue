@@ -34,7 +34,7 @@
             </li>
             <template v-for="(node, index) in nodeList">
               <slot name="option" :item="node" :index="index">
-                <li v-show="!node._isHidden" :key="index" :class="setLicalss(node,index)" @click.stop="toggleSelect(node)" v-html="node.showtxt ? node.showtxt : node[showName ? showName : textName]"></li>
+                <li v-show="!node._isHidden" :key="index" :class="setLicalss(node, index)" @click.stop="toggleSelect(node)" v-html="node.showtxt ? node.showtxt : node[showName ? showName : textName]"></li>
               </slot>
             </template>
             <template v-if="(nodeList.length <= 0 || hiddenLength == nodeList.length) && !allowCreate">
@@ -192,6 +192,10 @@ export default {
     readonlyClass: {
       type: String,
       default: 'text-grey tsform-readonly'
+    },
+    ajaxType: {
+      type: String,
+      default: 'post'
     }
   },
   data: function() {
@@ -270,7 +274,13 @@ export default {
         let params = { needPage: false };
         typeof _this.params == 'object' && Object.assign(params, _this.params);
         _this.nodeList = [];
-        axios.post(_this.url, params).then(res => {
+        let ajaxArr = {
+          method: _this.ajaxType,
+          url: _this.url
+        };
+        let needdataLi = ['post', 'put'];
+        needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+        axios(ajaxArr).then(res => {
           if (res) {
             if (res.Status == 'OK') {
               _this.nodeList = res.Return;
@@ -464,7 +474,14 @@ export default {
         }
       }
       typeof _this.params == 'object' && Object.assign(params, _this.params);
-      axios.post(_this.dynamicUrl, params, { cancelToken: _this.cancelAxios.token }).then(res => {
+      let ajaxArr = {
+        method: _this.ajaxType,
+        url: _this.dynamicUrl,
+        cancelToken: _this.cancelAxios.token
+      };
+      let needdataLi = ['post', 'put'];
+      needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+      axios(ajaxArr).then(res => {
         _this.loading = false;
         if (res) {
           if (res.Status == 'OK') {

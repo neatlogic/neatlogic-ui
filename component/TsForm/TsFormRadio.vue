@@ -73,6 +73,10 @@ export default {
     errorMessage: String, //从外部设置校验信息
     dealDataByUrl: {//特殊情况 通过url获取的数据可能需要额外的封装之后才能使用
       type: Function
+    },
+    ajaxType: {
+      type: String,
+      default: 'post'
     }
   },
   data() {
@@ -96,7 +100,13 @@ export default {
         let params = { needPage: false };
         typeof _this.params == 'object' && (params = Object.assign(params, _this.params));
         _this.nodeList = [];
-        axios.post(_this.url, params).then(res => {
+        let ajaxArr = {
+          method: _this.ajaxType,
+          url: _this.url
+        };
+        let needdataLi = ['post', 'put'];
+        needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+        axios(ajaxArr).then(res => {
           if (res) {
             if (res.Status == 'OK') {
               _this.nodeList = _this.rootName ? res.Return[_this.rootName] : res.Return;

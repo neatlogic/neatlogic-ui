@@ -49,140 +49,6 @@
       color: @primary-hover-color;
     }
   }
-  .topnav {
-    background-color: @top-bg-color;
-    box-shadow: @top-shadow;
-
-    .topnav-logo {
-      background-image: url('../images/logo_big_@{type}.png');
-    }
-
-    .topnav-menu {
-      .topnav-menu-divider {
-        background-color: @border-color-base;
-      }
-
-      .topnav-menu-list {
-        .apps-icon {
-          &-active,
-          &:hover {
-            color: @primary-active-color;
-          }
-        }
-        .menu-group-list {
-          .module-group {
-            .module-name {
-              color: @text-color;
-              &:hover {
-                color: @primary-active-color;
-              }
-              &::after {
-                background-color: @dividing-color;
-              }
-            }
-            .menu-group {
-              .menu-name {
-                color: @text-color;
-                &:hover {
-                  color: @primary-active-color;
-                }
-              }
-            }
-          }
-        }
-      }
-
-      .topnav-menu-module {
-        .module-item {
-          color: @text-color;
-          &:hover,
-          &-active {
-            color: @primary-active-color;
-            &::after {
-              background-color: @primary-active-color;
-            }
-          }
-        }
-      }
-    }
-
-    .topnav-user {
-      .user-info {
-        color: @title-color;
-        .user-image {
-          background: @gray-color;
-          color: @primary-color;
-        }
-      }
-
-      .dropdown-menu {
-        color: @text-color;
-      }
-    }
-  }
-
-  //leftmenu
-  .leftmenu {
-    background: @left-bg-color;
-
-    .menubar {
-      background: @left-bg-color;
-      border-right: 1px solid @border-color-base;
-
-      .toggle-btn {
-        background: @blockbg-color;
-        box-shadow: @top-shadow;
-
-        &:hover {
-          background: @primary-color;
-          color: @op-color;
-
-          &:before {
-            color: @op-color;
-          }
-        }
-      }
-
-      .menu_content {
-        .menu_link {
-          // .title {
-          //     color: @text-color;
-          // }
-
-          .link {
-            &:hover {
-              a {
-                color: @primary-color;
-
-                &:before {
-                  color: @primary-color;
-                }
-              }
-            }
-
-            a {
-              color: @text-color;
-            }
-
-            &.active {
-              a {
-                color: @primary-color;
-
-                &:before {
-                  color: @primary-color;
-                }
-              }
-
-              &:after {
-                background: @primary-color;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
   //layout布局
   .body-row {
     background: @background-color;
@@ -491,12 +357,6 @@
         }
       }
     }
-  }
-
-  //关联数字
-  .reference-number {
-    color: @warning-color;
-    background-color: rgba(216, 110, 51, 0.1);
   }
 
   //table
@@ -1294,61 +1154,6 @@
     background-color: @background-color;
   }
 
-  //topo
-  .node-itemul {
-    .node-bg {
-      path {
-        fill: @topo-node;
-      }
-    }
-
-    .node-icon {
-      fill: @text-color;
-    }
-  }
-
-  //工单处理气泡框
-  .activity-step {
-    .tag-bubble {
-      position: relative;
-      border-radius: 0px 8px 8px 8px;
-
-      .tag-arrow {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        left: -8px;
-        top: 0px;
-      }
-
-      .tag-arrow * {
-        display: block;
-        position: absolute;
-        border-style: dashed solid solid dashed;
-        font-size: 0;
-        line-height: 0;
-      }
-
-      .tag-arrow em {
-        border-color: @background-color @background-color transparent transparent;
-        border-width: 4px 4px;
-      }
-    }
-  }
-
-  // 服务目录
-  .serviceDilog {
-    //服务目录的对话框
-    .search-input {
-      color: @text-color;
-      background: @inputbg-color;
-    }
-    .more-item {
-      .text {
-        color: @text-color;
-      }
-    }
-  }
 
   // 箭头图标
   .arrow {
@@ -1358,41 +1163,6 @@
     }
   }
 
-  // 用户设置页
-  .user_setting {
-    .title {
-      color: @title-color;
-    }
-    .convenience {
-      .setting-top {
-        background-color: @gray-color;
-      }
-      .setting-content {
-        .item {
-          border-top: 1px solid @dividing-color;
-        }
-      }
-    }
-    .defaultpage-manage {
-      .module-list {
-        .module {
-          background-color: @blockbg-color;
-          border: 1px solid @border-color-base;
-          &:hover {
-            box-shadow: @block-hover-shadow;
-          }
-          &-default {
-            background-color: fade(@primary-active-color, 10%);
-          }
-        }
-      }
-      .menu-list {
-        .ivu-select-selection {
-          border: 1px solid @border-color-base;
-        }
-      }
-    }
-  }
   .tssort {
     color: @primary-color;
     &:before {

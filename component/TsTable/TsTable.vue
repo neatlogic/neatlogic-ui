@@ -227,11 +227,6 @@ export default {
       type: Boolean,
       default: true
     },
-    actionFixed: {
-      //是否浮动操作栏
-      type: Boolean,
-      default: false
-    },
     selectedRemain: {
       //是否分页保留每一页选中状态,默认不需要，如果为true，需要传rowKey回显唯一标志
       type: Boolean,

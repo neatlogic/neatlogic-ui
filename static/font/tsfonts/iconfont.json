@@ -6,6 +6,41 @@
   "description": "不要随便删已经使用的图标，不要改动已有的unicode跟fontclass!!!",
   "glyphs": [
     {
+      "icon_id": "17162708",
+      "name": "复制",
+      "font_class": "copy",
+      "unicode": "e892",
+      "unicode_decimal": 59538
+    },
+    {
+      "icon_id": "17092674",
+      "name": "关联关系",
+      "font_class": "bind",
+      "unicode": "e891",
+      "unicode_decimal": 59537
+    },
+    {
+      "icon_id": "17049532",
+      "name": "当前位置",
+      "font_class": "location",
+      "unicode": "e88e",
+      "unicode_decimal": 59534
+    },
+    {
+      "icon_id": "17049533",
+      "name": "转报",
+      "font_class": "transmit",
+      "unicode": "e88f",
+      "unicode_decimal": 59535
+    },
+    {
+      "icon_id": "17049534",
+      "name": "解除关联",
+      "font_class": "unbind",
+      "unicode": "e890",
+      "unicode_decimal": 59536
+    },
+    {
       "icon_id": "16755110",
       "name": "评分",
       "font_class": "stars",
