@@ -69,7 +69,7 @@
         </table>
       </div>
       <!-- 用于做固定的表头_end -->
-      <div ref="tablemain" class="tstable-main" :style="setTableheight" @scroll.stop="scrollTable($event)">
+      <div ref="tablemain" class="tstable-main" :style="setTableheight(tableheight)" @scroll.stop="scrollTable($event)">
         <table ref="tstable" :class="'table-main tstable-body tstable-' + size + (border ? '' : ' tstable-noborder')">
           <colgroup>
             <col v-if="columnList && columnList.length" />
@@ -129,7 +129,7 @@
           </draggable>
           <tbody v-else>
             <tr>
-              <td :colspan="getshowList.length || 0" class="text-center">暂无数据</td>
+              <td :colspan="getshowList.length || 0" class="text-center" v-html="noDataText"></td>
             </tr>
           </tbody>
         </table>
@@ -169,6 +169,10 @@ export default {
   name: 'TsTable',
   components: {
     draggable
+  },
+  model: {
+    prop: 'value',
+    event: 'change'
   },
   props: {
     rowNum: { type: Number }, //总个数
@@ -239,6 +243,15 @@ export default {
     classKey: {
       // 给每个<tr>标签设置值为row[classKey]的class，其中row为tbodyList数组的元素
       type: String
+    },
+    value: {
+      // 如果有选中的记录选中列（只会存标志位的list）
+      type: Array      
+    },
+    noDataText: {
+      //无数据提示
+      type: String,
+      default: '暂无数据'
     }
   },
   data() {
@@ -377,6 +390,7 @@ export default {
     },
     getSelectlist() {
       //统一出口获取选中列表
+      this.$emit('change', this.selectList);
       this.$emit('getSelected', this.selectList, this.selectallConfig);
     },
     checkIsselected(item, index) {
@@ -465,6 +479,21 @@ export default {
     },
     dragUpdate(event) {
       this.$emit('on-drag-update', event);
+    },
+    clearSelected() {
+      this.selectList = [];
+      this.selectallConfig = [];
+      this.$nextTick(() => {
+        this.getSelectlist();
+      });      
+    },
+    getScrollbarwidth() {
+      let width = 0;
+      this.$nextTick(() => {
+        let outwidth = this.$refs.tablemain && this.$refs.tablemain.offsetWidth ? this.$refs.tablemain.offsetWidth : 0;
+        let inwidth = this.$refs.tablemain && this.$refs.tablemain.clientWidth ? this.$refs.tablemain.clientWidth : 0;
+        this.$set(this, 'scrollbarWidth', Math.max(0, outwidth - inwidth));
+      });
     }
   },
   computed: {
@@ -478,8 +507,8 @@ export default {
       return showList;
     },
     setTableheight() {
-      return {
-        maxHeight: this.tableheight
+      return function(tableheight) {
+        return {maxHeight: typeof tableheight == 'number' ? tableheight + 'px' : tableheight};
       };
     },
     fixLeft() {
@@ -666,6 +695,8 @@ export default {
         if (!_this.selectedRemain) {
           _this.selectList = [];
           _this.selectallConfig = [];
+        } else {
+          _this.selectList = this.value || [];
         }
         if (val && val.length > 0) {
           val.forEach(v => {
@@ -692,6 +723,13 @@ export default {
         this.setTopleft();
       },
       immediate: true
+    },
+    value: {
+      handler: function(val) {
+        this.selectList = val || [];
+      },
+      deep: true,
+      immediate: true   
     }
   }
 };
