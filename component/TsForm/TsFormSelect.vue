@@ -16,9 +16,9 @@
     <div v-else :class="borderClass" :style="getStyle">
       <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="getClass" class="select-body">
         <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
-          <div ref="usertop" class="select-top ivu-input" tabindex="0" @click="handleOpen" @keydown="handleKeydown" @focus="onSelectFocus" @blur="onSelectBlur">
+          <div ref="usertop" class="select-top ivu-input" :disabled="disabled" tabindex="0" @click="handleOpen" @keydown="handleKeydown" @focus="onSelectFocus" @blur="onSelectBlur">
             <template v-if="multiple">
-              <Tag v-for="(selected, nindex) in selectedList" :key="nindex" :name="selected[valueName]" closable :fade="false" @click.native.stop="handleOpen" @on-close="deleteSeleted(nindex, selected[valueName], selectedList)">{{ selected[textName] }}</Tag>
+              <Tag v-for="(selected, nindex) in selectedList" :key="nindex" :name="selected[valueName]" :closable="!disabled" :fade="false" @click.native.stop="handleOpen" @on-close="deleteSeleted(nindex, selected[valueName], selectedList)">{{ selected[textName] }}</Tag>
               <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder"></span>
             </template>
             <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder" style="width: 100%;display: inline-block;vertical-align:top;">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
@@ -685,7 +685,7 @@ export default {
         //如果是单选实时搜索在收起元素时，然后下拉里面的值为当前选中项
         setTimeout(() => {
           // this.dynamicSearch('search', this.selectedList[0][this.textName]);
-          _this.nodeList && (_this.nodeList = _this.nodeList.filter(item => item[_this.valueName] == _this.selectedList[0][_this.valueName]));
+          this.selectedList.length > 0 && _this.nodeList && (_this.nodeList = _this.nodeList.filter(item => item[_this.valueName] == _this.selectedList[0][_this.valueName]));
         }, 1000);
       }
     },
@@ -944,7 +944,7 @@ export default {
     dataList: {
       handler: function(newValue, oldValue) {
         if (!this.url) {
-          this.nodeList = JSON.parse(JSON.stringify(this.dataList || []));
+          this.nodeList = this.$utils.deepClone(this.dataList || []);
           this.nodeList && this.nodeList.length > 20 && !this.search ? (this.currentSearch = true) : (this.currentSearch = this.search); //当search参数值不存在时  如果长度大于20增加搜索功能，
           this.initDataListByUrl(true);
         }
@@ -958,7 +958,7 @@ export default {
       if (newValue) {
         this.initDataListByUrl(true);
       } else {
-        this.nodeList = JSON.parse(JSON.stringify(this.dataList || []));
+        this.nodeList = this.$utils.deepClone(this.dataList || []);
       }
     },
     dynamicUrl(newValue, oldValue) {
@@ -968,7 +968,7 @@ export default {
       if (newValue) {
         this.initDataListByUrl();
       } else {
-        this.nodeList = JSON.parse(JSON.stringify(this.dataList || []));
+        this.nodeList = this.$utils.deepClone(this.dataList || []);
       }
     },
     params(newValue, oldValue) {
@@ -1060,7 +1060,7 @@ function setWidth($contain, $target, transfer) {
     line-height: 30px;
     border-radius: 2px;
     height: auto;
-    padding: 0 4px;
+    padding: 0 8px;
     vertical-align: middle;
     cursor: pointer;
     text-align: left;
@@ -1077,7 +1077,7 @@ function setWidth($contain, $target, transfer) {
     .search-input {
       height: 28px;
       border: 0 none !important;
-      padding: 0 4px;
+      padding: 0 0px;
     }
     &:hover {
       .clearBtn {
@@ -1098,6 +1098,9 @@ function setWidth($contain, $target, transfer) {
   .tsform-select-disabled {
     .select-top {
       cursor: not-allowed;
+      /deep/ .ivu-tag .ivu-tag-text {
+        margin-right: 0px;
+      }
     }
   }
 }
