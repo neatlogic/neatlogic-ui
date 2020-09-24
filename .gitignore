@@ -1,0 +1,14 @@
+target
+*.iml
+bin
+.class
+.svn
+.settings
+.classpath
+.project
+logs/
+.DS_Store
+/node_modules
+Test.vue
+.history
+/dist
