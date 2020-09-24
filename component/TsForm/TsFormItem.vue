@@ -29,7 +29,7 @@ export default {
     labelFor: {
       type: String
     },
-    labelPostion: {
+    labelPosition: {
       type: String,
       default: 'right'
     },
@@ -92,7 +92,7 @@ export default {
       return [
         'ivu-form-item',
         'tsform-item',
-        `ivu-form-label-${this.labelPostion}`,
+        `ivu-form-label-${this.labelPosition}`,
         {
           [`${prefixCls}-required`]: required || false
         }
@@ -102,7 +102,7 @@ export default {
       let style = {};
       //const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.FormInstance ? this.FormInstance.labelWidth :0;
       const labelWidth = this.labelWidth || 0;
-      if (this.labelPostion != 'top') {
+      if (this.labelPosition != 'top') {
         style.width = `${labelWidth}px`;
       }
       return style;
@@ -111,7 +111,7 @@ export default {
       let style = {};
       //const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.FormInstance ? this.FormInstance.labelWidth :0;
       const labelWidth = this.labelWidth || 0;
-      if (this.labelPostion != 'top') {
+      if (this.labelPosition != 'top') {
         style.marginLeft = `${labelWidth}px !important`;
       }
       return style;

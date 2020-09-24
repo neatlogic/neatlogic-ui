@@ -6,14 +6,14 @@
     <div v-else v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="borderClass" :style="getStyle" class="userselect-body">
       <input v-model="currentValue" type="hidden" />
       <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start" :class="getClass">
-        <div ref="usertop" class="userselect-top ivu-input" @click="focusInput()" @keydown.stop="handleKeydown">
+        <div ref="usertop" class="userselect-top ivu-input" :disabled="disabled" @click="focusInput()" @keydown.stop="handleKeydown">
           <template v-if="multiple">
-            <Tag v-for="(user, aindex) in selectedList" :key="user.value" :name="user.value" closable :fade="false" :title="user.text" @click.stop @on-close="deleteSeleted(aindex, user.value, selectedList)">
+            <Tag v-for="(user, aindex) in selectedList" :key="user.value" :name="user.value" :closable="!disabled" :fade="false" :title="user.text" @click.stop @on-close="deleteSeleted(aindex, user.value, selectedList)">
               <i v-if="isIcon && groupList.length > 1" :class="iconType(user.value)" style="opacity:.6;"></i>
               {{ user.text }}
             </Tag>
           </template>
-          <input ref="input" v-model="keyword" class="userselect-input ivu-input" :style="setInputwidth(keyword)" :placeholder="selectedList.length <= 0 ? placeholder : ''" @input="changeSearch($event, keyword)" @focus="changeSearch($event, keyword)" />
+          <input ref="input" v-model="keyword" class="userselect-input ivu-input" :disabled="disabled" :style="setInputwidth(keyword)" :placeholder="selectedList.length <= 0 ? placeholder : ''" @input="changeSearch($event, keyword)" @focus="changeSearch($event, keyword)" />
           <i v-if="clearable && selectedList && selectedList.length > 0" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click="clearValue"></i>
         </div>
         <DropdownMenu slot="list" ref="dropdown" class="userselect-dropdown">
@@ -567,6 +567,7 @@ export default {
       let _this = this;
       let resultjson = [];
       _this.validMesage && resultjson.push('tsForm-formItem-error');
+      _this.disabled && resultjson.push('tsform-select-disabled');
       return resultjson;
     },
     showallTxt() {
@@ -745,7 +746,7 @@ function getDataLength(list) {
   .userselect-input {
     height: 28px;
     border: 0 none !important;
-    padding: 0 4px;
+    padding: 0 0px !important;
   }
   .userselect-top {
     width: 100%;
@@ -754,7 +755,7 @@ function getDataLength(list) {
     line-height: 30px;
     border-radius: 2px;
     height: auto;
-    padding: 0 4px;
+    padding: 0 8px;
     vertical-align: middle;
     .clearBtn {
       position: absolute;
@@ -800,6 +801,14 @@ function getDataLength(list) {
         border-left-color: transparent;
         border-radius: 2px;
         transform: rotate(45deg);
+      }
+    }
+  }
+    .tsform-select-disabled {
+    .select-top {
+      cursor: not-allowed;
+       /deep/ .ivu-tag .ivu-tag-text {
+        margin-right: 0px;
       }
     }
   }

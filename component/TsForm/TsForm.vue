@@ -35,7 +35,7 @@ export default {
     ...item
   },
   props: {
-    labelPostion: {
+    labelPosition: {
       //取值  top  right
       type: String,
       default: 'right'
@@ -148,7 +148,7 @@ export default {
       let returnClass = { tsForm: true };
       returnClass['tsForm-border-' + _this.border] = true; // 边框的样式
       _this.itemWidth != '100%' && (returnClass.formFlex = true);
-      returnClass['ivu-form-label-' + _this.labelPostion] = true;
+      returnClass['ivu-form-label-' + _this.labelPosition] = true;
       return returnClass;
     }
   },
@@ -201,7 +201,7 @@ export default {
             label: item.label,
             validateList: item.validateList,
             itemWidth: item.itemWidth || _this.itemWidth,
-            labelPostion: item.labelPostion || _this.labelPostion,
+            labelPosition: item.labelPosition || _this.labelPosition,
             labelWidth: item.labelWidth || _this.labelWidth,
             name: item.name
           }
