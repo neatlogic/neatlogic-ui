@@ -76,6 +76,7 @@ instance.interceptors.request.use(config => {
     config.headers = Object.assign(config.headers, {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
+    config.data = serializeOject(config.data || null);
   }
   return config;
 });
