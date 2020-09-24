@@ -28,8 +28,9 @@ pageSize|Number|无|是|当前第几页|-
 pageSizeOpts|Array|[10, 20, 30, 40]|否|分页器的数组|-
 theadList|Array|无|是|表头列表|见特殊数据说明
 tbodyList|Array|无|是|表格正文数据|见特殊数据说明 
-rowKey|String|id|否|行数据的唯一标注位键名|如果需要勾选的为必传 
+rowKey|String|id|否|行数据的唯一标志位键名|如果需要勾选的为必传 
 classKey|String|无|否|每一行额外加的class后缀|给每个`<tr>`标签设置值为`row[classKey]`的class，其中row为tbodyList数组的元素 
+value|Array|无|否|默认选中的list|只有每一行选中的标志位的数据集合（可以用v-model） 
 --|--|--|--|--|--  
 size|String|normal|否|表格间隙大小|支持 'normal'、'small'
 type|Boolean、String|false|否|样式布局|支持 false、'card'(card为202009新增的一行一块显示，中间有空白的布局)
@@ -56,7 +57,7 @@ changeCurrent|当前第几页|分页改变时|-
 getSelected|返回2个参数，一个是选中、行的主键集合，一个是选中行的所有数据集合|选中改变时|-
 cancelSelected|取消的那一行的数据|取消选中某一行|-
 selectedItem|选中的那一行的数据|选中某一行|-
-
+clickTr|选中行的时间|点击某一行执行的事件，返回点击行的所有数据|如果td有自定义点击事件需阻止冒泡
 ***
 
 >>>特殊数据说明
