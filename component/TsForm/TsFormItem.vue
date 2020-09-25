@@ -45,6 +45,10 @@ export default {
     itemWidth: {
       type: [Number, String], //数字和百分比
       default: '100%'
+    },
+    required: {
+      type: Boolean, //数字和百分比
+      default: false
     }
   },
   data() {
@@ -88,7 +92,7 @@ export default {
   },
   computed: {
     classes() {
-      let required = getRequired(this.validateList, this.required);
+      let required = getRequired(this.validateList, this.required) || this.required;
       return [
         'ivu-form-item',
         'tsform-item',

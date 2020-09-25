@@ -50,16 +50,21 @@ export default {
     },
     filterValid(validateList) {
       let _this = this;
+      this.isRequired = false;
       let resultValidtorJson = [];
       let validtorJson = require('../component/TsForm/TsValidtor').default;
-
+     
       if (validateList && validateList.length > 0) {
         //默认值的初始化
         //表单验证 对required进行特殊处理添加 required: true属性
+        
         validateList.forEach(function(valid, c) {
           if (typeof valid == 'string') {
             //出入key值，利用默认数据
             validtorJson[valid] && (valid == 'required' ? resultValidtorJson.push(Object.assign({ required: true }, validtorJson[valid])) : resultValidtorJson.push(validtorJson[valid]));
+            if (valid == 'required') {
+              _this.isRequired = true;
+            }
           } else if (typeof valid == 'object') {
             if (validtorJson[valid.name] && valid.name == 'regex' && valid.pattern) {
               // ^[a-z]+$   正则表达式
@@ -67,6 +72,9 @@ export default {
             } else if (validtorJson[valid.name]) {
               //利用默认key值，但是修改message提示
               valid.name == 'required' ? resultValidtorJson.push(Object.assign({ required: true }, validtorJson[valid.name], valid)) : resultValidtorJson.push(Object.assign({}, validtorJson[valid.name], valid));
+              if (valid.name == 'required') {
+                _this.isRequired = true;
+              }
             } else if (typeof valid.validator == 'function') {
               resultValidtorJson.push(Object.assign({}, validtorJson[valid.name], valid));
             }

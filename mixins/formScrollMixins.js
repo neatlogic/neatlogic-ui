@@ -42,6 +42,24 @@ export default {
         }
         $scroll && (this.$scroll = $scroll);
       }
+    },
+    //监听父容器滚动时，导致滚出对应的容器的问题
+    onScroll: function(event) {
+      if (this.isVisible && this.$refs.dropdown) {
+        let $contain = event.target;
+        let $target = this.$refs.dropdown.$el.parentNode;
+        let targetTop = $target.offsetTop;
+        let containTop = $contain.getBoundingClientRect().top;
+        if (!(targetTop > containTop + 10 && targetTop < containTop + $contain.clientHeight)) {
+          this.isVisible = false;
+        }
+
+        // let targetConfig = $target.getBoundingClientRect();
+        // let containConfig = $contain.getBoundingClientRect();
+        // if (!(targetConfig.top > containConfig.top + 10 && targetConfig.top < containConfig.top + containConfig.height)) {
+        //   this.isVisible = false;
+        // }
+      }
     }
   }
 };
