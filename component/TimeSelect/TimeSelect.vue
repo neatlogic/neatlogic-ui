@@ -17,7 +17,7 @@
             {{ datetimerange.text }}
           </li>
           <li v-if="showTimeRange" style="min-width: 225px;" @click.stop>
-            <TsFormDatePicker v-model="timeValue" border="border" :type="type" :splitPanels="true" :format="format" :value-type="valueType" :placeholder="placeholder" style="width: 200px" @on-change="saveTimeRange" @on-ok="isVisible = false"></TsFormDatePicker>
+            <TsFormDatePicker v-model="timeValue" border="border" :type="type" :splitPanels="true" :format="format" :value-type="valueType" :placeholder="placeholder" style="width: 200px" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
           </li>
         </template>
       </DropdownMenu>
@@ -261,6 +261,10 @@ export default {
         this.validMesage = '';
         return true;
       }
+    },
+    confirmTimeRange() {
+      this.isVisible = false;
+      this.$emit('on-ok', this.currentValue);
     }
   },
   computed: {

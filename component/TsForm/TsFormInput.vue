@@ -1,7 +1,7 @@
 <template>
   <div class="form-li" :class="borderClass">
     <span v-if="readonly" :class="readonlyClass" :title="readonlyTitle">{{ currentValue ? currentValue : '-' }}</span>
-    <Input v-else v-model="currentValue" :placeholder="placeholder" :style="getStyle" :class="getClass" :type="type" :disabled="isDisabled" :size="size" :maxlength="maxlength" :show-word-limit="getShowWordLimit" :password="type == 'password' ? showPassword : false" :autosize="type == 'textarea' ? autosize : ''" :clearable="getClearable" :icon="suffix" @on-change="onChangeValue" @on-focus="onFocusValue" @on-enter="onEnterValue" @on-blur="onBlurValue" @on-click="suffix?onClickValue():''"><span v-if="prepend" slot="prepend" v-html="prepend"></span><span v-if="append" slot="append" v-html="append"></span></Input>
+    <Input v-else v-model="currentValue" :placeholder="placeholder" :style="getStyle" :class="getClass" :type="type" :disabled="isDisabled" :size="size" :maxlength="maxlength" :show-word-limit="getShowWordLimit" :password="type == 'password' ? showPassword : false" :autosize="type == 'textarea' ? autosize : ''" :clearable="getClearable" :icon="suffix" @on-change="onChangeValue" @on-focus="onFocusValue" @on-enter="onEnterValue" @on-blur="onBlurValue" @on-click="onEnterValue"><span v-if="prepend" slot="prepend" v-html="prepend"></span><span v-if="append" slot="append" v-html="append"></span></Input>
     <div v-if="desc" class="text-tip">{{ desc }}</div>
     <transition name="fade">
       <span v-if="validMesage != ''" class="form-error-tip" v-html="validMesage"></span>

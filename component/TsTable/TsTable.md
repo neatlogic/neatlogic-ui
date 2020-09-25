@@ -31,6 +31,11 @@ tbodyList|Array|无|是|表格正文数据|见特殊数据说明
 rowKey|String|id|否|行数据的唯一标志位键名|如果需要勾选的为必传 
 classKey|String|无|否|每一行额外加的class后缀|给每个`<tr>`标签设置值为`row[classKey]`的class，其中row为tbodyList数组的元素 
 value|Array|无|否|默认选中的list|只有每一行选中的标志位的数据集合（可以用v-model） 
+noDataText|String|'暂无数据'|否|自定义无数据的文案|- 
+showTotal|Boolean|true|否|是否显示总条数|不管是否展示，接口必须返回（使用场景：部分接口返回总条数有误差但是分页数量没问题） 
+showSizer|Boolean|true|否|是否显示分页器|- 
+
+
 --|--|--|--|--|--  
 size|String|normal|否|表格间隙大小|支持 'normal'、'small'
 type|Boolean、String|false|否|样式布局|支持 false、'card'(card为202009新增的一行一块显示，中间有空白的布局)
