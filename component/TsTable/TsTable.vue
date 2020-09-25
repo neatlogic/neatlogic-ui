@@ -158,7 +158,7 @@
       </Poptip>
     </div>
     <div v-if="rowNum > 0 && pageSize > 0" ref="tablepage" class="tstable-page">
-      <Page size="small" show-sizer show-total :total="rowNum" :current="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpts" :transfer="true" @on-change="getPage" @on-page-size-change="getPageSize" />
+      <Page size="small" :show-sizer="showSizer" :show-total="showTotal" :total="rowNum" :current="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpts" :transfer="true" @on-change="getPage" @on-page-size-change="getPageSize" />
     </div>
   </div>
 </template>
@@ -252,7 +252,18 @@ export default {
       //无数据提示
       type: String,
       default: '暂无数据'
+    },
+    showTotal: {
+      //是否显示总条数
+      type: Boolean,
+      default: true   
+    },
+    showSizer: {
+      //是否分页器
+      type: Boolean,
+      default: true   
     }
+    
   },
   data() {
     return {
