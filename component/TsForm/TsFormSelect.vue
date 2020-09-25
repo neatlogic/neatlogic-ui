@@ -13,15 +13,16 @@
       </template>
       <template v-else>{{ selectedList[0] ? selectedList[0][textName] : '' }}</template>
     </span>
+
     <div v-else :class="borderClass" :style="getStyle">
       <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="getClass" class="select-body">
         <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
-          <div ref="usertop" class="select-top ivu-input" :disabled="disabled" tabindex="0" @click="handleOpen" @keydown="handleKeydown" @focus="onSelectFocus" @blur="onSelectBlur">
+          <div ref="usertop" class="select-top ivu-input" :class="multiple?'ivu-select-multiple':''" :disabled="disabled" tabindex="0" @click="handleOpen" @keydown="handleKeydown" @focus="onSelectFocus" @blur="onSelectBlur">
             <template v-if="multiple">
               <Tag v-for="(selected, nindex) in selectedList" :key="nindex" :name="selected[valueName]" :closable="!disabled" :fade="false" @click.native.stop="handleOpen" @on-close="deleteSeleted(nindex, selected[valueName], selectedList)">{{ selected[textName] }}</Tag>
-              <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder"></span>
+              <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder" style="line-height: 30px;"></span>
             </template>
-            <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder" style="width: 100%;display: inline-block;vertical-align:top;">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
+            <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder single-span">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
             <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreateOption(searchKeyWord)" />
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
@@ -33,9 +34,9 @@
               <i class="tsfont-arrow-corner-left text-primary"></i>
             </li>
             <template v-for="(node, index) in nodeList">
-              <slot name="option" :item="node" :index="index">
-                <li v-show="!node._isHidden" :key="index" :class="setLicalss(node, index)" @click.stop="toggleSelect(node)" v-html="node.showtxt ? node.showtxt : node[showName ? showName : textName]"></li>
-              </slot>
+              <li v-show="!node._isHidden" :key="index" :class="setLicalss(node, index)" @click.stop="toggleSelect(node)">
+                <slot name="option" :item="node" :index="index"><div v-html="node.showtxt ? node.showtxt : node[showName ? showName : textName]"></div></slot>
+              </li>
             </template>
             <template v-if="(nodeList.length <= 0 || hiddenLength == nodeList.length) && !allowCreate">
               <li class="ivu-dropdown-item"><span class="text-tip">暂无数据</span></li>
@@ -274,52 +275,33 @@ export default {
         let params = { needPage: false };
         typeof _this.params == 'object' && Object.assign(params, _this.params);
         _this.nodeList = [];
-        let ajaxArr = {
-          method: _this.ajaxType,
-          url: _this.url
-        };
+        let ajaxArr = { method: _this.ajaxType, url: _this.url};
         let needdataLi = ['post', 'put'];
         needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
         axios(ajaxArr).then(res => {
-          if (res) {
-            if (res.Status == 'OK') {
-              _this.nodeList = res.Return;
-              if (_this.rootName) {
-                let rootAry = _this.rootName.split('.');
-                rootAry.forEach(str => {
-                  _this.nodeList = _this.nodeList[str];
-                });
-              }
-              if (_this.dealDataByUrl && typeof _this.dealDataByUrl == 'function') {
-                _this.nodeList = _this.dealDataByUrl(_this.nodeList);
-              }
-
-              _this.nodeList && _this.nodeList.length > 500 && (_this.nodeList.length = 500);
-              _this.nodeList && _this.nodeList.length > 20 && !_this.search ? (_this.currentSearch = true) : (_this.currentSearch = _this.search); //当search参数值不存在时  如果长度大于20增加搜索功能，
-              if (_this.defaultValueIsFirst && !((_this.multiple && _this.currentValue && _this.currentValue.length > 0) || !!_this.currentValue)) {
-                //默认选中第一个
-                _this.multiple ? (_this.currentValue = [_this.nodeList[0][_this.valueName]]) : (_this.currentValue = _this.nodeList[0][_this.valueName]);
-                _this.onChangeValue();
-              }
-              _this.initValueByNodeList();
-            } else {
-              _this.$Notice.warning({
-                title: '操作失败',
-                desc: res.Message
-              });
+          if (res && res.Status == 'OK') {
+            _this.nodeList = _this.setNodeList(res.Return);
+            _this.nodeList && _this.nodeList.length > 500 && (_this.nodeList.length = 500);
+            _this.nodeList && _this.nodeList.length > 20 && !_this.search ? (_this.currentSearch = true) : (_this.currentSearch = _this.search); //当search参数值不存在时  如果长度大于20增加搜索功能，
+            if (_this.defaultValueIsFirst && !((_this.multiple && _this.currentValue && _this.currentValue.length > 0) || !!_this.currentValue)) {
+              //默认选中第一个
+              _this.multiple ? (_this.currentValue = [_this.nodeList[0][_this.valueName]]) : (_this.currentValue = _this.nodeList[0][_this.valueName]);
+              _this.onChangeValue();
             }
-          }
+            _this.initValueByNodeList();
+          } 
         });
       } else if (_this.dynamicUrl) {
         //dynamicUrl
         _this.currentSearch = true;
 
-        !isChange && _this.dynamicSearch('search', '');
+        !isChange && _this.dynamicSearch('', true);
         if (_this.value && _this.value.length > 0) {
-          _this.dynamicSearch('init', '');
+          _this.dynamicInit();
         } else {
           //情况值，在同一个组件，不同数据之间切换时，初始化数据没有清掉的情况
           _this.selectedList = [];
+          _this.searchKeyWord = '';
         }
       } else {
         //nodeList
@@ -339,10 +321,17 @@ export default {
         //单选
         ary = [this.currentValue];
       }
-      ary.length > 0 &&
+      if (ary.length > 0) {
         _this.nodeList.forEach(function(item) {
           ary.indexOf(item[_this.valueName]) >= 0 && _this.selectedList.push(item);
         });
+      } else if (ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
+        _this.selectedList.push(_this.nodeList[0]);
+        ary = [_this.nodeList[0][this.valueName]];
+        this.multiple ? this.currentValue = [_this.nodeList[0][this.valueName]] : this.currentValue = _this.nodeList[0][this.valueName];
+        _this.onChangeValue();
+      }
+    
       if (ary.length > _this.selectedList.length && this.allowCreate && !this.multiple) {
         //如果不是通过接口调用写死的单独做一次性回显的，在下次初始化时把值回显回去
         this.searchKeyWord = this.currentValue;
@@ -356,6 +345,13 @@ export default {
       let selectItem = this.multiple ? _this.selectedList : _this.selectedList[0] || {};
       //_this.dealNoExist(_this.selectedList, _this.currentValue);
       _this.$emit('update:selectItemList', selectItem);
+      let labelList = [];
+      if (selectItem.length > 0) {
+        selectItem.forEach(select => {
+          labelList.push(select[_this.textName]);
+        });
+      }
+      _this.$emit('change-label', labelList);
       _this.initReadolyTitle();
     },
     onCreateOption: function(val) {},
@@ -372,7 +368,7 @@ export default {
       if ((_this.currentValue instanceof Array && _this.currentValue.indexOf(query) > 0) || _this.currentValue == query) {
         return;
       }
-      this.dynamicSearch('search', query);
+      this.dynamicSearch(query);
     },
     changeSearch(event, keyword) {
       //searchKeyWord改变时，进行搜索
@@ -391,7 +387,7 @@ export default {
           clearTimeout(this.setTimeoutDynaic);
         }
         this.setTimeoutDynaic = setTimeout(() => {
-          this.dynamicSearch('search', keyword);
+          this.dynamicSearch(keyword);
           this.setTimeoutDynaic = false;
         }, 250);
       } else {
@@ -427,7 +423,6 @@ export default {
     },
     filterNodeList(query) {
       //nodeList进行搜索过滤
-
       let _this = this;
       this.hiddenLength = 0;
       _this.liHtml = _this.showName ? _this.showName : _this.textName;
@@ -450,8 +445,44 @@ export default {
       });
       _this.updatePosition();
     },
-    dynamicSearch(type, query) {
-      //type类型为 init：获取默认值的具体值 | search：通过query进行搜索
+    dynamicInit() { //通过dynamicurl初始化数据
+      let _this = this;
+      this.hiddenLength = 0;
+      let params = {};
+      if (this.value instanceof Array) {
+        params[_this.idListName] = this.value;
+      } else if (typeof this.value == 'string') {
+        params[_this.idListName] = [this.value];
+      }
+      typeof _this.params == 'object' && Object.assign(params, _this.params);
+      let ajaxArr = { method: _this.ajaxType, url: _this.dynamicUrl};
+      let needdataLi = ['post', 'put'];
+      needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+      axios(ajaxArr).then(res => {  
+        if (res && res.Status == 'OK') {
+          //初始化数据时需要text值
+          _this.selectedList = [];
+          let selectList = _this.setNodeList(res.Return);
+          selectList && selectList.length > 0 && (_this.selectedList = selectList);
+          if (!_this.multiple) {
+            //是单选,进行赋值处理
+            _this.searchKeyWord = _this.selectedList[0] ? _this.selectedList[0][_this.textName] : '';
+          }
+          let selectItem = this.multiple ? _this.selectedList : _this.selectedList[0] || {};
+          // _this.dealNoExist(_this.selectedList, _this.currentValue);
+          _this.$emit('update:selectItemList', selectItem);
+          let labelList = [];
+          if (selectItem.length > 0) {
+            selectItem.forEach(select => {
+              labelList.push(select[_this.textName]);
+            });
+          }
+          _this.$emit('change-label', labelList);              
+          this.readonly && this.initReadolyTitle();
+        }
+      });
+    },
+    dynamicSearch(query, isFirst) { //query:搜索的关键字，isFirst 是否第一次初始化下拉值，主要为了必填时只有一个下拉值时默认填充
       let _this = this;
       this.hiddenLength = 0;
       //取消正在搜索的请求
@@ -461,85 +492,47 @@ export default {
       const CancelToken = axios.CancelToken;
       this.cancelAxios = CancelToken.source();
       _this.loading = true;
-      let params = {};
-      if (type == 'search') {
-        params[_this.keyword] = query ? query.trim() : '';
-        params.currentPage = 1;
-        params.pageSize = 20;
-      } else if (type == 'init') {
-        if (this.value instanceof Array) {
-          params[_this.idListName] = this.value;
-        } else if (typeof this.value == 'string') {
-          params[_this.idListName] = [this.value];
-        }
-      }
+      let params = {currentPage: 1, pageSize: 20};
+      params[_this.keyword] = query ? query.trim() : '';
       typeof _this.params == 'object' && Object.assign(params, _this.params);
-      let ajaxArr = {
-        method: _this.ajaxType,
-        url: _this.dynamicUrl,
-        cancelToken: _this.cancelAxios.token
-      };
+      let ajaxArr = {method: _this.ajaxType, url: _this.dynamicUrl, cancelToken: _this.cancelAxios.token };
       let needdataLi = ['post', 'put'];
       needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
       axios(ajaxArr).then(res => {
         _this.loading = false;
-        if (res) {
-          if (res.Status == 'OK') {
-            if (type == 'search') {
-              //搜索
-              _this.nodeList = res.Return;
-              if (_this.rootName) {
-                let rootAry = _this.rootName.split('.');
-                rootAry.forEach(str => {
-                  _this.nodeList = _this.nodeList[str];
-                });
-              }
-              if (_this.dealDataByUrl && typeof _this.dealDataByUrl == 'function') {
-                _this.nodeList = _this.dealDataByUrl(_this.nodeList);
-              }
-              if (_this.allowCreate && query) {
-                let newNode = {};
-                newNode[_this.valueName] = query;
-                newNode[_this.textName] = query;
-              }
-              _this.nodeList.splice(0, {});
-            } else if (type == 'init') {
-              //初始化数据时需要text值
-              _this.selectedList = [];
-              let selectList = res.Return;
-              if (_this.rootName) {
-                let rootAry = _this.rootName.split('.');
-                rootAry.forEach(str => {
-                  selectList = selectList[str];
-                });
-              }
-              if (_this.dealDataByUrl && typeof _this.dealDataByUrl == 'function') {
-                selectList = _this.dealDataByUrl(selectList);
-              }
-              selectList &&
-                selectList.length > 0 &&
-                selectList.forEach(function(item, i) {
-                  _this.selectedList.push(item);
-                });
-              if (!_this.multiple) {
-                //是单选,进行赋值处理
-                _this.searchKeyWord = _this.selectedList[0] ? _this.selectedList[0][_this.textName] : '';
-              }
-              let selectItem = this.multiple ? _this.selectedList : _this.selectedList[0] || {};
-              // _this.dealNoExist(_this.selectedList, _this.currentValue);
-              _this.$emit('update:selectItemList', selectItem);
-
-              this.readonly && this.initReadolyTitle();
+        if (res && res.Status == 'OK') {
+          _this.nodeList = _this.setNodeList(res.Return);
+          if (_this.allowCreate && query) {
+            let newNode = {};
+            newNode[_this.valueName] = query;
+            newNode[_this.textName] = query;
+          }
+          _this.nodeList.splice(0, {});
+          _this.updatePosition();
+          if (isFirst && (!_this.currentValue || _this.currentValue.length <= 0) && _this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
+            _this.selectedList.push(_this.nodeList[0]);
+            _this.multiple ? _this.currentValue = [_this.nodeList[0][_this.valueName]] : _this.currentValue = _this.nodeList[0][_this.valueName];
+            if (!_this.multiple) {
+            //是单选,进行赋值处理
+              _this.searchKeyWord = _this.selectedList[0] ? _this.selectedList[0][_this.textName] : '';
             }
-            _this.updatePosition();
-          } else {
-            _this.$Notice.warning({
-              title: '操作失败',
-              desc: res.Message
-            });
+            _this.onChangeValue();
           }
         }
       });
+    },
+    setNodeList(res) { //统一处理接口返回的数据
+      let nodeList = res;
+      if (this.rootName) {
+        let rootAry = this.rootName.split('.');
+        rootAry.forEach(str => {
+          nodeList = nodeList[str];
+        });
+      }
+      if (this.dealDataByUrl && typeof this.dealDataByUrl == 'function') {
+        nodeList = this.dealDataByUrl(nodeList);
+      }
+      return nodeList;
     },
     onChangeValue() {
       let _this = this;
@@ -645,7 +638,8 @@ export default {
     },
     onClickOutside(event) {
       //点击外部，dropdown消失
-      if (this.isVisible) {
+      if (this.isVisible || !this.firstOutside) {
+        this.firstOutside = true;
         if (event.type === 'mousedown') {
           event.preventDefault();
         }
@@ -681,12 +675,11 @@ export default {
       if (!isEnterSearch) {
         !this.multiple ? (this.searchKeyWord = this.selectedList.length > 0 ? this.selectedList[0][this.textName] : '') : (this.searchKeyWord = '');
       }
-      if (!this.multiple && this.dynamicUrl && this.selectedList.length > 0) {
-        //如果是单选实时搜索在收起元素时，然后下拉里面的值为当前选中项
+      if (!this.multiple && this.dynamicUrl && this.selectedList.length > 0) { //如果是单选实时搜索在收起元素时，然后下拉里面的值为当前选中项
         setTimeout(() => {
           // this.dynamicSearch('search', this.selectedList[0][this.textName]);
           this.selectedList.length > 0 && _this.nodeList && (_this.nodeList = _this.nodeList.filter(item => item[_this.valueName] == _this.selectedList[0][_this.valueName]));
-        }, 1000);
+        });
       }
     },
     openOption() {
@@ -794,18 +787,6 @@ export default {
       }
 
       return selectData;
-    },
-    //监听父容器滚动时，导致滚出对应的容器的问题
-    onScroll: function(event) {
-      if (this.isVisible && this.$refs.dropdown) {
-        let $contain = event.target;
-        let $target = this.$refs.dropdown.$el.parentNode;
-        let targetTop = $target.offsetTop;
-        let containTop = $contain.getBoundingClientRect().top;
-        if (!(targetTop > containTop + 10 && targetTop < containTop + $contain.clientHeight)) {
-          this.isVisible = false;
-        }
-      }
     }
   },
   computed: {
@@ -944,7 +925,7 @@ export default {
     dataList: {
       handler: function(newValue, oldValue) {
         if (!this.url) {
-          this.nodeList = this.$utils.deepClone(this.dataList || []);
+          this.nodeList = JSON.parse(JSON.stringify(this.dataList || []));
           this.nodeList && this.nodeList.length > 20 && !this.search ? (this.currentSearch = true) : (this.currentSearch = this.search); //当search参数值不存在时  如果长度大于20增加搜索功能，
           this.initDataListByUrl(true);
         }
@@ -958,7 +939,7 @@ export default {
       if (newValue) {
         this.initDataListByUrl(true);
       } else {
-        this.nodeList = this.$utils.deepClone(this.dataList || []);
+        this.nodeList = JSON.parse(JSON.stringify(this.dataList || []));
       }
     },
     dynamicUrl(newValue, oldValue) {
@@ -968,7 +949,7 @@ export default {
       if (newValue) {
         this.initDataListByUrl();
       } else {
-        this.nodeList = this.$utils.deepClone(this.dataList || []);
+        this.nodeList = JSON.parse(JSON.stringify(this.dataList || []));
       }
     },
     params(newValue, oldValue) {
@@ -987,6 +968,7 @@ export default {
         });
         this.$emit('on-open-change', val);
         typeof this.onOpenChange == 'function' && this.onOpenChange(val);
+        this.firstOutside = false;
       } else if (!val && !this.multiple) {
         //当收起下拉框时，是单选
         if (this.selectedList[0] && !this.allowCreate && typeof this.$listeners['enter-search'] != 'function') {
@@ -1034,9 +1016,8 @@ function setWidth($contain, $target, transfer) {
   line-height: normal;
   vertical-align: middle;
   .empty-placeholder {
+    line-height: 30px;
     &:empty:before {
-      padding-right: 20px;
-      line-height: 1.2;
       content: attr(placeholder);
     }
   }
@@ -1060,13 +1041,19 @@ function setWidth($contain, $target, transfer) {
     line-height: 30px;
     border-radius: 2px;
     height: auto;
-    padding: 0 8px;
+    padding: 0 8px 0 8px;
+    padding-right: 18px;
     vertical-align: middle;
     cursor: pointer;
     text-align: left;
+    .single-span {
+      width: 100%;
+      display: inline-block;
+      vertical-align: top;
+    }
     .clearBtn {
       position: absolute;
-      right: 5px;
+      right: 2px;
       top: 6px;
       padding: 2px;
       font-size: 14px;
@@ -1077,7 +1064,7 @@ function setWidth($contain, $target, transfer) {
     .search-input {
       height: 28px;
       border: 0 none !important;
-      padding: 0 0px;
+      padding:0px 0px;
     }
     &:hover {
       .clearBtn {
@@ -1088,6 +1075,8 @@ function setWidth($contain, $target, transfer) {
       max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
+      margin-top: 4px;
+      float: left;
     }
   }
   .tsform-select-readonly {
@@ -1098,7 +1087,7 @@ function setWidth($contain, $target, transfer) {
   .tsform-select-disabled {
     .select-top {
       cursor: not-allowed;
-      /deep/ .ivu-tag .ivu-tag-text {
+       /deep/ .ivu-tag .ivu-tag-text {
         margin-right: 0px;
       }
     }
