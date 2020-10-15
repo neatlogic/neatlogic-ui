@@ -325,7 +325,7 @@ export default {
         _this.nodeList.forEach(function(item) {
           ary.indexOf(item[_this.valueName]) >= 0 && _this.selectedList.push(item);
         });
-      } else if (ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
+      } else if (_this.defaultValueIsFirst && ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
         _this.selectedList.push(_this.nodeList[0]);
         ary = [_this.nodeList[0][this.valueName]];
         this.multiple ? this.currentValue = [_this.nodeList[0][this.valueName]] : this.currentValue = _this.nodeList[0][this.valueName];

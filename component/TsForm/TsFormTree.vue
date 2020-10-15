@@ -41,10 +41,10 @@
   </div>
 </template>
 <script>
-import axios from '@/resources/api/http.js';
-import formMixins from '@/resources/mixins/formMixins.js';
-import formScrollMixins from '@/resources/mixins/formScrollMixins.js';
-import { directive as ClickOutside } from '../../directives/v-click-outside-x';
+import axios from '@api/http.js';
+import formMixins from '@mixins/formMixins.js';
+import formScrollMixins from '@mixins/formScrollMixins.js';
+import { directive as ClickOutside } from '@directives/v-click-outside-x';
 export default {
   name: 'TsFormTree',
   directives: { ClickOutside },

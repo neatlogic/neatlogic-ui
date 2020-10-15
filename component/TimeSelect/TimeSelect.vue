@@ -1,31 +1,35 @@
 <!-- 授权 -->
 <template>
-  <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" class="form-li" :class="borderClass" :style="getStyle" @click.stop>
-    <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
-      <div class="search-contain" @click="isVisible = !isVisible">
-        <span class="search-input ivu-select-selection empty-placeholder" :placeholder="placeholder">{{ showText }}</span>
-        <i :class="['ivu-select-arrow', { 'tsfont-down': !isVisible }, { 'tsfont-up': isVisible }]"></i>
-        <i v-if="showText && clearable" class="clearBtn ivu-icon ivu-icon-ios-close-circle" @click="clearValue"></i>
-      </div>
-      <DropdownMenu slot="list" ref="dropdown" class="list-contain">
-        <li v-for="(item, index) in timeList" :key="index" :class="getliClass(item)" @click="onChange(item.value, item)">
-          {{ item.text }}
-        </li>
-        <template v-if="isMore">
-          <li class="ivu-dropdown-item line border-color"></li>
-          <li :class="getliClass(datetimerange)" @click="onChange(datetimerange.value, datetimerange)">
-            {{ datetimerange.text }}
+  <div class="form-li">
+    <div v-if="disabled" class="bg-grey border-color text-tip read-container">{{ showText }}</div>
+    <div v-else v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="borderClass" :style="getStyle" @click.stop>
+      <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
+        <div class="search-contain" @click="isVisible = !isVisible">
+          <span class="search-input ivu-select-selection empty-placeholder" :placeholder="placeholder">{{ showText }}</span>
+          <i :class="['ivu-select-arrow', { 'tsfont-down': !isVisible }, { 'tsfont-up': isVisible }]"></i>
+          <i v-if="showText && clearable" class="clearBtn ivu-icon ivu-icon-ios-close-circle" @click="clearValue"></i>
+        </div>
+        <DropdownMenu slot="list" ref="dropdown" class="list-contain">
+          <li v-for="(item, index) in timeList" :key="index" :class="getliClass(item)" @click="onChange(item.value, item)">
+            {{ item.text }}
           </li>
-          <li v-if="showTimeRange" style="min-width: 225px;" @click.stop>
-            <TsFormDatePicker v-model="timeValue" border="border" :type="type" :splitPanels="true" :format="format" :value-type="valueType" :placeholder="placeholder" style="width: 200px" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
-          </li>
-        </template>
-      </DropdownMenu>
-    </Dropdown>
-    <transition name="fade">
-      <span v-show="validMesage!=''" class="form-error-tip">{{ validMesage }}</span>
-    </transition>
+          <template v-if="isMore">
+            <li class="ivu-dropdown-item line border-color"></li>
+            <li :class="getliClass(datetimerange)" @click="onChange(datetimerange.value, datetimerange)">
+              {{ datetimerange.text }}
+            </li>
+            <li v-if="showTimeRange" style="min-width: 225px;" @click.stop>
+              <TsFormDatePicker v-model="timeValue" border="border" :type="type" :splitPanels="isRelative" :format="format" :value-type="valueType" :placeholder="placeholder" style="width: 200px" :separator="' '+separator+' '" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
+            </li>
+          </template>
+        </DropdownMenu>
+      </Dropdown>
+      <transition name="fade">
+        <span v-show="validMesage!=''" class="form-error-tip">{{ validMesage }}</span>
+      </transition>
+    </div>
   </div>
+
 </template>
 <script>
 import TsFormDatePicker from '../TsForm/TsFormDatePicker';
@@ -79,7 +83,19 @@ export default {
     width: {
       type: [String, Number],
       default: '100%'
-    }    
+    },
+    isRelative: {
+      type: Boolean,
+      default: true
+    },
+    separator: {
+      type: String,
+      default: '-'      
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    }
   },
   data() {
     let _this = this;
@@ -111,8 +127,10 @@ export default {
   },
   beforeMount() {},
   mounted() {
-    this.$refs.dropdown.$el.parentNode.style.maxHeight = 'initial';
-    this.$refs.dropdown.$el.parentNode.style.overflow = 'initial';
+    if (this.$refs.dropdown) {
+      this.$refs.dropdown.$el.parentNode.style.maxHeight = 'initial';
+      this.$refs.dropdown.$el.parentNode.style.overflow = 'initial';
+    }
   },
   beforeDestroy() {
   },
@@ -219,7 +237,7 @@ export default {
         if (this.timeValue instanceof Array) { //数组的回显
           this.timeValue.forEach(item => {
             let text = (this.valueType == 'timestamp' && item) ? this.$utils.getDateByFormat(item, this.format) : item;
-            showText = showText ? (showText + ' ~ ' + text) : (showText + text);
+            showText = showText ? (showText + ' ' + this.separator + ' ' + text) : (showText + text);
           });
         } else { //字符串的回显
           (this.valueType == 'timestamp' && this.timeValue) ? showText = this.$utils.getDateByFormat(this.timeValue, this.format) : showText = this.timeValue;
@@ -316,6 +334,12 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.read-container {
+  border: 1px solid;
+  line-height: 30px;
+  padding: 0 8px;
+  border-radius: 2px;
+}
 .timeselect-contain {
   position: relative;
   display: inline-block;
