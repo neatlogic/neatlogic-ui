@@ -637,10 +637,13 @@ export default {
     }
   },
   watch: {
-    height(val) {
-      if (val) {
-        this.tableheight = 'calc(' + val + ' - 40px)';
-      }
+    height: {
+      handler(val) {
+        if (val) {
+          this.tableheight = 'calc(' + val + ' - 40px)';
+        }
+      },
+      immediate: true
     },
     theadList: {
       handler(val, oldval) {
