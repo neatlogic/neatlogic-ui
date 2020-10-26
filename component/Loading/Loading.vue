@@ -6,7 +6,7 @@
         <div>加载中</div>
       </Spin>
     </div>
-    <div v-else>
+    <div v-else class="part-loading">
       <Spin v-if="show" size="large" class="text-primary">
         <Icon type="ios-loading" size="18" class="loading"></Icon>
         <div>加载中</div>
@@ -56,5 +56,13 @@ export default {
 <style lang="less">
 .loading {
   animation: ani-demo-spin 1s linear infinite;
+}
+.part-loading{
+    height: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 </style>

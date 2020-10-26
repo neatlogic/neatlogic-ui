@@ -134,7 +134,7 @@ export default {
       this.$emit('on-focus');
     },
     onEnterValue: function() {
-      this.$emit('on-enter');
+      this.$emit('on-enter', this.currentValue);
     },
     onBlurValue: function() {
       typeof this.onBlur == 'function' && this.onBlur();
