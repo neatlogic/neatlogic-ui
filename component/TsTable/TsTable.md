@@ -35,7 +35,6 @@ noDataText|String|'暂无数据'|否|自定义无数据的文案|-
 showTotal|Boolean|true|否|是否显示总条数|不管是否展示，接口必须返回（使用场景：部分接口返回总条数有误差但是分页数量没问题） 
 showSizer|Boolean|true|否|是否显示分页器|- 
 
-
 --|--|--|--|--|--  
 size|String|normal|否|表格间隙大小|支持 'normal'、'small'
 type|Boolean、String|false|否|样式布局|支持 false、'card'(card为202009新增的一行一块显示，中间有空白的布局)

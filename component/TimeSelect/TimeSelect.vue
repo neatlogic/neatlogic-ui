@@ -15,11 +15,11 @@
           </li>
           <template v-if="isMore">
             <li class="ivu-dropdown-item line border-color"></li>
-            <li :class="getliClass(datetimerange)" @click="onChange(datetimerange.value, datetimerange)">
+            <li :class="getliClass(datetimerange)" :style="{'width': timerWidth}" @click="onChange(datetimerange.value, datetimerange)">
               {{ datetimerange.text }}
             </li>
-            <li v-if="showTimeRange" style="min-width: 225px;" @click.stop>
-              <TsFormDatePicker v-model="timeValue" border="border" :placement="placement" :type="type" :splitPanels="isRelative" :format="format" :value-type="valueType" :placeholder="placeholder" style="width: 200px" :separator="' '+separator+' '" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
+            <li v-if="showTimeRange" style="min-width: 225px;" :style="{'width': timerWidth}" @click.stop>
+              <TsFormDatePicker v-model="timeValue" border="border" :placement="placement" :type="type" :splitPanels="isRelative" :format="format" :value-type="valueType" :placeholder="placeholder" :separator="' '+separator+' '" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
             </li>
           </template>
         </DropdownMenu>
@@ -99,6 +99,10 @@ export default {
     placement: {
       type: String,
       default: 'bottom-start'      
+    },
+    timerWidth: {
+      type: [String, Number],
+      default: 200      
     }
   },
   data() {
