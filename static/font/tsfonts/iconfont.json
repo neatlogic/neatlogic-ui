@@ -6,6 +6,174 @@
   "description": "不要随便删已经使用的图标，不要改动已有的unicode跟fontclass!!!",
   "glyphs": [
     {
+      "icon_id": "17862353",
+      "name": "点",
+      "font_class": "dot",
+      "unicode": "e8aa",
+      "unicode_decimal": 59562
+    },
+    {
+      "icon_id": "17808783",
+      "name": "图片居左",
+      "font_class": "img-left",
+      "unicode": "e8a8",
+      "unicode_decimal": 59560
+    },
+    {
+      "icon_id": "17808784",
+      "name": "点赞",
+      "font_class": "hand",
+      "unicode": "e8a9",
+      "unicode_decimal": 59561
+    },
+    {
+      "icon_id": "17808781",
+      "name": "图片居中",
+      "font_class": "img-center",
+      "unicode": "e8a6",
+      "unicode_decimal": 59558
+    },
+    {
+      "icon_id": "17808782",
+      "name": "图片居右",
+      "font_class": "img-right",
+      "unicode": "e8a7",
+      "unicode_decimal": 59559
+    },
+    {
+      "icon_id": "17771107",
+      "name": "drop_left",
+      "font_class": "drop-left",
+      "unicode": "e8a2",
+      "unicode_decimal": 59554
+    },
+    {
+      "icon_id": "17771108",
+      "name": "drop_right",
+      "font_class": "drop-right",
+      "unicode": "e8a3",
+      "unicode_decimal": 59555
+    },
+    {
+      "icon_id": "17771109",
+      "name": "知识圈",
+      "font_class": "book",
+      "unicode": "e8a4",
+      "unicode_decimal": 59556
+    },
+    {
+      "icon_id": "17771110",
+      "name": "加删除线",
+      "font_class": "text-delete",
+      "unicode": "e8a5",
+      "unicode_decimal": 59557
+    },
+    {
+      "icon_id": "17713719",
+      "name": "标签-2",
+      "font_class": "label-s",
+      "unicode": "e895",
+      "unicode_decimal": 59541
+    },
+    {
+      "icon_id": "17713720",
+      "name": "标签",
+      "font_class": "label",
+      "unicode": "e896",
+      "unicode_decimal": 59542
+    },
+    {
+      "icon_id": "17713721",
+      "name": "标题",
+      "font_class": "title",
+      "unicode": "e897",
+      "unicode_decimal": 59543
+    },
+    {
+      "icon_id": "17713722",
+      "name": "恢复",
+      "font_class": "revover",
+      "unicode": "e898",
+      "unicode_decimal": 59544
+    },
+    {
+      "icon_id": "17713723",
+      "name": "历史活动",
+      "font_class": "history",
+      "unicode": "e899",
+      "unicode_decimal": 59545
+    },
+    {
+      "icon_id": "17713724",
+      "name": "模块",
+      "font_class": "block",
+      "unicode": "e89a",
+      "unicode_decimal": 59546
+    },
+    {
+      "icon_id": "17713725",
+      "name": "撤销",
+      "font_class": "undo",
+      "unicode": "e89b",
+      "unicode_decimal": 59547
+    },
+    {
+      "icon_id": "17713726",
+      "name": "内链",
+      "font_class": "inlink",
+      "unicode": "e89c",
+      "unicode_decimal": 59548
+    },
+    {
+      "icon_id": "17713727",
+      "name": "添加",
+      "font_class": "plus-square",
+      "unicode": "e89d",
+      "unicode_decimal": 59549
+    },
+    {
+      "icon_id": "17713728",
+      "name": "收起",
+      "font_class": "minus-square",
+      "unicode": "e89e",
+      "unicode_decimal": 59550
+    },
+    {
+      "icon_id": "17713729",
+      "name": "添加标签",
+      "font_class": "addtag",
+      "unicode": "e89f",
+      "unicode_decimal": 59551
+    },
+    {
+      "icon_id": "17713730",
+      "name": "添加同级",
+      "font_class": "flow-siblings",
+      "unicode": "e8a0",
+      "unicode_decimal": 59552
+    },
+    {
+      "icon_id": "17713731",
+      "name": "添加下级",
+      "font_class": "flow-children",
+      "unicode": "e8a1",
+      "unicode_decimal": 59553
+    },
+    {
+      "icon_id": "17287496",
+      "name": "取消授权",
+      "font_class": "non-auth",
+      "unicode": "e894",
+      "unicode_decimal": 59540
+    },
+    {
+      "icon_id": "17287492",
+      "name": "用户设置",
+      "font_class": "user-setting",
+      "unicode": "e893",
+      "unicode_decimal": 59539
+    },
+    {
       "icon_id": "17162708",
       "name": "复制",
       "font_class": "copy",
