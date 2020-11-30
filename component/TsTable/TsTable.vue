@@ -25,10 +25,11 @@
                   <div>{{ hitem.title }}</div>
                 </template>
                 <template v-else>
-                  <div @click="switchStatus(hitem)">
+                  <div v-if="getSort(hitem)" @click="switchStatus(hitem)">
                     {{ hitem.title }}
-                    <span v-if="Object.prototype.hasOwnProperty.call(hitem, 'sort')" :class="setSortclass(hitem)"></span>
+                    <span :class="setSortclass(hitem,sortConfig)"></span>
                   </div>
+                  <div v-else>{{ hitem.title }}</div>
                   <div v-if="canResize" class="btn-resize"></div>
                 </template>
               </th>
@@ -262,6 +263,39 @@ export default {
       //是否分页器
       type: Boolean,
       default: true   
+    },
+    sortList: {
+      //支持排序的表头,默认无，如有需传递一个[{a:'ASC'},{b:'DESC'},{c:''}]标志哪些表头支持排序
+      type: [Boolean, Array],
+      default: false        
+    },
+    sortMapping: {
+      //排序对应的映射，支持值修改但是数据必须是
+      //{
+      //   up: 'ASC',
+      //   down: 'DESC',
+      //   none: ''
+      // }
+      type: Object,
+      default: function() {
+        return {
+          down: 'ASC',
+          up: 'DESC',
+          none: ''          
+        };
+      } 
+    },
+    sortMulti: {
+      //是否支持表头多个字段排序
+      type: Boolean,
+      default: true     
+    },
+    sortOrder: {
+      //已有的排序顺序
+      type: [Array, Object],
+      default: function() {
+        return {};
+      } 
     }
     
   },
@@ -286,7 +320,7 @@ export default {
         down: 'DESC',
         none: ''
       }, //排序对应的字段
-      sortList: ['up', 'down', 'none'] //排序数组
+      sorttypeList: ['up', 'down', 'none'] //排序数组
     };
   },
   beforeCreate() {},
@@ -465,31 +499,62 @@ export default {
       this.topleft = styles;
     },
     switchStatus(item) {
-      if (Object.prototype.hasOwnProperty.call(item, 'sort')) {
-        let newval = {};
-        let newArr = this.setStatusclass(item.sort);
-        newval[item.key] = newArr.value;
-        Object.assign(this.sortConfig, newval);
-        this.$nextTick(() => {
-          this.$emit('updateSort', this.sortConfig);
-          this.$set(item, 'sort', newArr.value);
-        });
-      }
+      this.setStatusclass(item.key);
+      this.$nextTick(() => {
+        this.$emit('updateSort', this.sortConfig);
+      });
     },
-    setStatusclass(val) {
-      let classkey = '';
-      for (let i in this.sortSetting) {
-        if (val === this.sortSetting[i]) {
-          classkey = i;
+    setStatusclass(keyname) {
+      //更新排序状态
+      let _this = this;
+      if (this.sortConfig && Object.keys(this.sortConfig).length > 0) {
+        //获取当前key对应的值
+        let keyval = '';
+        let isExsit = false;
+        Object.entries(this.sortConfig).forEach(([key, val]) => {
+          if (key == keyname) {
+            keyval = val;
+            isExsit = true;
+          }
+        });
+        //值对应的映射
+        let classkey = '';
+        for (let i in this.sortSetting) {
+          if (keyval === this.sortSetting[i]) {
+            classkey = i;
+          }
         }
+        let newval = this.sorttypeList[this.sorttypeList.indexOf(classkey) == this.sorttypeList.length - 1 ? 0 : parseInt(this.sorttypeList.indexOf(classkey)) + 1];
+        let newobj = {};
+        newobj[keyname] = this.sortSetting[newval];
+        if (!this.sortMulti) {
+          this.sortConfig = newobj;
+        } else {
+          if (isExsit && keyval) {
+            Object.assign(this.sortConfig, newobj);
+          } else if (isExsit && !keyval) {
+            delete this.sortConfig[keyname];
+          } else {
+            Object.assign(this.sortConfig, newobj);
+          }
+        }
+      } else {
+        let obj = {};
+        //值对应的映射
+        let classkey = '';
+        for (let i in this.sortSetting) {
+          if (!this.sortSetting[i]) {
+            classkey = i;
+          }
+        }
+        let newval = this.sorttypeList[this.sorttypeList.indexOf(classkey) == this.sorttypeList.length - 1 ? 0 : parseInt(this.sorttypeList.indexOf(classkey)) + 1];
+        obj[keyname] = this.sortSetting[newval];
+        Object.assign(this.sortConfig, obj);
       }
-      let sortIn = this.sortList.indexOf(classkey) == this.sortList.length - 1 ? 0 : parseInt(this.sortList.indexOf(classkey)) + 1;
-      let name = this.sortList[sortIn];
-      let value = this.sortSetting[name];
-      return { classkey: name, value: value };
+      this.$forceUpdate();
     },
     dragUpdate(event) {
-      this.$emit('on-drag-update', event);
+      this.$emit('updateRowSort', event);
     },
     clearSelected() {
       this.selectList = [];
@@ -615,25 +680,52 @@ export default {
       };
     },
     setSortclass() {
-      return function(item) {
+      return function(item, config) {
         let classtxt = 'tssort';
-        let value = item.sort || null;
-        if (value) {
+        let keyval = '';
+        Object.entries(config).forEach(([key, val]) => {
+          if (key == item.key) {
+            keyval = val;
+          }
+        });
+        if (keyval) {
           for (let i in this.sortSetting) {
-            if (value === this.sortSetting[i]) {
+            if (keyval === this.sortSetting[i]) {
               classtxt += ' ' + i;
             }
           }
         } else {
           classtxt += ' none';
         }
-
         return classtxt;
       };
     },
     setRowClass() {
       if (!this.classKey) return () => 'tstable-tr'; 
       return row => 'tstable-tr ' + row[this.classKey];
+    },
+    getSort() {
+      //是否要显示排序按钮
+      return function(item) {
+        let isSort = false;
+        if (this.sortList && this.sortList.length > 0) {
+          //排序的可能['a','b'],或者[{a:'ASC'},{b:'DESC'}]
+          let isObj = (typeof this.sortList[0] == 'object');
+          if (isObj) {
+            let sortkeyList = this.sortList.map((s) => {
+              return Object.keys(s)[0];
+            });
+            if (sortkeyList.indexOf(item.key) > -1) {
+              isSort = true;
+            }
+          } else {
+            if (this.sortList.indexOf(item.key) > -1) {
+              isSort = true;
+            }
+          }
+        }
+        return isSort;
+      };
     }
   },
   watch: {
@@ -744,7 +836,48 @@ export default {
       },
       deep: true,
       immediate: true   
+    },
+    sortMapping: {
+      handler: function(val) {
+        if (val && val != this.sortSetting) {
+          this.sortSetting = val;
+        }
+      },
+      immediate: true,
+      deep: true      
+    },
+    sortList: {
+      handler: function(val, oldval) {
+        if (val && val.length > 0) {
+          //排序的可[{a:'ASC'},{b:'DESC'}]
+          if (Object.keys(this.sortConfig).length == 0) {
+            let isObj = (typeof val[0] == 'object');
+            if (isObj) {
+              val.forEach((s) => {
+                if (Object.values(s)) {
+                  Object.assign(this.sortConfig, s);
+                }
+              });
+            } 
+          }
+        }
+      },
+      immediate: true,
+      deep: true         
+    },
+    sortOrder: {
+      handler: function(val) {
+        if (val && val.length > 0) {
+          val.forEach((el) => {
+            Object.assign(this.sortConfig, el);
+          });
+        } else {
+          this.sortConfig = {};
+        }
+      },
+      deep: true       
     }
+
   }
 };
 </script>
