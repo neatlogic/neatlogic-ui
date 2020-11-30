@@ -90,10 +90,11 @@
                   <div :class="getAllsection"></div>
                 </template>
                 <template v-else>
-                  <div>
+                  <div v-if="getSort(hitem)">
                     {{ hitem.title }}
-                    <span v-if="Object.prototype.hasOwnProperty.call(hitem, 'sort')" :class="setSortclass(hitem)"></span>
+                    <span :class="setSortclass(hitem,sortConfig)"></span>
                   </div>
+                  <div v-else>{{ hitem.title }}</div>
                   <div v-if="canResize" class="btn-resize"></div>
                 </template>
               </th>
@@ -848,6 +849,7 @@ export default {
     },
     sortList: {
       handler: function(val, oldval) {
+        //这里负责哪些选项可以选择，还有默认值
         if (val && val.length > 0) {
           //排序的可[{a:'ASC'},{b:'DESC'}]
           if (Object.keys(this.sortConfig).length == 0) {
@@ -867,6 +869,7 @@ export default {
     },
     sortOrder: {
       handler: function(val) {
+        //这里负责哪些选项是什么值
         if (val && val.length > 0) {
           val.forEach((el) => {
             Object.assign(this.sortConfig, el);
@@ -875,7 +878,7 @@ export default {
           this.sortConfig = {};
         }
       },
-      deep: true       
+      deep: true
     }
 
   }

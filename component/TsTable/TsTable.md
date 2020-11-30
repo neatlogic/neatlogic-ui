@@ -34,6 +34,9 @@ value|Array|无|否|默认选中的list|只有每一行选中的标志位的数�
 noDataText|String|'暂无数据'|否|自定义无数据的文案|- 
 showTotal|Boolean|true|否|是否显示总条数|不管是否展示，接口必须返回（使用场景：部分接口返回总条数有误差但是分页数量没问题） 
 showSizer|Boolean|true|否|是否显示分页器|- 
+sortMapping|Object|true|否|排序对应的字段映射|- 
+sortOrder|Object、Array|true|否|已有的排序顺序|- 
+
 
 --|--|--|--|--|--  
 size|String|normal|否|表格间隙大小|支持 'normal'、'small'
@@ -47,7 +50,7 @@ disabledHover|Boolean|false|否|是否禁用tr移上去背景颜色效果|-
 canEdit|Boolean|false|否|是否可编辑表头|包括显示隐藏行、拖拽排序
 canDrag|Boolean|false|否|是否可拖拽列排序|-
 ~~canResize~~|Boolean|false|否|是否可调整行宽|该功能还没开发完成
-
+sortMulti|Boolean|true|否|是否支持表头多个字段排序|-
 
 
 >>  方法（方法前面加@）
