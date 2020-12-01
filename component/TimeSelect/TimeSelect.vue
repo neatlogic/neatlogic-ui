@@ -25,13 +25,13 @@
         </DropdownMenu>
       </Dropdown>
       <transition name="fade">
-        <span v-show="validMesage!=''" class="form-error-tip">{{ validMesage }}</span>
+        <span v-show="validMesage != ''" class="form-error-tip">{{ validMesage }}</span>
       </transition>
     </div>
   </div>
-
 </template>
 <script>
+import axios from '../../api/http.js';
 import TsFormDatePicker from '../TsForm/TsFormDatePicker';
 import TransferDom from '../../directives/transfer-dom';
 import { directive as ClickOutside } from '../../directives/v-click-outside-x';
@@ -57,11 +57,13 @@ export default {
       type: Boolean,
       default: true
     },
-    type: {//自定义时间的类型
+    type: {
+      //自定义时间的类型
       type: String,
       default: 'daterange'
     },
-    format: {//自定义时间的时间格式
+    format: {
+      //自定义时间的时间格式
       type: String,
       default: 'yyyy-MM-dd'
     },
@@ -69,7 +71,8 @@ export default {
       type: String,
       default: '请选择时间段'
     },
-    valueType: {//获取时间 字符串  时间戳  等
+    valueType: {
+      //获取时间 字符串  时间戳  等
       type: String,
       default: 'timestamp' // timestamp  format
     },
@@ -90,7 +93,7 @@ export default {
     },
     separator: {
       type: String,
-      default: '-'      
+      default: '-'
     },
     disabled: {
       type: Boolean,
@@ -204,9 +207,9 @@ export default {
         this.showText = '';
         this.currentValue = null;
       } else if (this.type.indexOf('range') >= 0) {
-        this.currentValue = { startTime: this.timeValue[0] || null, endTime: this.timeValue[1] || null};
+        this.currentValue = { startTime: this.timeValue[0] || null, endTime: this.timeValue[1] || null };
       } else {
-        this.currentValue = { startTime: this.timeValue || null, endTime: this.timeValue || null};
+        this.currentValue = { startTime: this.timeValue || null, endTime: this.timeValue || null };
       }
       this.valid();
       this.$emit('on-change', this.currentValue);
@@ -239,16 +242,18 @@ export default {
         }
         this.timeValue = timeValue;
       }
-    
+
       if (setText) {
         let showText = '';
-        if (this.timeValue instanceof Array) { //数组的回显
+        if (this.timeValue instanceof Array) {
+          //数组的回显
           this.timeValue.forEach(item => {
-            let text = (this.valueType == 'timestamp' && item) ? this.$utils.getDateByFormat(item, this.format) : item;
+            let text = this.valueType == 'timestamp' && item ? this.$utils.getDateByFormat(item, this.format) : item;
             showText = showText ? (showText + ' ' + this.separator + ' ' + text) : (showText + text);
           });
-        } else { //字符串的回显
-          (this.valueType == 'timestamp' && this.timeValue) ? showText = this.$utils.getDateByFormat(this.timeValue, this.format) : showText = this.timeValue;
+        } else {
+          //字符串的回显
+          this.valueType == 'timestamp' && this.timeValue ? (showText = this.$utils.getDateByFormat(this.timeValue, this.format)) : (showText = this.timeValue);
         }
         this.showText = showText;
       }
@@ -271,7 +276,7 @@ export default {
         if ((!$contain && $contain === event.target) || $contain.contains(event.target)) {
           return;
         }
-      } 
+      }
     },
     updatePosition() {
       //更新dropdown，下拉框的位置
@@ -303,7 +308,7 @@ export default {
     },
     getliClass() {
       return function(item) {
-        return ['ivu-dropdown-item', {selected: item.selected }];
+        return ['ivu-dropdown-item', { selected: item.selected }];
       };
     },
     borderClass: function() {
@@ -350,7 +355,7 @@ export default {
 }
 .timeselect-contain {
   position: relative;
-  display: inline-block;
+  display: block;
   vertical-align: middle;
   width: 100%;
   .search-contain {
@@ -383,45 +388,45 @@ export default {
     }
   }
 }
- ul.list-contain {
-    min-width: 100%;
-    border-radius: 2px;
-    z-index: 2;
-    line-height: 1.6;
-    &.bottom-start {
-      left: 0px;
-    }
-    &.bottom-end {
-      right: 0px;
-      left: auto;
-    }
-    &.top-start {
-      bottom: 32px;
-    }
-    &.top-end {
-      bottom: 32px;
-      right: 0px;
-      left: auto;
-    }
-    > li {
-      cursor: pointer;
-      padding: 7px 16px;
-      min-width: 225px;
-    }
-    .datetimerange {
-      border-top: 1px solid;
-      padding-top: 8px;
-      padding-bottom: 8px;
-    }
+ul.list-contain {
+  min-width: 100%;
+  border-radius: 2px;
+  z-index: 2;
+  line-height: 1.6;
+  &.bottom-start {
+    left: 0px;
   }
+  &.bottom-end {
+    right: 0px;
+    left: auto;
+  }
+  &.top-start {
+    bottom: 32px;
+  }
+  &.top-end {
+    bottom: 32px;
+    right: 0px;
+    left: auto;
+  }
+  > li {
+    cursor: pointer;
+    padding: 7px 16px;
+    min-width: 225px;
+  }
+  .datetimerange {
+    border-top: 1px solid;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+}
 </style>
 <style lang="less">
-.ivu-select-dropdown{
-    .ivu-dropdown-item.line{
-      border-top: 1px solid;
-      padding: 0px;
-      margin: 5px 0px;
-      cursor: auto;
-    }
+.ivu-select-dropdown {
+  .ivu-dropdown-item.line {
+    border-top: 1px solid;
+    padding: 0px;
+    margin: 5px 0px;
+    cursor: auto;
+  }
 }
 </style>
