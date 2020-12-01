@@ -505,9 +505,7 @@ export default {
     },
     switchStatus(item) {
       this.setStatusclass(item.key);
-      this.$nextTick(() => {
-        this.$emit('updateSort', this.sortConfig);
-      });
+      this.$emit('updateSort', this.sortConfig);
     },
     setStatusclass(keyname) {
       //更新排序状态
@@ -553,7 +551,7 @@ export default {
         let newval = this.sorttypeList[this.sorttypeList.indexOf(classkey) == this.sorttypeList.length - 1 ? 0 : parseInt(this.sorttypeList.indexOf(classkey)) + 1];
         obj[keyname] = this.sortSetting[newval];
         Object.assign(this.sortConfig, obj);
-      }
+      } 
       this.$forceUpdate();
     },
     dragUpdate(event) {
