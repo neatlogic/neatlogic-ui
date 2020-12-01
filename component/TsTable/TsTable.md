@@ -11,6 +11,9 @@
       </ul>
     </div>
   </template>
+  <template slot="th-header" slot-scope="{ row }">
+    此处可自定义表头键名为header的th显示内容
+  </template>
 </TsTable>
 ```
 

@@ -25,11 +25,13 @@
                   <div>{{ hitem.title }}</div>
                 </template>
                 <template v-else>
-                  <div v-if="getSort(hitem)" @click="switchStatus(hitem)">
-                    {{ hitem.title }}
-                    <span :class="setSortclass(hitem,sortConfig)"></span>
-                  </div>
-                  <div v-else>{{ hitem.title }}</div>
+                  <slot :name="'th-'+hitem.key" :row="hitem">
+                    <div v-if="getSort(hitem)" @click="switchStatus(hitem)">
+                      {{ hitem.title }}
+                      <span :class="setSortclass(hitem,sortConfig)"></span>
+                    </div>
+                    <div v-else>{{ hitem.title }}</div>
+                  </slot>
                   <div v-if="canResize" class="btn-resize"></div>
                 </template>
               </th>
@@ -90,11 +92,13 @@
                   <div :class="getAllsection"></div>
                 </template>
                 <template v-else>
-                  <div v-if="getSort(hitem)">
-                    {{ hitem.title }}
-                    <span :class="setSortclass(hitem,sortConfig)"></span>
-                  </div>
-                  <div v-else>{{ hitem.title }}</div>
+                  <slot :name="'th-'+hitem.key" :row="hitem">
+                    <div v-if="getSort(hitem)">
+                      {{ hitem.title }}
+                      <span :class="setSortclass(hitem,sortConfig)"></span>
+                    </div>
+                    <div v-else>{{ hitem.title }}</div>
+                  </slot>
                   <div v-if="canResize" class="btn-resize"></div>
                 </template>
               </th>
@@ -533,8 +537,6 @@ export default {
         } else {
           if (isExsit && keyval) {
             Object.assign(this.sortConfig, newobj);
-          } else if (isExsit && !keyval) {
-            delete this.sortConfig[keyname];
           } else {
             Object.assign(this.sortConfig, newobj);
           }
@@ -863,22 +865,12 @@ export default {
             } 
           }
         }
+        if (this.sortOrder && Object.keys(this.sortOrder).length > 0) {
+          Object.assign(this.sortConfig, this.sortOrder);
+        }
       },
       immediate: true,
       deep: true         
-    },
-    sortOrder: {
-      handler: function(val) {
-        //这里负责哪些选项是什么值
-        if (val && val.length > 0) {
-          val.forEach((el) => {
-            Object.assign(this.sortConfig, el);
-          });
-        } else {
-          this.sortConfig = {};
-        }
-      },
-      deep: true
     }
 
   }
