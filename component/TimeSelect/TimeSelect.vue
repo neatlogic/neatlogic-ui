@@ -110,7 +110,7 @@ export default {
   },
   data() {
     let _this = this;
-    let dataList = _this.dataList || [
+    let dataList = JSON.parse(JSON.stringify(_this.dataList || [])) || [
       { value: '1', text: '最近一天', timeUnit: 'day' },
       { value: '1', text: '最近一周', timeUnit: 'week' },
       { value: '15', text: '最近半个月', timeUnit: 'day' },
