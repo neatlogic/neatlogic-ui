@@ -50,7 +50,19 @@ export default {
       type: Boolean,
       default: true
     },
-    dataList: Array, //自定义下拉数据
+    dataList: {
+      type: Array,
+      default: () => {
+        return [
+          { value: '1', text: '最近一天', timeUnit: 'day' },
+          { value: '1', text: '最近一周', timeUnit: 'week' },
+          { value: '15', text: '最近半个月', timeUnit: 'day' },
+          { value: '1', text: '最近一个月', timeUnit: 'month' },
+          { value: '6', text: '最近半年', timeUnit: 'month' },
+          { value: '1', text: '最近一年', timeUnit: 'year' }
+        ];
+      }
+    }, //自定义下拉数据
     value: Object,
     border: String, //控件的样式 border bottom none
     clearable: {
@@ -110,14 +122,7 @@ export default {
   },
   data() {
     let _this = this;
-    let dataList = JSON.parse(JSON.stringify(_this.dataList || [])) || [
-      { value: '1', text: '最近一天', timeUnit: 'day' },
-      { value: '1', text: '最近一周', timeUnit: 'week' },
-      { value: '15', text: '最近半个月', timeUnit: 'day' },
-      { value: '1', text: '最近一个月', timeUnit: 'month' },
-      { value: '6', text: '最近半年', timeUnit: 'month' },
-      { value: '1', text: '最近一年', timeUnit: 'year' }
-    ];
+    let dataList = JSON.parse(JSON.stringify(_this.dataList));
     var datetimerange = { value: '_datetimerange', text: '自定义' };
     // if (this.isMore) {
     //   dataList.push(datetimerange);
