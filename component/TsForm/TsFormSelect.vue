@@ -277,7 +277,7 @@ export default {
         _this.nodeList = [];
         let ajaxArr = { method: _this.ajaxType, url: _this.url};
         let needdataLi = ['post', 'put'];
-        needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+        ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
         axios(ajaxArr).then(res => {
           if (res && res.Status == 'OK') {
             _this.nodeList = _this.setNodeList(res.Return);
@@ -323,7 +323,7 @@ export default {
       }
       if (ary.length > 0) {
         _this.nodeList.forEach(function(item) {
-          ary.indexOf(item[_this.valueName]) >= 0 && _this.selectedList.push(item);
+          ArrIndexOf(ary, item[_this.valueName]) >= 0 && _this.selectedList.push(item);
         });
       } else if (_this.defaultValueIsFirst && ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
         _this.selectedList.push(_this.nodeList[0]);
@@ -365,7 +365,7 @@ export default {
         return;
       }
 
-      if ((_this.currentValue instanceof Array && _this.currentValue.indexOf(query) > 0) || _this.currentValue == query) {
+      if ((_this.currentValue instanceof Array && ArrIndexOf(_this.currentValue, query) > 0) || _this.currentValue == query) {
         return;
       }
       this.dynamicSearch(query);
@@ -409,7 +409,7 @@ export default {
     },
     deleteSeleted(ind, value, list) {
       list.splice(ind, 1);
-      this.currentValue.splice(this.currentValue.indexOf(value), 1);
+      this.currentValue.splice(ArrIndexOf(this.currentValue, value), 1);
       this.$refs.input && this.$refs.input.focus();
       this.onChangeValue();
     },
@@ -457,7 +457,7 @@ export default {
       typeof _this.params == 'object' && Object.assign(params, _this.params);
       let ajaxArr = { method: _this.ajaxType, url: _this.dynamicUrl};
       let needdataLi = ['post', 'put'];
-      needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+      ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
       axios(ajaxArr).then(res => {  
         if (res && res.Status == 'OK') {
           //初始化数据时需要text值
@@ -497,7 +497,7 @@ export default {
       typeof _this.params == 'object' && Object.assign(params, _this.params);
       let ajaxArr = {method: _this.ajaxType, url: _this.dynamicUrl, cancelToken: _this.cancelAxios.token };
       let needdataLi = ['post', 'put'];
-      needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+      ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
       axios(ajaxArr).then(res => {
         _this.loading = false;
         if (res && res.Status == 'OK') {
@@ -602,8 +602,8 @@ export default {
       if (selectli && selectli.length > 0) {
         if (this.multiple) {
           //多选
-          if (this.currentValue.indexOf(value) > -1) {
-            this.currentValue.splice(this.currentValue.indexOf(value), 1);
+          if (ArrIndexOf(this.currentValue, value) > -1) {
+            this.currentValue.splice(ArrIndexOf(this.currentValue, value), 1);
             selectli.forEach((se, ind) => {
               if (se[this.valueName] == value) {
                 selectli.splice(ind, 1);
@@ -729,7 +729,7 @@ export default {
           let keyval = _this.addItem ? _this.addItem[_this.textName] || this.searchKeyWord : this.searchKeyWord;
           if (keyval && _this.nodeList && _this.nodeList.length > 0) {
             _this.nodeList.find(no => {
-              if (no[_this.valueName] === keyval || no[_this.textName] === keyval) {
+              if (this.$utils.equalStr(no[_this.valueName], keyval) || this.$utils.equalStr(no[_this.textName], keyval)) {
                 isExist = true;
               }
               return isExist;
@@ -751,7 +751,7 @@ export default {
           if (this.multiple && !this.searchKeyWord && this.selectedList.length > 0) {
             let lastLi = this.selectedList.length - 1;
             let lastval = this.selectedList[lastLi][this.valueName];
-            this.currentValue.splice(this.currentValue.indexOf(lastval), 1);
+            this.currentValue.splice(ArrIndexOf(this.currentValue, lastval), 1);
             this.selectedList.splice(lastLi, 1);
             this.onChangeValue();
           }
@@ -851,9 +851,9 @@ export default {
       return function(node, index) {
         let _this = this;
         let classtxt = 'select-li ivu-dropdown-item overflow';
-        if (this.multiple && this.currentValue && this.currentValue.indexOf(node[_this.valueName]) > -1) {
+        if (this.multiple && this.currentValue && ArrIndexOf(this.currentValue, node[_this.valueName]) > -1) {
           classtxt = classtxt + ' selected';
-        } else if (!this.multiple && this.currentValue === node[_this.valueName]) {
+        } else if (!this.multiple && this.$utils.equalStr(this.currentValue, node[_this.valueName])) {
           classtxt = classtxt + ' selected';
         }
         if (index + 1 == _this.focusIndex || node['_focusSelect']) {
@@ -972,7 +972,7 @@ export default {
       } else if (!val && !this.multiple) {
         //当收起下拉框时，是单选
         if (this.selectedList[0] && !this.allowCreate && typeof this.$listeners['enter-search'] != 'function') {
-          if (this.searchKeyWord === this.selectedList[0][this.textName] || this.searchKeyWord === this.selectedList[0][this.valueName]) {
+          if (this.$utils.equalStr(this.searchKeyWord, this.selectedList[0][this.textName]) || this.$utils.equalStr(this.searchKeyWord, this.selectedList[0][this.valueName])) {
             this.searchKeyWord = this.selectedList[0] ? this.selectedList[0][this.textName] : '';
           }
         }
@@ -1007,6 +1007,24 @@ function setWidth($contain, $target, transfer) {
     // if (transfer) {
     //   $target.parentNode.style.width = 'auto';
     // }
+  }
+}
+function ArrIndexOf(arr, str) {
+  //重写 数组的indexof功能
+  if (arr instanceof Array) {
+    let index = -1;
+    let has = arr.find((item, i) => {
+      if (item == str) {
+        index = i;
+        return true;
+      }
+      return false;
+    });
+    return index;
+  } else if (typeof arr == 'string') {
+    return arr.indexOf(str);
+  } else {
+    return -1;
   }
 }
 </script>
