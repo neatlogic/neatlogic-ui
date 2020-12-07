@@ -54,6 +54,7 @@
 
 <script>
 import axios from '../../api/http.js';
+import utils from '../../static/js/util';
 import formMixins from '../../mixins/formMixins.js';
 import formScrollMixins from '../../mixins/formScrollMixins.js';
 import { directive as ClickOutside } from '../../directives/v-click-outside-x';
@@ -729,7 +730,7 @@ export default {
           let keyval = _this.addItem ? _this.addItem[_this.textName] || this.searchKeyWord : this.searchKeyWord;
           if (keyval && _this.nodeList && _this.nodeList.length > 0) {
             _this.nodeList.find(no => {
-              if (this.$utils.equalStr(no[_this.valueName], keyval) || this.$utils.equalStr(no[_this.textName], keyval)) {
+              if (utils.equalStr(no[_this.valueName], keyval) || utils.equalStr(no[_this.textName], keyval)) {
                 isExist = true;
               }
               return isExist;
@@ -853,7 +854,7 @@ export default {
         let classtxt = 'select-li ivu-dropdown-item overflow';
         if (this.multiple && this.currentValue && ArrIndexOf(this.currentValue, node[_this.valueName]) > -1) {
           classtxt = classtxt + ' selected';
-        } else if (!this.multiple && this.$utils.equalStr(this.currentValue, node[_this.valueName])) {
+        } else if (!this.multiple && utils.equalStr(this.currentValue, node[_this.valueName])) {
           classtxt = classtxt + ' selected';
         }
         if (index + 1 == _this.focusIndex || node['_focusSelect']) {
@@ -972,7 +973,7 @@ export default {
       } else if (!val && !this.multiple) {
         //当收起下拉框时，是单选
         if (this.selectedList[0] && !this.allowCreate && typeof this.$listeners['enter-search'] != 'function') {
-          if (this.$utils.equalStr(this.searchKeyWord, this.selectedList[0][this.textName]) || this.$utils.equalStr(this.searchKeyWord, this.selectedList[0][this.valueName])) {
+          if (utils.equalStr(this.searchKeyWord, this.selectedList[0][this.textName]) || utils.equalStr(this.searchKeyWord, this.selectedList[0][this.valueName])) {
             this.searchKeyWord = this.selectedList[0] ? this.selectedList[0][this.textName] : '';
           }
         }

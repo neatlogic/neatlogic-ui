@@ -3,7 +3,7 @@
 
 #### 模版使用
 ```javascript
-<TsFormSelect v-model="value" v-bind="config" @on-change="changeFn">
+<TsFormSelect v-model="value" v-bind="config" @on-change="changeFn" :selectItemList.sync="selectItemList">
   //下拉列表在顶部添加额外一行
   <template v-slot:first-ul>
         <li class="ts-plus text-href first-slot" @click="addList()">数据源</li>
