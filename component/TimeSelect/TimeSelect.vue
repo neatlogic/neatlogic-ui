@@ -196,8 +196,8 @@ export default {
         this.showText = item.text;
         this.currentValue = { timeRange: item.value, timeUnit: item.timeUnit };
         this.valid();
-        this.$emit('on-change', this.currentValue);
         this.$emit('change', this.currentValue);
+        this.$emit('on-change', this.currentValue);
         this.isVisible = false;
       }
     },
@@ -217,8 +217,8 @@ export default {
         this.currentValue = { startTime: this.timeValue || null, endTime: this.timeValue || null };
       }
       this.valid();
-      this.$emit('on-change', this.currentValue);
       this.$emit('change', this.currentValue);
+      this.$emit('on-change', this.currentValue);
     },
     clearValue() {
       //清除值
@@ -231,8 +231,8 @@ export default {
         time.selected && (time.selected = false);
       });
       this.datetimerange.selected = false;
-      this.$emit('on-change', this.currentValue);
       this.$emit('change', this.currentValue);
+      this.$emit('on-change', this.currentValue);
     },
     hideOption() {
       this.isVisible = false;
@@ -339,7 +339,7 @@ export default {
   },
   watch: {
     value(newValue, oldValue) {
-      if (newValue && JSON.stringify(newValue) != JSON.stringify(this.currentValue)) {
+      if (JSON.stringify(newValue) != JSON.stringify(this.currentValue)) {
         this.currentValue = this.value;
         this.timeList.forEach(item => {
           this.$set(item, 'selected', false);

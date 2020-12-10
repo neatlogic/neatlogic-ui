@@ -98,7 +98,7 @@ export default {
           }
           for (let cindex = 0; cindex < value.length; cindex++) {
             let v = value[cindex];
-            if (!valid.validator('', v)) {
+            if (!valid.validator('', v, _this)) {
               _this.$set(_this, 'validMesage', valid.message);
               isValid = false;
               break;
