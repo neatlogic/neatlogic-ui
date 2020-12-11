@@ -23,7 +23,7 @@
               <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder" style="line-height: 30px;"></span>
             </template>
             <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder single-span">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
-            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreateOption(searchKeyWord)" />
+            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreateOption(searchKeyWord)" @keydown="onKeyDowm" @keyup="onKeyUp" />
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
@@ -592,6 +592,12 @@ export default {
     onSelectBlur: function() {
       typeof this.onBlur == 'function' && this.onBlur();
       this.$emit('on-blur');
+    },
+    onKeyDowm(event) {
+      this.$emit('on-keydown', event, this.searchKeyWord);
+    },
+    onKeyUp() {
+      this.$emit('on-keyup', event, this.searchKeyWord);
     },
     toggleSelect(item) {
       //选中调用的方法
