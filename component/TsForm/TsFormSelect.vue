@@ -318,8 +318,9 @@ export default {
       if (this.multiple && this.currentValue && this.currentValue.length > 0) {
         //多选
         ary = this.currentValue;
-      } else if (!this.multiple && this.currentValue) {
+      } else if (!this.multiple && this.currentValue != undefined) {
         //单选
+        //20201214_zqp_修复当值为false时选中没有
         ary = [this.currentValue];
       }
       if (ary.length > 0) {
