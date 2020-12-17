@@ -26,6 +26,69 @@ Modal.newInstance = properties => {
       closable: false,
       closing: false // 关闭有动画，期间使用此属性避免重复点击
     }),
+    methods: {
+      cancel() {
+        if (this.closing) { return; }
+        
+        this.$children[0].visible = false;
+        this.buttonLoading = false;
+        this.onCancel();
+        this.remove();
+      },
+      ok() {
+        if (this.closing) { return; }
+        
+        if (this.loading) {
+          this.buttonLoading = true;
+        } else {
+          this.$children[0].visible = false;
+          this.remove();
+        }
+        this.onOk();
+      },
+      remove() {
+        this.closing = true;
+        setTimeout(() => {
+          this.closing = false;
+          this.destroy();
+        }, 300);
+      },
+      destroy() {
+        this.$destroy();
+        if (this.$el) { document.body.removeChild(this.$el); }
+        
+        this.onRemove();
+      },
+      onOk() {},
+      onCancel() {},
+      onRemove() {}
+    },
+    computed: {
+      iconTypeCls() {
+        return [`${prefixCls}-head-icon`, `${prefixCls}-head-icon-${
+          this.iconType
+        }`];
+      },
+      iconNameCls() {
+        return ['ivu-icon', `ivu-icon-${
+          this.iconName
+        }`];
+      },
+      localeOkText() {
+        if (this.okText) {
+          return this.okText;
+        } else {
+          return this.t('i.modal.okText');
+        }
+      },
+      localeCancelText() {
+        if (this.cancelText) {
+          return this.cancelText;
+        } else {
+          return this.t('i.modal.cancelText');
+        }
+      }
+    },
     render(h) {
       let footerVNodes = [];
       if (this.showCancel) {
@@ -62,10 +125,10 @@ Modal.newInstance = properties => {
             class: `${prefixCls}-body`
           }
         }, [h('div', {
-            domProps: {
-              innerHTML: this.body
-            }
-          })]);
+          domProps: {
+            innerHTML: this.body
+          }
+        })]);
       }
 
       // when render with no title, hide head
@@ -106,82 +169,16 @@ Modal.newInstance = properties => {
           'on-cancel': this.cancel
         }
       }, [h('div', {
+        attrs: {
+          class: prefixCls
+        }
+      }, [
+        head_render, body_render, h('div', {
           attrs: {
-            class: prefixCls
+            class: `${prefixCls}-footer`
           }
-        }, [
-          head_render, body_render, h('div', {
-            attrs: {
-              class: `${prefixCls}-footer`
-            }
-          }, footerVNodes)
-        ])]);
-    },
-    computed: {
-      iconTypeCls() {
-        return [`${prefixCls}-head-icon`, `${prefixCls}-head-icon-${
-            this.iconType
-          }`];
-      },
-      iconNameCls() {
-        return ['ivu-icon', `ivu-icon-${
-            this.iconName
-          }`];
-      },
-      localeOkText() {
-        if (this.okText) {
-          return this.okText;
-        } else {
-          return this.t('i.modal.okText');
-        }
-      },
-      localeCancelText() {
-        if (this.cancelText) {
-          return this.cancelText;
-        } else {
-          return this.t('i.modal.cancelText');
-        }
-      }
-    },
-    methods: {
-      cancel() {
-        if (this.closing) 
-          return;
-        
-        this.$children[0].visible = false;
-        this.buttonLoading = false;
-        this.onCancel();
-        this.remove();
-      },
-      ok() {
-        if (this.closing) 
-          return;
-        
-        if (this.loading) {
-          this.buttonLoading = true;
-        } else {
-          this.$children[0].visible = false;
-          this.remove();
-        }
-        this.onOk();
-      },
-      remove() {
-        this.closing = true;
-        setTimeout(() => {
-          this.closing = false;
-          this.destroy();
-        }, 300);
-      },
-      destroy() {
-        this.$destroy();
-        if (this.$el) 
-          document.body.removeChild(this.$el);
-        
-        this.onRemove();
-      },
-      onOk() {},
-      onCancel() {},
-      onRemove() {}
+        }, footerVNodes)
+      ])]);
     }
   });
 

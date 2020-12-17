@@ -140,7 +140,7 @@ const SIZING_STYLE = [
   'padding-left',
   'padding-right',
   'border-width',
-  'box-sizing',
+  'box-sizing'
 ];
 
 let computedStyleCache = {};
@@ -180,7 +180,7 @@ function calculateNodeStyling(node, useCache = false) {
 }
 
 export default function calcTextareaHeight(uiTextNode, minRows = null, maxRows = null, useCache = false) {
-  if (! hiddenTextarea) {
+  if (!hiddenTextarea) {
     hiddenTextarea = document.createElement('textarea');
     document.body.appendChild(hiddenTextarea);
   }
@@ -234,7 +234,7 @@ export default function calcTextareaHeight(uiTextNode, minRows = null, maxRows =
     }
   }
   // Remove scroll bar flash when autosize without maxRows
-  if (! maxRows) {
+  if (!maxRows) {
     overflowY = 'hidden';
   }
 

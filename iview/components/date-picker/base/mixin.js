@@ -40,8 +40,7 @@ export default {
     handleClick(cell, e) {
       e.stopPropagation();
 
-      if (cell.disabled || cell.type === 'weekLabel') 
-        return;
+      if (cell.disabled || cell.type === 'weekLabel') { return; }
       
       const newDate = new Date(clearHours(cell.date));
 
@@ -49,11 +48,9 @@ export default {
       this.$emit('on-pick-click');
     },
     handleMouseMove(cell) {
-      if (!this.rangeState.selecting) 
-        return;
+      if (!this.rangeState.selecting) { return; }
       
-      if (cell.disabled) 
-        return;
+      if (cell.disabled) { return; }
       
       const newDate = cell.date;
       this.$emit('on-change-range', newDate);

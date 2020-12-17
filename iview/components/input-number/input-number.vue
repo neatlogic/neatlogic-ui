@@ -1,15 +1,15 @@
 <template>
   <div :class="wrapClasses">
     <div :class="handlerClasses">
-      <a @click="up" :class="upClasses">
+      <a :class="upClasses" @click="up">
         <span :class="innerUpClasses" @click="preventDefault"></span>
       </a>
-      <a @click="down" :class="downClasses">
+      <a :class="downClasses" @click="down">
         <span :class="innerDownClasses" @click="preventDefault"></span>
       </a>
     </div>
     <div :class="inputWrapClasses">
-      <input :id="elementId" :class="inputClasses" :disabled="itemDisabled" autocomplete="off" spellcheck="false" :autofocus="autofocus" @focus="focus" @blur="blur" @keydown.stop="keyDown" @input="change" @mouseup="preventDefault" @change="change" :readonly="readonly || !editable" :name="name" :value="formatterValue" :placeholder="placeholder">
+      <input :id="elementId" :class="inputClasses" :disabled="itemDisabled" autocomplete="off" spellcheck="false" :autofocus="autofocus" :readonly="readonly || !editable" :name="name" :value="formatterValue" :placeholder="placeholder" @focus="focus" @blur="blur" @keydown.stop="keyDown" @input="change" @mouseup="preventDefault" @change="change">
     </div>
   </div>
 </template>
@@ -119,62 +119,8 @@ export default {
       currentValue: this.value
     };
   },
-  computed: {
-    wrapClasses() {
-      return [
-        `${prefixCls}`,
-        {
-          [`${prefixCls}-${this.size}`]: !!this.size,
-          [`${prefixCls}-disabled`]: this.itemDisabled,
-          [`${prefixCls}-focused`]: this.focused
-        }
-      ];
-    },
-    handlerClasses() {
-      return `${prefixCls}-handler-wrap`;
-    },
-    upClasses() {
-      return [
-        `${prefixCls}-handler`,
-        `${prefixCls}-handler-up`,
-        {
-          [`${prefixCls}-handler-up-disabled`]: this.upDisabled
-        }
-      ];
-    },
-    innerUpClasses() {
-      return `${prefixCls}-handler-up-inner ${iconPrefixCls} ${iconPrefixCls}-ios-arrow-up`;
-    },
-    downClasses() {
-      return [
-        `${prefixCls}-handler`,
-        `${prefixCls}-handler-down`,
-        {
-          [`${prefixCls}-handler-down-disabled`]: this.downDisabled
-        }
-      ];
-    },
-    innerDownClasses() {
-      return `${prefixCls}-handler-down-inner ${iconPrefixCls} ${iconPrefixCls}-ios-arrow-down`;
-    },
-    inputWrapClasses() {
-      return `${prefixCls}-input-wrap`;
-    },
-    inputClasses() {
-      return `${prefixCls}-input`;
-    },
-    precisionValue() {
-      // can not display 1.0
-      if (!this.currentValue) return this.currentValue;
-      return this.precision ? this.currentValue.toFixed(this.precision) : this.currentValue;
-    },
-    formatterValue() {
-      if (this.formatter && this.precisionValue !== null) {
-        return this.formatter(this.precisionValue);
-      } else {
-        return this.precisionValue;
-      }
-    }
+  mounted() {
+    this.changeVal(this.currentValue);
   },
   methods: {
     preventDefault(e) {
@@ -308,8 +254,62 @@ export default {
       }
     }
   },
-  mounted() {
-    this.changeVal(this.currentValue);
+  computed: {
+    wrapClasses() {
+      return [
+        `${prefixCls}`,
+        {
+          [`${prefixCls}-${this.size}`]: !!this.size,
+          [`${prefixCls}-disabled`]: this.itemDisabled,
+          [`${prefixCls}-focused`]: this.focused
+        }
+      ];
+    },
+    handlerClasses() {
+      return `${prefixCls}-handler-wrap`;
+    },
+    upClasses() {
+      return [
+        `${prefixCls}-handler`,
+        `${prefixCls}-handler-up`,
+        {
+          [`${prefixCls}-handler-up-disabled`]: this.upDisabled
+        }
+      ];
+    },
+    innerUpClasses() {
+      return `${prefixCls}-handler-up-inner ${iconPrefixCls} ${iconPrefixCls}-ios-arrow-up`;
+    },
+    downClasses() {
+      return [
+        `${prefixCls}-handler`,
+        `${prefixCls}-handler-down`,
+        {
+          [`${prefixCls}-handler-down-disabled`]: this.downDisabled
+        }
+      ];
+    },
+    innerDownClasses() {
+      return `${prefixCls}-handler-down-inner ${iconPrefixCls} ${iconPrefixCls}-ios-arrow-down`;
+    },
+    inputWrapClasses() {
+      return `${prefixCls}-input-wrap`;
+    },
+    inputClasses() {
+      return `${prefixCls}-input`;
+    },
+    precisionValue() {
+      // can not display 1.0
+      if (!this.currentValue) return this.currentValue;
+      return this.precision ? this.currentValue.toFixed(this.precision) : this.currentValue;
+    },
+    formatterValue() {
+      if (this.formatter && this.precisionValue !== null) {
+        return this.formatter(this.precisionValue);
+      } else {
+        return this.precisionValue;
+      }
+    }
   },
   watch: {
     value(val) {

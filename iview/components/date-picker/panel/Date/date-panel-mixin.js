@@ -1,7 +1,6 @@
 import {oneOf} from '../../../../utils/assist';
 import {initTimeDate} from '../../util';
 
-
 export default {
   props: {
     showTime: {

@@ -15,13 +15,11 @@ function loading(options) {
   instance.show(options);
 }
 
-Spin.show = function (props = {}) {
+Spin.show = function(props = {}) {
   return loading(props);
 };
-Spin.hide = function () {
-  if (! spinInstance) 
-    return false;
-  
+Spin.hide = function() {
+  if (!spinInstance) { return false; }
 
   const instance = getSpinInstance();
 

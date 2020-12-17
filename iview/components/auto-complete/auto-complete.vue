@@ -1,10 +1,10 @@
 <template>
-  <i-select ref="select" class="ivu-auto-complete" :label="label" :disabled="itemDisabled" :clearable="clearable" :placeholder="placeholder" :size="size" :placement="placement" :value="currentValue" :transfer-class-name="transferClassName" filterable remote auto-complete :remote-method="remoteMethod" @on-select="handleSelect" @on-clickoutside="handleClickOutside" :transfer="transfer">
+  <i-select ref="select" class="ivu-auto-complete" :label="label" :disabled="itemDisabled" :clearable="clearable" :placeholder="placeholder" :size="size" :placement="placement" :value="currentValue" :transfer-class-name="transferClassName" filterable remote auto-complete :remote-method="remoteMethod" :transfer="transfer" @on-select="handleSelect" @on-clickoutside="handleClickOutside">
     <slot name="input">
-      <i-input :element-id="elementId" ref="input" slot="input" v-model="currentValue" :name="name" :placeholder="placeholder" :disabled="itemDisabled" :size="size" :icon="inputIcon" @on-click="handleClear" @on-focus="handleFocus" @on-blur="handleBlur"></i-input>
+      <i-input ref="input" slot="input" v-model="currentValue" :element-id="elementId" :name="name" :placeholder="placeholder" :disabled="itemDisabled" :size="size" :icon="inputIcon" @on-click="handleClear" @on-focus="handleFocus" @on-blur="handleBlur"></i-input>
     </slot>
     <slot>
-      <i-option v-for="item in filteredData" :value="item" :key="item">{{ item }}</i-option>
+      <i-option v-for="item in filteredData" :key="item" :value="item">{{ item }}</i-option>
     </slot>
   </i-select>
 </template>
@@ -18,8 +18,8 @@ import mixinsForm from '../../mixins/form';
 
 export default {
   name: 'AutoComplete',
-  mixins: [Emitter, mixinsForm],
   components: { iSelect, iOption, iInput },
+  mixins: [Emitter, mixinsForm],
   props: {
     value: {
       type: [String, Number],
@@ -87,6 +87,35 @@ export default {
       disableEmitChange: false // for Form reset
     };
   },
+  methods: {
+    remoteMethod(query) {
+      this.$emit('on-search', query);
+    },
+    handleSelect(option) {
+      const val = option.value;
+      if (val === undefined || val === null) return;
+      this.currentValue = val;
+      this.$refs.input.blur();
+      this.$emit('on-select', val);
+    },
+    handleFocus(event) {
+      this.$emit('on-focus', event);
+    },
+    handleBlur(event) {
+      this.$emit('on-blur', event);
+    },
+    handleClear() {
+      if (!this.clearable) return;
+      this.currentValue = '';
+      this.$refs.select.reset();
+      this.$emit('on-clear');
+    },
+    handleClickOutside() {
+      this.$nextTick(() => {
+        this.$refs.input.blur();
+      });
+    }
+  },
   computed: {
     inputIcon() {
       let icon = '';
@@ -121,35 +150,6 @@ export default {
       }
       this.$emit('on-change', val);
       this.dispatch('FormItem', 'on-form-change', val);
-    }
-  },
-  methods: {
-    remoteMethod(query) {
-      this.$emit('on-search', query);
-    },
-    handleSelect(option) {
-      const val = option.value;
-      if (val === undefined || val === null) return;
-      this.currentValue = val;
-      this.$refs.input.blur();
-      this.$emit('on-select', val);
-    },
-    handleFocus(event) {
-      this.$emit('on-focus', event);
-    },
-    handleBlur(event) {
-      this.$emit('on-blur', event);
-    },
-    handleClear() {
-      if (!this.clearable) return;
-      this.currentValue = '';
-      this.$refs.select.reset();
-      this.$emit('on-clear');
-    },
-    handleClickOutside() {
-      this.$nextTick(() => {
-        this.$refs.input.blur();
-      });
     }
   }
 };

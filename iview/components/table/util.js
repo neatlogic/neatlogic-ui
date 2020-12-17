@@ -23,8 +23,7 @@ const getAllColumns = (cols, forTableHead = false) => {
   const result = [];
   columns.forEach((column) => {
     if (column.children) {
-      if (forTableHead) 
-        result.push(column);
+      if (forTableHead) { result.push(column); }
       
       result.push.apply(result, getAllColumns(column.children, forTableHead));
     } else {
@@ -87,7 +86,7 @@ export {
   convertToRows
 };
 
-const getRandomStr = function (len = 32) {
+const getRandomStr = function(len = 32) {
   const $chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
   const maxPos = $chars.length;
   let str = '';

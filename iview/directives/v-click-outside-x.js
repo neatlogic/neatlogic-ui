@@ -44,7 +44,7 @@ const commonHandler = function _onCommonEvent(context, instances, event) {
  *
  * @param {Event} event - The event object.
  */
-const captureEventHandler = function onCaptureEvent(event) { /* eslint-disable-next-line babel/no-invalid-this */
+const captureEventHandler = function onCaptureEvent(event) { 
   commonHandler(this, captureInstances, event);
 };
 
@@ -53,7 +53,7 @@ const captureEventHandler = function onCaptureEvent(event) { /* eslint-disable-n
  *
  * @param {Event} event - The event object.
  */
-const nonCaptureEventHandler = function onNonCaptureEvent(event) { /* eslint-disable-next-line babel/no-invalid-this */
+const nonCaptureEventHandler = function onNonCaptureEvent(event) { 
   commonHandler(this, nonCaptureInstances, event);
 };
 
@@ -111,15 +111,7 @@ export const directive = Object.defineProperties({}, {
 
       let eventType;
       const modifiers = binding.modifiers;
-      if (modifiers.click) 
-        eventType = 'click';
-       else if (modifiers.mousedown) 
-        eventType = 'mousedown';
-       else if (modifiers.touchstart) 
-        eventType = 'touchstart';
-       else 
-        eventType = CLICK;
-      
+      if (modifiers.click) { eventType = 'click'; } else if (modifiers.mousedown) { eventType = 'mousedown'; } else if (modifiers.touchstart) { eventType = 'touchstart'; } else { eventType = CLICK; }
 
       const useCapture = binding.arg;
 
@@ -145,7 +137,7 @@ export const directive = Object.defineProperties({}, {
 
       if (instances[eventType].push({el, binding: normalisedBinding}) === 1) {
         if (typeof document === 'object' && document) {
-          document.addEventListener(eventType, getEventHandler(useCapture), useCapture,);
+          document.addEventListener(eventType, getEventHandler(useCapture), useCapture);
         }
       }
     }
@@ -170,7 +162,7 @@ export const directive = Object.defineProperties({}, {
               instances[eventName] = newInstance;
             } else {
               if (typeof document === 'object' && document) {
-                document.removeEventListener(eventName, getEventHandler(useCapture), useCapture,);
+                document.removeEventListener(eventName, getEventHandler(useCapture), useCapture);
               }
 
               delete instances[eventName];
@@ -190,7 +182,7 @@ export const directive = Object.defineProperties({}, {
     enumerable: true,
     value: '3.7.1'
   }
-},);
+});
 
 /**
  * @typedef {Function} Vue - The constructor.

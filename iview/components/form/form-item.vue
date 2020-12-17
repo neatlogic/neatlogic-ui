@@ -1,12 +1,12 @@
 <template>
   <div :class="classes">
-    <label :class="[prefixCls + '-label']" :for="labelFor" :style="labelStyles" v-if="label || $slots.label">
+    <label v-if="label || $slots.label" :class="[prefixCls + '-label']" :for="labelFor" :style="labelStyles">
       <slot name="label">{{ label }}{{ FormInstance.colon }}</slot>
     </label>
     <div :class="[prefixCls + '-content']" :style="contentStyles">
       <slot></slot>
       <transition name="fade">
-        <div :class="[prefixCls + '-error-tip']" v-if="validateState === 'error' && showMessage && FormInstance.showMessage">{{ validateMessage }}</div>
+        <div v-if="validateState === 'error' && showMessage && FormInstance.showMessage" :class="[prefixCls + '-error-tip']">{{ validateMessage }}</div>
       </transition>
     </div>
   </div>
@@ -85,77 +85,19 @@ export default {
       validator: {}
     };
   },
-  watch: {
-    error: {
-      handler(val) {
-        this.validateMessage = val;
-        this.validateState = val ? 'error' : '';
-      },
-      immediate: true
-    },
-    validateStatus(val) {
-      this.validateState = val;
-    },
-    rules() {
+  mounted() {
+    if (this.prop) {
+      this.dispatch('iForm', 'on-form-item-add', this);
+
+      Object.defineProperty(this, 'initialValue', {
+        value: this.fieldValue
+      });
+
       this.setRules();
-    },
-    required(n, o) {
-      this.isRequired = n;
-      if (o && !n) {
-        this.resetField();
-      }
     }
   },
-  inject: ['FormInstance'],
-  computed: {
-    classes() {
-      return [
-        `${prefixCls}`,
-        {
-          [`${prefixCls}-required`]: this.required || this.isRequired,
-          [`${prefixCls}-error`]: this.validateState === 'error',
-          [`${prefixCls}-validating`]: this.validateState === 'validating'
-        }
-      ];
-    },
-    // form() {
-    //    let parent = this.$parent;
-    //    while (parent.$options.name !== 'iForm') {
-    //        parent = parent.$parent;
-    //    }
-    //    return parent;
-    // },
-    fieldValue() {
-      const model = this.FormInstance.model;
-      if (!model || !this.prop) {
-        return;
-      }
-
-      let path = this.prop;
-      if (path.indexOf(':') !== -1) {
-        path = path.replace(/:/, '.');
-      }
-
-      return getPropByPath(model, path).v;
-    },
-    labelStyles() {
-      let style = {};
-      const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.FormInstance.labelWidth;
-
-      if (labelWidth || labelWidth === 0) {
-        style.width = `${labelWidth}px`;
-      }
-      return style;
-    },
-    contentStyles() {
-      let style = {};
-      const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.FormInstance.labelWidth;
-
-      if (labelWidth || labelWidth === 0) {
-        style.marginLeft = `${labelWidth}px`;
-      }
-      return style;
-    }
+  beforeDestroy() {
+    this.dispatch('iForm', 'on-form-item-remove', this);
   },
   methods: {
     setRules() {
@@ -187,7 +129,7 @@ export default {
 
       return rules.filter(rule => !rule.trigger || rule.trigger.indexOf(trigger) !== -1);
     },
-    validate(trigger, callback = function () {}) {
+    validate(trigger, callback = function() {}) {
       let rules = this.getFilteredRule(trigger);
       if (!rules || rules.length === 0) {
         if (!this.required) {
@@ -258,19 +200,77 @@ export default {
       this.validate('change');
     }
   },
-  mounted() {
-    if (this.prop) {
-      this.dispatch('iForm', 'on-form-item-add', this);
+  computed: {
+    classes() {
+      return [
+        `${prefixCls}`,
+        {
+          [`${prefixCls}-required`]: this.required || this.isRequired,
+          [`${prefixCls}-error`]: this.validateState === 'error',
+          [`${prefixCls}-validating`]: this.validateState === 'validating'
+        }
+      ];
+    },
+    // form() {
+    //    let parent = this.$parent;
+    //    while (parent.$options.name !== 'iForm') {
+    //        parent = parent.$parent;
+    //    }
+    //    return parent;
+    // },
+    fieldValue() {
+      const model = this.FormInstance.model;
+      if (!model || !this.prop) {
+        return;
+      }
 
-      Object.defineProperty(this, 'initialValue', {
-        value: this.fieldValue
-      });
+      let path = this.prop;
+      if (path.indexOf(':') !== -1) {
+        path = path.replace(/:/, '.');
+      }
 
-      this.setRules();
+      return getPropByPath(model, path).v;
+    },
+    labelStyles() {
+      let style = {};
+      const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.FormInstance.labelWidth;
+
+      if (labelWidth || labelWidth === 0) {
+        style.width = `${labelWidth}px`;
+      }
+      return style;
+    },
+    contentStyles() {
+      let style = {};
+      const labelWidth = this.labelWidth === 0 || this.labelWidth ? this.labelWidth : this.FormInstance.labelWidth;
+
+      if (labelWidth || labelWidth === 0) {
+        style.marginLeft = `${labelWidth}px`;
+      }
+      return style;
     }
   },
-  beforeDestroy() {
-    this.dispatch('iForm', 'on-form-item-remove', this);
-  }
+  watch: {
+    error: {
+      handler(val) {
+        this.validateMessage = val;
+        this.validateState = val ? 'error' : '';
+      },
+      immediate: true
+    },
+    validateStatus(val) {
+      this.validateState = val;
+    },
+    rules() {
+      this.setRules();
+    },
+    required(n, o) {
+      this.isRequired = n;
+      if (o && !n) {
+        this.resetField();
+      }
+    }
+  },
+  inject: ['FormInstance']
 };
 </script>

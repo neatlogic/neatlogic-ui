@@ -18,6 +18,11 @@ export default {
       default: ''
     }
   },
+  methods: {
+    handleClick(event) {
+      this.$emit('click', event);
+    }
+  },
   computed: {
     classes() {
       return [
@@ -40,11 +45,6 @@ export default {
       }
 
       return style;
-    }
-  },
-  methods: {
-    handleClick(event) {
-      this.$emit('click', event);
     }
   }
 };

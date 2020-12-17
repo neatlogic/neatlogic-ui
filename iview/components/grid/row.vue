@@ -32,6 +32,21 @@ export default {
     },
     className: String
   },
+  methods: {
+    updateGutter(val) {
+      // 这里会嵌套寻找，把 Col 里的 Row 里的 Col 也找到，所以用 兄弟找
+      //                const Cols = findComponentsDownward(this, 'iCol');
+      const Col = findComponentDownward(this, 'iCol');
+      const Cols = findBrothersComponents(Col, 'iCol', false);
+      if (Cols.length) {
+        Cols.forEach(child => {
+          if (val !== 0) {
+            child.gutter = val;
+          }
+        });
+      }
+    }
+  },
   computed: {
     classes() {
       return [
@@ -54,21 +69,6 @@ export default {
       }
 
       return style;
-    }
-  },
-  methods: {
-    updateGutter(val) {
-      // 这里会嵌套寻找，把 Col 里的 Row 里的 Col 也找到，所以用 兄弟找
-      //                const Cols = findComponentsDownward(this, 'iCol');
-      const Col = findComponentDownward(this, 'iCol');
-      const Cols = findBrothersComponents(Col, 'iCol', false);
-      if (Cols.length) {
-        Cols.forEach(child => {
-          if (val !== 0) {
-            child.gutter = val;
-          }
-        });
-      }
     }
   },
   watch: {

@@ -39,7 +39,7 @@ export default {
           }
         };
       }
-    },
+    }
     // visible: {
     //     type: Boolean,
     //     default: false
@@ -58,9 +58,8 @@ export default {
     },
     visible(val) {
       if (val) {
-        if (this.handleIndexIncrease) 
-          this.handleIndexIncrease();
-         // just use for Poptip
+        if (this.handleIndexIncrease) { this.handleIndexIncrease(); }
+        // just use for Poptip
         this.updatePopper();
         this.$emit('on-popper-show');
       } else {
@@ -71,8 +70,7 @@ export default {
   },
   methods: {
     createPopper() {
-      if (isServer) 
-        return;
+      if (isServer) { return; }
       
       if (!/^(top|bottom|left|right)(-start|-end)?$/g.test(this.placement)) {
         return;
@@ -82,17 +80,15 @@ export default {
       const popper = this.popper || this.$refs.popper;
       const reference = this.reference || this.$refs.reference;
 
-      if (! popper || ! reference) 
-        return;
-      
+      if (!popper || !reference) { return; }
 
-      if (this.popperJS && this.popperJS.hasOwnProperty('destroy')) {
+      if (this.popperJS && Object.hasOwnProperty.call(this.popperJS, 'destroy')) {
         this.popperJS.destroy();
       }
 
       options.placement = this.placement;
 
-      if (! options.modifiers.offset) {
+      if (!options.modifiers.offset) {
         options.modifiers.offset = {};
       }
       options.modifiers.offset.offset = this.offset;
@@ -102,20 +98,16 @@ export default {
       };
 
       this.popperJS = new Popper(reference, popper, options);
-
     },
     updatePopper() {
-      if (isServer) 
-        return;
+      if (isServer) { return; }
       
       this.popperJS ? this.popperJS.update() : this.createPopper();
     },
     doDestroy() {
-      if (isServer) 
-        return;
+      if (isServer) { return; }
       
-      if (this.visible) 
-        return;
+      if (this.visible) { return; }
       
       this.popperJS.destroy();
       this.popperJS = null;
@@ -123,11 +115,9 @@ export default {
   },
   updated() {
     this.$nextTick(() => this.updatePopper());
-
   },
   beforeDestroy() {
-    if (isServer) 
-      return;
+    if (isServer) { return; }
     
     if (this.popperJS) {
       this.popperJS.destroy();

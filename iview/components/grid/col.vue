@@ -8,7 +8,7 @@ import { findComponentUpward } from '../../utils/assist';
 const prefixCls = 'ivu-col';
 
 export default {
-  name: 'iCol',
+  name: 'ICol',
   props: {
     span: [Number, String],
     order: [Number, String],
@@ -27,6 +27,20 @@ export default {
     return {
       gutter: 0
     };
+  },
+  mounted() {
+    this.updateGutter();
+  },
+  beforeDestroy() {
+    this.updateGutter();
+  },
+  methods: {
+    updateGutter() {
+      const Row = findComponentUpward(this, 'Row');
+      if (Row) {
+        Row.updateGutter(Row.gutter);
+      }
+    }
   },
   computed: {
     classes() {
@@ -66,20 +80,6 @@ export default {
 
       return style;
     }
-  },
-  methods: {
-    updateGutter() {
-      const Row = findComponentUpward(this, 'Row');
-      if (Row) {
-        Row.updateGutter(Row.gutter);
-      }
-    }
-  },
-  mounted() {
-    this.updateGutter();
-  },
-  beforeDestroy() {
-    this.updateGutter();
   }
 };
 </script>

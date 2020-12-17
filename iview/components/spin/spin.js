@@ -53,7 +53,7 @@ Spin.newInstance = properties => {
     },
     remove(cb) {
       spin.visible = false;
-      setTimeout(function () {
+      setTimeout(function() {
         spin.$parent.$destroy();
         if (document.getElementsByClassName('ivu-spin-fullscreen')[0] !== undefined) {
           document.body.removeChild(document.getElementsByClassName('ivu-spin-fullscreen')[0]);

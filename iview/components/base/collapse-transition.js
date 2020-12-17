@@ -3,9 +3,7 @@ import {addClass, removeClass} from '../../utils/assist';
 const Transition = {
   beforeEnter(el) {
     addClass(el, 'collapse-transition');
-    if (!el.dataset) 
-      el.dataset = {};
-    
+    if (!el.dataset) { el.dataset = {}; }
 
     el.dataset.oldPaddingTop = el.style.paddingTop;
     el.dataset.oldPaddingBottom = el.style.paddingBottom;
@@ -37,8 +35,7 @@ const Transition = {
   },
 
   beforeLeave(el) {
-    if (!el.dataset) 
-      el.dataset = {};
+    if (!el.dataset) { el.dataset = {}; }
     
     el.dataset.oldPaddingTop = el.style.paddingTop;
     el.dataset.oldPaddingBottom = el.style.paddingBottom;

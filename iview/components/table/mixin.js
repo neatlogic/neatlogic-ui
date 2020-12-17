@@ -13,16 +13,16 @@ export default {
         }`, {
           [`${cellClassName}`]: cellClassName, // cell className
           [`${
-              column.className
-            }`]: column.className, // column className
+            column.className
+          }`]: column.className, // column className
           [`${
-              this.prefixCls
-            }-column-${
-              column.align
-            }`]: column.align,
+            this.prefixCls
+          }-column-${
+            column.align
+          }`]: column.align,
           [`${
-              this.prefixCls
-            }-hidden`]: (this.fixed === 'left' && column.fixed !== 'left') || (this.fixed === 'right' && column.fixed !== 'right') || (!this.fixed && column.fixed && (column.fixed === 'left' || column.fixed === 'right'))
+            this.prefixCls
+          }-hidden`]: (this.fixed === 'left' && column.fixed !== 'left') || (this.fixed === 'right' && column.fixed !== 'right') || (!this.fixed && column.fixed && (column.fixed === 'left' || column.fixed === 'right'))
         }
       ];
     },
@@ -36,8 +36,7 @@ export default {
       } else if (this.columnsWidth[column._index]) {
         width = this.columnsWidth[column._index].width;
       }
-      if (width === '0') 
-        width = '';
+      if (width === '0') { width = ''; }
       
       return width;
     }

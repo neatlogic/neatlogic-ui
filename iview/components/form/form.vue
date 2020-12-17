@@ -9,7 +9,7 @@ import { oneOf } from '../../utils/assist';
 const prefixCls = 'ivu-form';
 
 export default {
-  name: 'iForm',
+  name: 'IForm',
   props: {
     model: {
       type: Object
@@ -64,24 +64,15 @@ export default {
       fields: []
     };
   },
-  computed: {
-    classes() {
-      return [
-        `${prefixCls}`,
-        `${prefixCls}-label-${this.labelPosition}`,
-        {
-          [`${prefixCls}-inline`]: this.inline,
-          [`${prefixCls}-hide-required-mark`]: this.hideRequiredMark
-        }
-      ];
-    },
-    colon() {
-      let colon = '';
-      if (this.labelColon) {
-        colon = typeof this.labelColon === 'boolean' ? ':' : this.labelColon;
-      }
-      return colon;
-    }
+  created() {
+    this.$on('on-form-item-add', field => {
+      if (field) this.fields.push(field);
+      return false;
+    });
+    this.$on('on-form-item-remove', field => {
+      if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
+      return false;
+    });
   },
   methods: {
     resetFields() {
@@ -125,20 +116,29 @@ export default {
       field.validate('', cb);
     }
   },
+  computed: {
+    classes() {
+      return [
+        `${prefixCls}`,
+        `${prefixCls}-label-${this.labelPosition}`,
+        {
+          [`${prefixCls}-inline`]: this.inline,
+          [`${prefixCls}-hide-required-mark`]: this.hideRequiredMark
+        }
+      ];
+    },
+    colon() {
+      let colon = '';
+      if (this.labelColon) {
+        colon = typeof this.labelColon === 'boolean' ? ':' : this.labelColon;
+      }
+      return colon;
+    }
+  },
   watch: {
     rules() {
       this.validate();
     }
-  },
-  created() {
-    this.$on('on-form-item-add', field => {
-      if (field) this.fields.push(field);
-      return false;
-    });
-    this.$on('on-form-item-remove', field => {
-      if (field.prop) this.fields.splice(this.fields.indexOf(field), 1);
-      return false;
-    });
   }
 };
 </script>

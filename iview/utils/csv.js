@@ -6,8 +6,7 @@
 const newLine = '\r\n';
 const appendLine = (content, row, {separator, quoted}) => {
   const line = row.map(data => {
-    if (!quoted) 
-      return data;
+    if (!quoted) { return data; }
     
     // quote data
     data = typeof data === 'string' ? data.replace(/"/g, '"') : data;
@@ -29,17 +28,14 @@ export default function csv(columns, datas, options, noHeader = false) {
 
   if (columns) {
     columnOrder = columns.map(v => {
-      if (typeof v === 'string') 
-        return v;
+      if (typeof v === 'string') { return v; }
       
-      if (! noHeader) {
+      if (!noHeader) {
         column.push(typeof v.title !== 'undefined' ? v.title : v.key);
       }
       return v.key;
     });
-    if (column.length > 0) 
-      appendLine(content, column, options);
-    
+    if (column.length > 0) { appendLine(content, column, options); }
   } else {
     columnOrder = [];
     datas.forEach(v => {
@@ -49,9 +45,7 @@ export default function csv(columns, datas, options, noHeader = false) {
     });
     if (columnOrder.length > 0) {
       columnOrder = columnOrder.filter((value, index, self) => self.indexOf(value) === index);
-      if (! noHeader) 
-        appendLine(content, columnOrder, options);
-      
+      if (!noHeader) { appendLine(content, columnOrder, options); }
     }
   }
 

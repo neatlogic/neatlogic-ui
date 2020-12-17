@@ -20,21 +20,6 @@ export default {
       anchorCom: this
     };
   },
-  data() {
-    return {
-      prefix: 'ivu-anchor',
-      isAffixed: false, // current affixed state
-      inkTop: 0,
-      animating: false, // if is scrolling now
-      currentLink: '', // current show link =>  #href -> currentLink = #href
-      currentId: '', // current show title id =>  #href -> currentId = href
-      scrollContainer: null,
-      scrollElement: null,
-      titlesOffsetArr: [],
-      wrapperTop: 0,
-      upperFirstTitle: true
-    };
-  },
   props: {
     affix: {
       type: Boolean,
@@ -60,18 +45,26 @@ export default {
       default: 0
     }
   },
-  computed: {
-    wrapperComponent() {
-      return this.affix ? 'Affix' : 'div';
-    },
-    wrapperStyle() {
-      return {
-        maxHeight: this.offsetTop ? `calc(100vh - ${this.offsetTop}px)` : '100vh'
-      };
-    },
-    containerIsWindow() {
-      return this.scrollContainer === window;
-    }
+  data() {
+    return {
+      prefix: 'ivu-anchor',
+      isAffixed: false, // current affixed state
+      inkTop: 0,
+      animating: false, // if is scrolling now
+      currentLink: '', // current show link =>  #href -> currentLink = #href
+      currentId: '', // current show title id =>  #href -> currentId = href
+      scrollContainer: null,
+      scrollElement: null,
+      titlesOffsetArr: [],
+      wrapperTop: 0,
+      upperFirstTitle: true
+    };
+  },
+  mounted() {
+    this.init();
+  },
+  beforeDestroy() {
+    this.removeListener();
   },
   methods: {
     handleAffixStateChange(state) {
@@ -124,11 +117,12 @@ export default {
       let offsetArr = [];
       idArr.forEach(id => {
         const titleEle = document.getElementById(id);
-        if (titleEle)
+        if (titleEle) {
           offsetArr.push({
             link: `#${id}`,
             offset: titleEle.offsetTop - this.scrollElement.offsetTop
-          });
+          }); 
+        }
       });
       this.titlesOffsetArr = offsetArr;
     },
@@ -177,6 +171,19 @@ export default {
       });
     }
   },
+  computed: {
+    wrapperComponent() {
+      return this.affix ? 'Affix' : 'div';
+    },
+    wrapperStyle() {
+      return {
+        maxHeight: this.offsetTop ? `calc(100vh - ${this.offsetTop}px)` : '100vh'
+      };
+    },
+    containerIsWindow() {
+      return this.scrollContainer === window;
+    }
+  },
   watch: {
     $route() {
       this.handleHashChange();
@@ -190,12 +197,6 @@ export default {
     currentLink(newHref, oldHref) {
       this.$emit('on-change', newHref, oldHref);
     }
-  },
-  mounted() {
-    this.init();
-  },
-  beforeDestroy() {
-    this.removeListener();
   }
 };
 </script>
