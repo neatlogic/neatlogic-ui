@@ -28,7 +28,8 @@ import TsFormCheckbox from './TsForm/TsFormCheckbox';
 import TsFormDatePicker from './TsForm/TsFormDatePicker';
 import TsFormTree from './TsForm/TsFormTree';
 import TsFormSwitch from './TsForm/TsFormSwitch';
-
+import iview from '@iview/index.js';
+import '@iview/styles/index.less';
 const components = {
   Loading,
   NoData,
@@ -77,6 +78,7 @@ TsDialog.install = function(_Vue, options) {
     };
   };
 };
+Vue.use(iview);
 Object.keys(components).forEach(name => {
   Vue.component(name, components[name]);
 });

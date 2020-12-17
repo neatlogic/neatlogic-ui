@@ -18,6 +18,9 @@ module.exports = {
   productionSourceMap: false,
   runtimeCompiler: true,
   configureWebpack: {
+    entry:{
+      app:'./src/main.js'
+    },
     performance: {
       hints: false
     }
@@ -34,16 +37,18 @@ module.exports = {
       .use('url-loader')
       .loader('url-loader')
       .tap(options => Object.assign(options, { limit: 102400 }));
+      
     config.resolve.alias.set('@static', resolve('static'));
     config.resolve.alias.set('@component', resolve('component'));
     config.resolve.alias.set('@directives', resolve('directives'));
     config.resolve.alias.set('@filters', resolve('filters'));
     config.resolve.alias.set('@mixins', resolve('mixins'));
     config.resolve.alias.set('@api', resolve('api'));
+    config.resolve.alias.set('@iview', resolve('iview'));
   },
   devServer: {
     open: true,
-    port: '8080',
+    port: '8087',
     https: false,
     hotOnly: false,
     disableHostCheck: true
