@@ -5,17 +5,17 @@
   "main": "dist/techsure-ui.umd.min.js",
   "author": "techsure",
   "scripts": {
-    "serve": "node --max_old_space_size=4096 node_modules/.bin/vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint --fix",
+    "lint": "eslint iview",
     "lib": "vue-cli-service build --target lib --name techsure-ui component/index.js",
     "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
-    "vue": "^2.6.11",
-    "webpack": "^4.44.1",
     "async-validator": "^3.3.0",
+    "axios": "^0.19.0",
+    "core-js": "^3.6.5",
+    "css-loader": "^5.0.1",
     "deepmerge": "^2.2.1",
     "element-resize-detector": "^1.2.0",
     "js-calendar": "^1.2.3",
@@ -23,21 +23,25 @@
     "popper.js": "^1.14.6",
     "tinycolor2": "^1.4.1",
     "v-click-outside-x": "^3.7.1",
-    "axios": "^0.19.0",
+    "vue": "^2.6.11",
     "vue-codemirror": "^4.0.6",
-    "vuedraggable": "^2.23.2"
+    "vuedraggable": "^2.23.2",
+    "webpack": "^4.44.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.0",
     "@vue/cli-plugin-eslint": "^4.5.0",
     "@vue/cli-service": "^4.5.0",
     "babel-eslint": "^10.1.0",
+    "css-loader": "^5.0.1",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
     "eslint-plugin-prettier": "^3.1.4",
-    "vue-template-compiler": "^2.6.11",
+    "eslint-plugin-vue": "^6.2.2",
     "less": "^3.0.4",
-    "less-loader": "^5.0.0"
+    "less-loader": "^5.0.0",
+    "style-loader": "^2.0.0",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-cli": "^4.2.0"
   },
   "eslintConfig": {
     "root": true,
