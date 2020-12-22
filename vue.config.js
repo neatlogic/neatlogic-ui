@@ -18,9 +18,6 @@ module.exports = {
   productionSourceMap: false,
   runtimeCompiler: true,
   configureWebpack: {
-    entry:{
-      app:'./src/main.js'
-    },
     performance: {
       hints: false
     }
@@ -48,7 +45,7 @@ module.exports = {
   },
   devServer: {
     open: true,
-    port: '8087',
+    port: '8080',
     https: false,
     hotOnly: false,
     disableHostCheck: true
