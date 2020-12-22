@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import axios from 'axios';
-import ViewUI from 'view-design';
+import notice from '@iview/components/notice/index.js';
 import utils from '../static/js/util';
 
 Vue.prototype.$axios = axios;
@@ -17,7 +17,7 @@ const tip = (msg, onClose, name, title, type = 'error') => {
     Object.assign(config, {
       name: name + new Date().getTime()
     });
-  ViewUI.Notice[type](config);
+  notice[type](config);
 };
 var instance = Vue.prototype.$axios.create({
   //创建axios实例

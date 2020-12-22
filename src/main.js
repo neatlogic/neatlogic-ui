@@ -1,6 +1,8 @@
 import Vue from 'vue';
 import App from './App.vue';
-import tsUi from '../dist/techsure-ui.umd.js';
+// import tsUi from '../dist/techsure-ui.umd.js';
+import tsUi from '@component/index.js';
+import '../static/index.js';
 Vue.config.productionTip = false;
 Vue.use(tsUi);
 new Vue({

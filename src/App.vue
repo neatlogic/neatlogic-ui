@@ -1,32 +1,14 @@
 <template>
   <div>
-    <NoData></NoData>
+    <Progress :percent="25" />
+    <Progress :percent="45" status="active" />
+    <Progress :percent="65" status="wrong" />
+    <Progress :percent="100" />
+    <Progress :percent="25" hide-info />
   </div>
 </template>
 <script>
-//import NoData from '@component/NoData/NoData.vue';
 export default {
-  name: '',
-  components: {},
-  filters: {},
-  props: [''],
-  data() {
-    return {};
-  },
-  beforeCreate() {},
-  created() {},
-  beforeMount() {},
-  mounted() {
-  },
-  beforeUpdate() {},
-  updated() {},
-  activated() {},
-  deactivated() {},
-  beforeDestroy() {},
-  destroyed() {},
-  methods: {},
-  computed: {},
-  watch: {}
+        
 };
 </script>
-<style lang="less"></style>
