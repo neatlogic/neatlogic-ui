@@ -23,7 +23,7 @@
               <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder" style="line-height: 30px;"></span>
             </template>
             <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder single-span">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
-            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreateOption(searchKeyWord)" @keydown="onKeyDowm" @keyup="onKeyUp" />
+            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreatenewOption(searchKeyWord)" @keydown="onKeyDowm" @keyup="onKeyUp" />
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
@@ -198,7 +198,8 @@ export default {
     ajaxType: {
       type: String,
       default: 'post'
-    }
+    },
+    onCreateOption: Function
   },
   data: function() {
     let _this = this;
@@ -356,7 +357,8 @@ export default {
       _this.$emit('change-label', labelList);
       _this.initReadolyTitle();
     },
-    onCreateOption: function(val) {},
+    onCreatenewOption: function(val) {
+    },
     remoteMethod: function(query) {
       let _this = this;
       if (!_this.dynamicUrl) {
@@ -752,6 +754,7 @@ export default {
             if (_this.$listeners && _this.$listeners['on-create']) {
               _this.$emit('on-create', keyval);
             }
+            typeof _this.onCreateOption == 'function' && _this.onCreateOption(keyval);
             _this.toggleSelect(_this.nodeList[0]);
             _this.$set(_this, 'addItem', null);
           }
