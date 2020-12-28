@@ -919,7 +919,7 @@ export default {
     value(newValue, oldValue) {
       let _this = this;
       let isSame = false;
-      if ((this.multiple && JSON.stringify(newValue) == JSON.stringify(this.currentValue)) || (!this.multiple && newValue == this.currentValue)) {
+      if ((this.multiple && JSON.stringify(newValue) == JSON.stringify(this.currentValue)) || (!this.multiple && newValue === this.currentValue)) {
         isSame = true;
       }
       if (!isSame) {
