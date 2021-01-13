@@ -1,5 +1,6 @@
 import Vue from 'vue';
 
+import iview from '@iview/index.js';
 import Loading from './Loading/Loading.vue';
 import NoData from './NoData/NoData.vue';
 import TimeSelect from './TimeSelect/TimeSelect.vue';
@@ -28,6 +29,7 @@ import TsFormCheckbox from './TsForm/TsFormCheckbox';
 import TsFormDatePicker from './TsForm/TsFormDatePicker';
 import TsFormTree from './TsForm/TsFormTree';
 import TsFormSwitch from './TsForm/TsFormSwitch';
+import '@static/index.less';
 
 const components = {
   Loading,
@@ -77,6 +79,7 @@ TsDialog.install = function(_Vue, options) {
     };
   };
 };
+Vue.use(iview);
 Object.keys(components).forEach(name => {
   Vue.component(name, components[name]);
 });

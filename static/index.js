@@ -6,5 +6,5 @@ export default {
   tscode,
   tsfontcode,
   tscommon,
-  tstheme,
+  tstheme
 };

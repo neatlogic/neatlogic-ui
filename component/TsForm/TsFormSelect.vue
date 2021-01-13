@@ -23,7 +23,7 @@
               <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder" style="line-height: 30px;"></span>
             </template>
             <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder single-span">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
-            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreateOption(searchKeyWord)" />
+            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreatenewOption(searchKeyWord)" @keydown="onKeyDowm" @keyup="onKeyUp" />
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
@@ -54,6 +54,7 @@
 
 <script>
 import axios from '../../api/http.js';
+import utils from '../../static/js/util';
 import formMixins from '../../mixins/formMixins.js';
 import formScrollMixins from '../../mixins/formScrollMixins.js';
 import { directive as ClickOutside } from '../../directives/v-click-outside-x';
@@ -201,7 +202,8 @@ export default {
     urlConfig: {
       type: [Object,Boolean],
       default: false
-    }
+    },
+    onCreateOption: Function
   },
   data: function() {
     let _this = this;
@@ -284,7 +286,7 @@ export default {
           Object.assign(ajaxArr,this.urlConfig)
         }
         let needdataLi = ['post', 'put'];
-        needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+        ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
         axios(ajaxArr).then(res => {
           if (res && res.Status == 'OK') {
             _this.nodeList = _this.setNodeList(res.Return);
@@ -324,13 +326,14 @@ export default {
       if (this.multiple && this.currentValue && this.currentValue.length > 0) {
         //多选
         ary = this.currentValue;
-      } else if (!this.multiple && this.currentValue) {
+      } else if (!this.multiple && this.currentValue != undefined) {
         //单选
+        //20201214_zqp_修复当值为false时选中没有
         ary = [this.currentValue];
       }
       if (ary.length > 0) {
         _this.nodeList.forEach(function(item) {
-          ary.indexOf(item[_this.valueName]) >= 0 && _this.selectedList.push(item);
+          ArrIndexOf(ary, item[_this.valueName]) >= 0 && _this.selectedList.push(item);
         });
       } else if (_this.defaultValueIsFirst && ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
         _this.selectedList.push(_this.nodeList[0]);
@@ -361,7 +364,8 @@ export default {
       _this.$emit('change-label', labelList);
       _this.initReadolyTitle();
     },
-    onCreateOption: function(val) {},
+    onCreatenewOption: function(val) {
+    },
     remoteMethod: function(query) {
       let _this = this;
       if (!_this.dynamicUrl) {
@@ -372,7 +376,7 @@ export default {
         return;
       }
 
-      if ((_this.currentValue instanceof Array && _this.currentValue.indexOf(query) > 0) || _this.currentValue == query) {
+      if ((_this.currentValue instanceof Array && ArrIndexOf(_this.currentValue, query) > 0) || _this.currentValue == query) {
         return;
       }
       this.dynamicSearch(query);
@@ -416,7 +420,7 @@ export default {
     },
     deleteSeleted(ind, value, list) {
       list.splice(ind, 1);
-      this.currentValue.splice(this.currentValue.indexOf(value), 1);
+      this.currentValue.splice(ArrIndexOf(this.currentValue, value), 1);
       this.$refs.input && this.$refs.input.focus();
       this.onChangeValue();
     },
@@ -467,7 +471,7 @@ export default {
         Object.assign(ajaxArr,this.urlConfig)
       }
       let needdataLi = ['post', 'put'];
-      needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+      ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
       axios(ajaxArr).then(res => {  
         if (res && res.Status == 'OK') {
           //初始化数据时需要text值
@@ -510,7 +514,7 @@ export default {
         Object.assign(ajaxArr,this.urlConfig)
       }
       let needdataLi = ['post', 'put'];
-      needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
+      ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
       axios(ajaxArr).then(res => {
         _this.loading = false;
         if (res && res.Status == 'OK') {
@@ -605,6 +609,12 @@ export default {
       typeof this.onBlur == 'function' && this.onBlur();
       this.$emit('on-blur');
     },
+    onKeyDowm(event) {
+      this.$emit('on-keydown', event, this.searchKeyWord);
+    },
+    onKeyUp() {
+      this.$emit('on-keyup', event, this.searchKeyWord);
+    },
     toggleSelect(item) {
       //选中调用的方法
       if (item && item._disabled) {
@@ -615,8 +625,8 @@ export default {
       if (selectli && selectli.length > 0) {
         if (this.multiple) {
           //多选
-          if (this.currentValue.indexOf(value) > -1) {
-            this.currentValue.splice(this.currentValue.indexOf(value), 1);
+          if (ArrIndexOf(this.currentValue, value) > -1) {
+            this.currentValue.splice(ArrIndexOf(this.currentValue, value), 1);
             selectli.forEach((se, ind) => {
               if (se[this.valueName] == value) {
                 selectli.splice(ind, 1);
@@ -742,7 +752,7 @@ export default {
           let keyval = _this.addItem ? _this.addItem[_this.textName] || this.searchKeyWord : this.searchKeyWord;
           if (keyval && _this.nodeList && _this.nodeList.length > 0) {
             _this.nodeList.find(no => {
-              if (no[_this.valueName] === keyval || no[_this.textName] === keyval) {
+              if (utils.equalStr(no[_this.valueName], keyval) || utils.equalStr(no[_this.textName], keyval)) {
                 isExist = true;
               }
               return isExist;
@@ -757,6 +767,7 @@ export default {
             if (_this.$listeners && _this.$listeners['on-create']) {
               _this.$emit('on-create', keyval);
             }
+            typeof _this.onCreateOption == 'function' && _this.onCreateOption(keyval);
             _this.toggleSelect(_this.nodeList[0]);
             _this.$set(_this, 'addItem', null);
           }
@@ -764,7 +775,7 @@ export default {
           if (this.multiple && !this.searchKeyWord && this.selectedList.length > 0) {
             let lastLi = this.selectedList.length - 1;
             let lastval = this.selectedList[lastLi][this.valueName];
-            this.currentValue.splice(this.currentValue.indexOf(lastval), 1);
+            this.currentValue.splice(ArrIndexOf(this.currentValue, lastval), 1);
             this.selectedList.splice(lastLi, 1);
             this.onChangeValue();
           }
@@ -864,9 +875,9 @@ export default {
       return function(node, index) {
         let _this = this;
         let classtxt = 'select-li ivu-dropdown-item overflow';
-        if (this.multiple && this.currentValue && this.currentValue.indexOf(node[_this.valueName]) > -1) {
+        if (this.multiple && this.currentValue && ArrIndexOf(this.currentValue, node[_this.valueName]) > -1) {
           classtxt = classtxt + ' selected';
-        } else if (!this.multiple && this.currentValue === node[_this.valueName]) {
+        } else if (!this.multiple && utils.equalStr(this.currentValue, node[_this.valueName])) {
           classtxt = classtxt + ' selected';
         }
         if (index + 1 == _this.focusIndex || node['_focusSelect']) {
@@ -921,7 +932,7 @@ export default {
     value(newValue, oldValue) {
       let _this = this;
       let isSame = false;
-      if ((this.multiple && JSON.stringify(newValue) == JSON.stringify(this.currentValue)) || (!this.multiple && newValue == this.currentValue)) {
+      if ((this.multiple && JSON.stringify(newValue) == JSON.stringify(this.currentValue)) || (!this.multiple && newValue === this.currentValue)) {
         isSame = true;
       }
       if (!isSame) {
@@ -985,7 +996,7 @@ export default {
       } else if (!val && !this.multiple) {
         //当收起下拉框时，是单选
         if (this.selectedList[0] && !this.allowCreate && typeof this.$listeners['enter-search'] != 'function') {
-          if (this.searchKeyWord === this.selectedList[0][this.textName] || this.searchKeyWord === this.selectedList[0][this.valueName]) {
+          if (utils.equalStr(this.searchKeyWord, this.selectedList[0][this.textName]) || utils.equalStr(this.searchKeyWord, this.selectedList[0][this.valueName])) {
             this.searchKeyWord = this.selectedList[0] ? this.selectedList[0][this.textName] : '';
           }
         }
@@ -1020,6 +1031,24 @@ function setWidth($contain, $target, transfer) {
     // if (transfer) {
     //   $target.parentNode.style.width = 'auto';
     // }
+  }
+}
+function ArrIndexOf(arr, str) {
+  //重写 数组的indexof功能
+  if (arr instanceof Array) {
+    let index = -1;
+    let has = arr.find((item, i) => {
+      if (item == str) {
+        index = i;
+        return true;
+      }
+      return false;
+    });
+    return index;
+  } else if (typeof arr == 'string') {
+    return arr.indexOf(str);
+  } else {
+    return -1;
   }
 }
 </script>

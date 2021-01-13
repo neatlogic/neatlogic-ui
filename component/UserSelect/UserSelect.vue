@@ -653,6 +653,7 @@ export default {
       handler: function(val) {
         if (JSON.stringify(val) != JSON.stringify(this.actualValue)) {
           this.currentValue = getCurrentValue(val, this.multiple) || []; //默认值的设置  currentValue 始终是数组
+          this.actualValue = this.value instanceof Array ? this.value.concat([]) : this.value; //复制给value对应的值 ,主要是为了区分数组和字符串
           this.initValue();
           this.validMesage = '';
         }
