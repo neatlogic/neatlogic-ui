@@ -197,6 +197,10 @@ export default {
     ajaxType: {
       type: String,
       default: 'post'
+    },
+    urlConfig: {
+      type: [Object,Boolean],
+      default: false
     }
   },
   data: function() {
@@ -276,6 +280,9 @@ export default {
         typeof _this.params == 'object' && Object.assign(params, _this.params);
         _this.nodeList = [];
         let ajaxArr = { method: _this.ajaxType, url: _this.url};
+        if(this.urlConfig){
+          Object.assign(ajaxArr,this.urlConfig)
+        }
         let needdataLi = ['post', 'put'];
         needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
         axios(ajaxArr).then(res => {
@@ -456,6 +463,9 @@ export default {
       }
       typeof _this.params == 'object' && Object.assign(params, _this.params);
       let ajaxArr = { method: _this.ajaxType, url: _this.dynamicUrl};
+      if(this.urlConfig){
+        Object.assign(ajaxArr,this.urlConfig)
+      }
       let needdataLi = ['post', 'put'];
       needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
       axios(ajaxArr).then(res => {  
@@ -496,6 +506,9 @@ export default {
       params[_this.keyword] = query ? query.trim() : '';
       typeof _this.params == 'object' && Object.assign(params, _this.params);
       let ajaxArr = {method: _this.ajaxType, url: _this.dynamicUrl, cancelToken: _this.cancelAxios.token };
+      if(this.urlConfig){
+        Object.assign(ajaxArr,this.urlConfig)
+      }
       let needdataLi = ['post', 'put'];
       needdataLi.indexOf(_this.ajaxType) < 0 ? Object.assign(ajaxArr, {params: params}) : Object.assign(ajaxArr, {data: params});
       axios(ajaxArr).then(res => {
