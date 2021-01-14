@@ -2,7 +2,7 @@
   <div :class="type == 'fix'?'':'part-loading'">
     <Spin v-if="loadingShow" size="large" :fix="type == 'fix'?true:false" class="text-primary">
       <Icon type="ios-loading" size="18" class="loading"></Icon>
-      <div>加载中</div>
+      <div v-if="text">加载中</div>
     </Spin>
   </div>
 </template>
@@ -18,6 +18,10 @@ export default {
     loadingShow: {
       type: Boolean,
       default: false
+    },
+    text: {
+      type: [Boolean, String],
+      default: '加载中'      
     }
   },
   data() {
