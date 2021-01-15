@@ -11,7 +11,7 @@ import { findComponentUpward } from '../../utils/assist';
 const prefixCls = 'ivu-select-item';
 
 export default {
-  name: 'IOption',
+  name: 'iOption',
   componentName: 'select-item',
   mixins: [Emitter, mixinsForm],
   props: {

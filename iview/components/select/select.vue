@@ -104,7 +104,7 @@ const checkValuesNotEqual = (value, publicValue, values) => {
 const ANIMATION_TIMEOUT = 300;
 
 export default {
-  name: 'ISelect',
+  name: 'iSelect',
   components: { FunctionalOptions, Drop, SelectHead, Icon },
   directives: { clickOutside, TransferDom },
   mixins: [Emitter, Locale, mixinsForm],
