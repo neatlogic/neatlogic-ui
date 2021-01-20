@@ -19,7 +19,7 @@
               {{ datetimerange.text }}
             </li>
             <li v-if="showTimeRange" style="min-width: 225px;" :style="{'width': timerWidth}" @click.stop>
-              <TsFormDatePicker v-model="timeValue" border="border" :placement="placement" :type="type" :splitPanels="isRelative" :format="format" :value-type="valueType" :placeholder="placeholder" :separator="' '+separator+' '" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
+              <TsFormDatePicker v-model="timeValue" border="border" :placement="placement" :type="type" :transfer="false" :splitPanels="isRelative" :format="format" :value-type="valueType" :placeholder="placeholder" :separator="' '+separator+' '" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
             </li>
           </template>
         </DropdownMenu>

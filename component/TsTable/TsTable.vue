@@ -46,7 +46,7 @@
                 <td v-if="canDrag" class="drag-container"></td>
                 <td v-for="(hitem, hindex) in getshowList" :key="hindex" :class="getClassName(bitem, hitem, bindex)">
                   <div :class="hitem.key == 'action' ? 'action-div' : ''" :style="setPostion(hitem.key)">
-                    <div v-if="hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
+                    <div v-if="hideAction && hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
                     <slot :name="hitem.key" :row="bitem">
                       <div v-if="hitem.key == 'selection'"></div>
                       <div v-else-if="hitem.key == 'action'">
@@ -115,7 +115,7 @@
                 </td>
                 <td v-for="(hitem, hindex) in getshowList" :key="hitem.uuid || hindex" :class="getClassName(bitem, hitem, bindex)" @click="clickTd($event, bitem, hitem)">
                   <div :class="hitem.key == 'action' ? 'action-div' : ''" :style="setPostion(hitem.key)">
-                    <div v-if="hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
+                    <div v-if="hideAction && hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
                     <slot :name="hitem.key" :row="bitem">
                       <div v-if="hitem.key == 'selection'" :class="getSection(bitem.isDisabled || false, selectList.indexOf(bitem[rowKey] || bindex) > -1 || false)" @click.stop="selectOne(bitem,bindex)"></div>
                       <div v-else-if="hitem.key == 'action'">
@@ -490,7 +490,7 @@ export default {
       }
     },
     setWidth() {
-      if (this.$refs.tstable) {
+      if (this.$refs.tstable && this.hideAction) {
         this.offsetWidth = Math.max(0, this.$refs.tstable.getBoundingClientRect().width - this.$el.getBoundingClientRect().width);
       }
     },
@@ -674,7 +674,7 @@ export default {
         let style = '';
         if (type == 'action') {
           style = {
-            marginRight: Math.max(0, this.offsetWidth - this.scrollLeft) + 'px'
+            marginRight: Math.max(0, this.hideAction ? this.scrollLeft : this.offsetWidth - this.scrollLeft) + 'px'
           };
         }
         return style;
