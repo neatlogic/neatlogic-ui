@@ -490,7 +490,7 @@ export default {
       }
     },
     setWidth() {
-      if (this.$refs.tstable && this.hideAction) {
+      if (this.$refs.tstable) {
         this.offsetWidth = Math.max(0, this.$refs.tstable.getBoundingClientRect().width - this.$el.getBoundingClientRect().width);
       }
     },
@@ -674,7 +674,7 @@ export default {
         let style = '';
         if (type == 'action') {
           style = {
-            marginRight: Math.max(0, this.hideAction ? this.scrollLeft : this.offsetWidth - this.scrollLeft) + 'px'
+            marginRight: Math.max(0, this.offsetWidth - this.scrollLeft) + 'px'
           };
         }
         return style;
