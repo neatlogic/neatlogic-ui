@@ -41,7 +41,7 @@
         <component :is="rightPickerTable" ref="rightYearTable" v-if="currentView !== 'time'" :table-date="rightPanelDate" selection-mode="range" :range-state="rangeState" :disabled-date="disabledDate" :show-week-numbers="showWeekNumbers" :value="preSelecting.right ? [dates[dates.length - 1]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.right" @on-pick-click="handlePickClick"></component>
       </div>
       <div :class="[prefixCls + '-content']" v-show="isTime">
-        <time-picker ref="timePicker" v-if="currentView === 'time'" :value="dates" :format="format" :time-disabled="timeDisabled" v-bind="timePickerOptions" @on-pick="handleRangePick" @on-pick-click="handlePickClick" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess" @on-pick-toggle-time="handleToggleTime"></time-picker>
+        <time-picker ref="timePicker" v-if="currentView === 'time'" :value="dates" :format="format" :time-disabled="timeDisabled" v-bind="timePickerOptions" :disabled-date="disabledDate" @on-pick="handleRangePick" @on-pick-click="handlePickClick" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess" @on-pick-toggle-time="handleToggleTime"></time-picker>
       </div>
       <Confirm v-if="confirm" :show-time="showTime" :is-time="isTime" :time-disabled="timeDisabled" @on-pick-toggle-time="handleToggleTime" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess"></Confirm>
     </div>

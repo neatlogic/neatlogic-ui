@@ -1,7 +1,6 @@
 import Picker from '../picker.vue';
 import DatePickerPanel from '../panel/Date/date.vue';
 import RangeDatePickerPanel from '../panel/Date/date-range.vue';
-
 import {oneOf} from '../../../utils/assist';
 
 export default {

@@ -2,17 +2,17 @@
   <div :class="classes">
     <div :class="[prefixCls+ '-list']" ref="hours">
       <ul :class="[prefixCls + '-ul']">
-        <li :class="getCellCls(item)" v-for="item in hoursList" v-show="!item.hide" @click="handleClick('hours', item)">{{ formatTime(item.text) }}</li>
+        <li :class="getCellCls(item)" v-for="item in hoursList" :key="item.text" v-show="!item.hide" @click="handleClick('hours', item)">{{ formatTime(item.text) }}</li>
       </ul>
     </div>
     <div :class="[prefixCls+ '-list']" ref="minutes">
       <ul :class="[prefixCls + '-ul']">
-        <li :class="getCellCls(item)" v-for="item in minutesList" v-show="!item.hide" @click="handleClick('minutes', item)">{{ formatTime(item.text) }}</li>
+        <li :class="getCellCls(item)" v-for="item in minutesList" :key="item.text" v-show="!item.hide" @click="handleClick('minutes', item)">{{ formatTime(item.text) }}</li>
       </ul>
     </div>
     <div :class="[prefixCls+ '-list']" v-show="showSeconds" ref="seconds">
       <ul :class="[prefixCls + '-ul']">
-        <li :class="getCellCls(item)" v-for="item in secondsList" v-show="!item.hide" @click="handleClick('seconds', item)">{{ formatTime(item.text) }}</li>
+        <li :class="getCellCls(item)" v-for="item in secondsList" :key="item.text" v-show="!item.hide" @click="handleClick('seconds', item)">{{ formatTime(item.text) }}</li>
       </ul>
     </div>
   </div>
@@ -47,6 +47,9 @@ export default {
     steps: {
       type: Array,
       default: () => []
+    },
+    date:{
+      type:[Date]
     }
   },
   data() {
@@ -87,6 +90,15 @@ export default {
           hour.disabled = true;
           if (this.hideDisabledOptions) hour.hide = true;
         }
+        const disabledDateFn = this.disabledDate && typeof this.disabledDate === 'function';
+        if(disabledDateFn){
+          const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+i+':00:00');
+          const isDisaled =this.disabledDate(fullhourtime);
+          if(isDisaled){
+            hour.disabled = true;
+            if (this.hideDisabledOptions) hour.hide = true;
+          }
+        }
         if (this.hours === i) hour.selected = true;
         hours.push(hour);
       }
@@ -113,6 +125,16 @@ export default {
           minute.disabled = true;
           if (this.hideDisabledOptions) minute.hide = true;
         }
+        const disabledDateFn = this.disabledDate && typeof this.disabledDate === 'function';
+        if(disabledDateFn){
+          const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+this.hours+':'+i+':00');
+          const isDisaled =this.disabledDate(fullhourtime);
+          if(isDisaled){
+            hour.disabled = true;
+            if (this.hideDisabledOptions) hour.hide = true;
+          }
+        }
+
         if (this.minutes === i) minute.selected = true;
         minutes.push(minute);
       }

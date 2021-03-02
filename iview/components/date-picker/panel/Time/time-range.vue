@@ -6,14 +6,14 @@
           <template v-if="showDate">{{ leftDatePanelLabel }}</template>
           <template v-else>{{ t('i.datepicker.startTime') }}</template>
         </div>
-        <time-spinner ref="timeSpinner" :steps="steps" :show-seconds="showSeconds" :hours="value[0] && dateStart.getHours()" :minutes="value[0] && dateStart.getMinutes()" :seconds="value[0] && dateStart.getSeconds()" :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds" :hide-disabled-options="hideDisabledOptions" @on-change="handleStartChange" @on-pick-click="handlePickClick"></time-spinner>
+        <time-spinner ref="timeSpinner" :date="value[0] && dateStart" :steps="steps" :show-seconds="showSeconds" :hours="value[0] && dateStart.getHours()" :minutes="value[0] && dateStart.getMinutes()" :seconds="value[0] && dateStart.getSeconds()" :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds" :disabled-date="disabledDate" :hide-disabled-options="hideDisabledOptions" @on-change="handleStartChange" @on-pick-click="handlePickClick"></time-spinner>
       </div>
       <div :class="[prefixCls + '-content', prefixCls + '-content-right']">
         <div :class="[timePrefixCls + '-header']">
           <template v-if="showDate">{{ rightDatePanelLabel }}</template>
           <template v-else>{{ t('i.datepicker.endTime') }}</template>
         </div>
-        <time-spinner ref="timeSpinnerEnd" :steps="steps" :show-seconds="showSeconds" :hours="value[1] && dateEnd.getHours()" :minutes="value[1] && dateEnd.getMinutes()" :seconds="value[1] && dateEnd.getSeconds()" :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds" :hide-disabled-options="hideDisabledOptions" @on-change="handleEndChange" @on-pick-click="handlePickClick"></time-spinner>
+        <time-spinner ref="timeSpinnerEnd" :date="value[1] && dateEnd" :steps="steps" :show-seconds="showSeconds" :hours="value[1] && dateEnd.getHours()" :minutes="value[1] && dateEnd.getMinutes()" :seconds="value[1] && dateEnd.getSeconds()" :disabled-hours="disabledHours" :disabled-minutes="disabledMinutes" :disabled-seconds="disabledSeconds" :disabled-date="disabledDate" :hide-disabled-options="hideDisabledOptions" @on-change="handleEndChange" @on-pick-click="handlePickClick"></time-spinner>
       </div>
       <Confirm v-if="confirm" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess"></Confirm>
     </div>

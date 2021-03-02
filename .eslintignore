@@ -1,3 +1,4 @@
 /dist
 techsure-ui.umd.js
-/iview
+iview/*
+**/iview
