@@ -15,7 +15,7 @@ export default {
         transfer: true,
         options: {
           disabledDate(date) {
-            return date && date.valueOf() < Date.now();
+            return date && date.valueOf() > Date.now();
           }
         }
       }

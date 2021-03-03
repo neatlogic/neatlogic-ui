@@ -130,8 +130,8 @@ export default {
           const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+this.hours+':'+i+':00');
           const isDisaled =this.disabledDate(fullhourtime);
           if(isDisaled){
-            hour.disabled = true;
-            if (this.hideDisabledOptions) hour.hide = true;
+            minute.disabled = true;
+            if (this.hideDisabledOptions) minute.hide = true;
           }
         }
 
@@ -159,6 +159,15 @@ export default {
         if (this.disabledSeconds.length && this.disabledSeconds.indexOf(i) > -1) {
           second.disabled = true;
           if (this.hideDisabledOptions) second.hide = true;
+        }
+        const disabledDateFn = this.disabledDate && typeof this.disabledDate === 'function';
+        if(disabledDateFn){
+          const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+this.hours+':'+this.minutes+':'+i);
+          const isDisaled =this.disabledDate(fullhourtime);
+          if(isDisaled){
+            second.disabled = true;
+            if (this.hideDisabledOptions) second.hide = true;
+          }
         }
         if (this.seconds === i) second.selected = true;
         seconds.push(second);
