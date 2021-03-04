@@ -27,18 +27,19 @@
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
-          <DropdownMenu v-if="!(disabled || readonly)" slot="list" ref="dropdown">
+          <DropdownMenu v-if="!(disabled || readonly)" slot="list" ref="dropdown" :class="{'multiple':multiple,'single':!multiple}">
             <slot name="first-ul"></slot>
             <li v-if="allowCreate && addItem" class="ivu-dropdown-item overflow" @click.stop="toggleSelect(addItem)">
               {{ addItem[showName ? showName : textName] }}
               <i class="tsfont-arrow-corner-left text-primary"></i>
             </li>
+            <li v-if="selectAll && !dynamicUrl && multiple" :class="setLicalss()" @click.stop="toggleSelectAll()">全选<span class="text-grey small-tip">(选中所有选项)</span></li>
             <template v-for="(node, index) in nodeList">
-              <li v-show="!node._isHidden" :key="index" :class="setLicalss(node, index)" @click.stop="toggleSelect(node)">
+              <li v-show="!node._isHidden" :key="index" :value="node[valueName]" :class="setLicalss(node, index)" @click.stop="toggleSelect(node)">
                 <slot name="option" :item="node" :index="index"><div v-html="node.showtxt ? node.showtxt : node[showName ? showName : textName]"></div></slot>
               </li>
             </template>
-            <template v-if="(nodeList.length <= 0 || hiddenLength == nodeList.length) && !allowCreate">
+            <template v-if="(nodeList.length <= 0 || hiddenLength == nodeList.length) && !allowCreate && !selectAll">
               <li class="ivu-dropdown-item"><span class="text-tip">暂无数据</span></li>
             </template>
           </DropdownMenu>
@@ -198,11 +199,16 @@ export default {
     ajaxType: {
       type: String,
       default: 'post'
+    },
+    selectAll: {//是否有全选选项，只有在多选 和一次性拿去数据的情况下面起作用
+      type: Boolean,
+      default: false
     }
   },
   data: function() {
     let _this = this;
     return {
+      isSelectAll: false, //是否全部选中
       focussing: false, //是否处于焦点中
       focusIndex: -1, //通过键盘选中列表
       searchKeyWord: '', //搜索对应可以word
@@ -414,6 +420,7 @@ export default {
       this.currentValue.splice(ArrIndexOf(this.currentValue, value), 1);
       this.$refs.input && this.$refs.input.focus();
       this.onChangeValue();
+      this.isSelectAll = false;
     },
     clearValue() {
       //清除数据
@@ -422,6 +429,7 @@ export default {
       this.onChangeValue();
       this.isVisible && this.changeSearch();
       this.searchKeyWord = '';
+      this.isSelectAll = false;
     },
     filterNodeList(query) {
       //nodeList进行搜索过滤
@@ -617,9 +625,11 @@ export default {
                 selectli.splice(ind, 1);
               }
             });
+            this.isSelectAll = false;
           } else {
             selectli.push(item);
             this.currentValue.push(value);
+            this.judgeSelectAll();
           }
           this.searchKeyWord = '';
         } else {
@@ -636,12 +646,39 @@ export default {
           this.currentValue = [];
           this.currentValue.push(value);
           this.searchKeyWord = '';
+          this.judgeSelectAll();
         } else {
           //单选
           this.currentValue = value;
           this.hideOption();
         }
       }
+      this.onChangeValue();
+    },
+    judgeSelectAll() { //是否需要进行全选
+      if (this.selectAll && !this.dynamicUrl && this.multiple) {
+        let canselectNum = 0;
+        this.nodeList.forEach(item => {
+          !item._disabled && ++canselectNum;
+        });
+        this.currentValue.length == canselectNum && (this.isSelectAll = true);
+      }
+    },
+    toggleSelectAll() { //全选
+      let selectli = [];
+      let value = [];
+      if (!this.isSelectAll) {
+        this.nodeList.forEach(item => {
+          if (item && item._disabled) {
+            return;
+          }
+          selectli.push(item);
+          value.push(item[this.valueName]);
+        });
+      } 
+      this.selectedList = selectli;
+      this.currentValue = value;
+      this.isSelectAll = !this.isSelectAll;
       this.onChangeValue();
     },
     onClickOutside(event) {
@@ -859,16 +896,20 @@ export default {
       return function(node, index) {
         let _this = this;
         let classtxt = 'select-li ivu-dropdown-item overflow';
-        if (this.multiple && this.currentValue && ArrIndexOf(this.currentValue, node[_this.valueName]) > -1) {
-          classtxt = classtxt + ' selected';
-        } else if (!this.multiple && utils.equalStr(this.currentValue, node[_this.valueName])) {
-          classtxt = classtxt + ' selected';
-        }
-        if (index + 1 == _this.focusIndex || node['_focusSelect']) {
-          classtxt = classtxt + ' hover';
-        }
-        if (node['_disabled']) {
-          classtxt = classtxt + ' ivu-dropdown-item-disabled';
+        if (node) {
+          if (this.multiple && this.currentValue && ArrIndexOf(this.currentValue, node[_this.valueName]) > -1) {
+            classtxt = classtxt + ' selected';
+          } else if (!this.multiple && utils.equalStr(this.currentValue, node[_this.valueName])) {
+            classtxt = classtxt + ' selected';
+          }
+          if (index + 1 == _this.focusIndex || node['_focusSelect']) {
+            classtxt = classtxt + ' hover';
+          }
+          if (node['_disabled']) {
+            classtxt = classtxt + ' ivu-dropdown-item-disabled';
+          }
+        } else {
+          this.isSelectAll && (classtxt = classtxt + ' selected');
         }
         return classtxt;
       };
@@ -1128,23 +1169,62 @@ function ArrIndexOf(arr, str) {
 .ivu-dropdown-menu {
   min-width: auto;
   width: auto;
-  .select-li {
-    padding-right: 30px;
-    &.selected {
+  .small-tip{
+    vertical-align: baseline;
+    font-size: 12px;
+    margin-left: 3px;
+  }
+  &.single{
+    .select-li {
+      padding-right: 30px;
+      &.selected {
+        position: relative;
+        &:after {
+          content: '';
+          font-size: 16px;
+          position: absolute;
+          right: 10px;
+          top: 9px;
+          width: 5px;
+          height: 10px;
+          border: 2px solid;
+          border-top-color: transparent;
+          border-left-color: transparent;
+          border-radius: 2px;
+          transform: rotate(45deg);
+        }
+      }
+    }
+  }
+  &.multiple{
+    .select-li {
+      padding-right: 16px;
+      padding-left: 40px;
       position: relative;
-      &:after {
+      &::before{
         content: '';
-        font-size: 16px;
         position: absolute;
-        right: 10px;
-        top: 9px;
-        width: 5px;
-        height: 10px;
-        border: 2px solid;
-        border-top-color: transparent;
-        border-left-color: transparent;
-        border-radius: 2px;
-        transform: rotate(45deg);
+        left: 16px;
+        top:9px;
+        width: 16px;
+        height: 16px;
+        border:1px solid;
+      }
+      &.selected {
+        &:after {
+          content: '';
+          font-size: 16px;
+          position: absolute;
+          left: 21px;
+          top: 9px;
+          width: 6px;
+          height: 12px;
+          border: 2px solid #fff;
+          border-top-color: transparent;
+          border-left-color: transparent;
+          border-radius: 2px;
+          transform: rotate(45deg);
+        }
       }
     }
   }

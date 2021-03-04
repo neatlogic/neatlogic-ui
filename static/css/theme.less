@@ -537,8 +537,19 @@
       }
     }
   }
-
   .ivu-dropdown-menu {
+    &.multiple{
+      .select-li{
+        &::before{
+          border-color: @border-color-base;
+        }
+        &.selected { 
+          &::before{
+            background: @primary-color;
+          }
+        }
+      }
+    }
     .select-li,
     .userselect-li {
       &.hover:not(.ivu-dropdown-item-disabled) {
