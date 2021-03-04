@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" @mousedown.prevent>
     <div :class="[prefixCls + '-sidebar']" v-if="shortcuts.length">
-      <div :class="[prefixCls + '-shortcut']" v-for="(shortcut,sindex) in shortcuts" :key="sindex" @click="handleShortcutClick(shortcut)">{{ shortcut.text }}</div>
+      <div :class="[prefixCls + '-shortcut']" v-for="(shortcut, sindex) in shortcuts" :key="sindex" @click="handleShortcutClick(shortcut)">{{ shortcut.text }}</div>
     </div>
     <div :class="panelBodyClasses">
       <div :class="[prefixCls + '-content', prefixCls + '-content-left']" v-show="!isTime">
@@ -20,7 +20,7 @@
             <Icon type="ios-arrow-forward"></Icon>
           </span>
         </div>
-        <component :is="leftPickerTable" ref="leftYearTable" v-if="currentView !== 'time'" :table-date="leftPanelDate" selection-mode="range" :disabled-date="disabledDate" :range-state="rangeState" :show-week-numbers="showWeekNumbers" :value="preSelecting.left ? [dates[0]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.left" @on-pick-click="handlePickClick"></component>
+        <component :is="leftPickerTable" ref="leftYearTable" v-if="currentView !== 'time'" :type="type" :table-date="leftPanelDate" selection-mode="range" :disabled-date="disabledDate" :range-state="rangeState" :show-week-numbers="showWeekNumbers" :value="preSelecting.left ? [dates[0]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.left" @on-pick-click="handlePickClick"></component>
       </div>
       <div :class="[prefixCls + '-content', prefixCls + '-content-right']" v-show="!isTime">
         <div :class="[datePrefixCls + '-header']" v-show="currentView !== 'time'">
@@ -69,7 +69,6 @@ const dateSorter = (a, b) => {
   if (!a || !b) return 0;
   return a.getTime() - b.getTime();
 };
-console.log(this)
 export default {
   name: 'RangeDatePickerPanel',
   mixins: [Mixin, Locale, DateMixin],
@@ -80,7 +79,7 @@ export default {
       type: Boolean,
       default: false
     },
-    type:{
+    type: {
       type: String
     }
   },

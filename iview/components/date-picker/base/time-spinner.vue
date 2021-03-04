@@ -1,16 +1,16 @@
 <template>
   <div :class="classes">
-    <div :class="[prefixCls+ '-list']" ref="hours">
+    <div :class="[prefixCls + '-list']" ref="hours">
       <ul :class="[prefixCls + '-ul']">
         <li :class="getCellCls(item)" v-for="item in hoursList" :key="item.text" v-show="!item.hide" @click="handleClick('hours', item)">{{ formatTime(item.text) }}</li>
       </ul>
     </div>
-    <div :class="[prefixCls+ '-list']" ref="minutes">
+    <div :class="[prefixCls + '-list']" ref="minutes">
       <ul :class="[prefixCls + '-ul']">
         <li :class="getCellCls(item)" v-for="item in minutesList" :key="item.text" v-show="!item.hide" @click="handleClick('minutes', item)">{{ formatTime(item.text) }}</li>
       </ul>
     </div>
-    <div :class="[prefixCls+ '-list']" v-show="showSeconds" ref="seconds">
+    <div :class="[prefixCls + '-list']" v-show="showSeconds" ref="seconds">
       <ul :class="[prefixCls + '-ul']">
         <li :class="getCellCls(item)" v-for="item in secondsList" :key="item.text" v-show="!item.hide" @click="handleClick('seconds', item)">{{ formatTime(item.text) }}</li>
       </ul>
@@ -48,8 +48,8 @@ export default {
       type: Array,
       default: () => []
     },
-    date:{
-      type:[Date]
+    date: {
+      type: [Date]
     }
   },
   data() {
@@ -91,10 +91,10 @@ export default {
           if (this.hideDisabledOptions) hour.hide = true;
         }
         const disabledDateFn = this.disabledDate && typeof this.disabledDate === 'function';
-        if(disabledDateFn){
-          const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+i+':00:00');
-          const isDisaled =this.disabledDate(fullhourtime);
-          if(isDisaled){
+        if (disabledDateFn) {
+          const fullhourtime = new Date(this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate() + ' ' + i + ':00:00');
+          const isDisaled = this.disabledDate(fullhourtime);
+          if (isDisaled) {
             hour.disabled = true;
             if (this.hideDisabledOptions) hour.hide = true;
           }
@@ -126,10 +126,10 @@ export default {
           if (this.hideDisabledOptions) minute.hide = true;
         }
         const disabledDateFn = this.disabledDate && typeof this.disabledDate === 'function';
-        if(disabledDateFn){
-          const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+this.hours+':'+i+':00');
-          const isDisaled =this.disabledDate(fullhourtime);
-          if(isDisaled){
+        if (disabledDateFn) {
+          const fullhourtime = new Date(this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate() + ' ' + this.hours + ':' + i + ':00');
+          const isDisaled = this.disabledDate(fullhourtime);
+          if (isDisaled) {
             minute.disabled = true;
             if (this.hideDisabledOptions) minute.hide = true;
           }
@@ -161,10 +161,10 @@ export default {
           if (this.hideDisabledOptions) second.hide = true;
         }
         const disabledDateFn = this.disabledDate && typeof this.disabledDate === 'function';
-        if(disabledDateFn){
-          const fullhourtime = new Date(this.date.getFullYear()+'-'+(this.date.getMonth()+1)+'-'+this.date.getDate()+' '+this.hours+':'+this.minutes+':'+i);
-          const isDisaled =this.disabledDate(fullhourtime);
-          if(isDisaled){
+        if (disabledDateFn) {
+          const fullhourtime = new Date(this.date.getFullYear() + '-' + (this.date.getMonth() + 1) + '-' + this.date.getDate() + ' ' + this.hours + ':' + this.minutes + ':' + i);
+          const isDisaled = this.disabledDate(fullhourtime);
+          if (isDisaled) {
             second.disabled = true;
             if (this.hideDisabledOptions) second.hide = true;
           }
@@ -203,6 +203,16 @@ export default {
     handleClick(type, cell) {
       if (cell.disabled) return;
       const data = { [type]: cell.text };
+      if (type == 'hours') {
+        Object.assign(data, {
+          ['minutes']: 0,
+          ['seconds']: 0
+        });
+      } else if (type == 'minutes') {
+        Object.assign(data, {
+          ['seconds']: 0
+        });
+      }
       this.emitChange(data);
     },
     emitChange(changes) {

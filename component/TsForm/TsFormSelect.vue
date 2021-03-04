@@ -15,15 +15,63 @@
     </span>
 
     <div v-else :class="borderClass" :style="getStyle">
-      <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="getClass" class="select-body">
-        <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
-          <div ref="usertop" class="select-top ivu-input" :class="multiple?'ivu-select-multiple':''" :disabled="disabled" tabindex="0" @click="handleOpen" @keydown="handleKeydown" @focus="onSelectFocus" @blur="onSelectBlur">
+      <div
+        v-click-outside:false="onClickOutside"
+        v-click-outside:false.mousedown="onClickOutside"
+        v-click-outside:false.touchstart="onClickOutside"
+        :class="getClass"
+        class="select-body"
+      >
+        <Dropdown
+          ref="dropdownContain"
+          style="width:100%"
+          trigger="custom"
+          :visible="isVisible"
+          :transfer="transfer"
+          placement="bottom-start"
+        >
+          <div
+            ref="usertop"
+            class="select-top ivu-input"
+            :class="multiple ? 'ivu-select-multiple' : ''"
+            :disabled="disabled"
+            tabindex="0"
+            @click="handleOpen"
+            @keydown="handleKeydown"
+            @focus="onSelectFocus"
+            @blur="onSelectBlur"
+          >
             <template v-if="multiple">
-              <Tag v-for="(selected, nindex) in selectedList" :key="nindex" :name="selected[valueName]" :closable="!disabled" :fade="false" @click.native.stop="handleOpen" @on-close="deleteSeleted(nindex, selected[valueName], selectedList)">{{ selected[textName] }}</Tag>
-              <span v-if="selectedList.length <= 0 && !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="empty-placeholder" style="line-height: 30px;"></span>
+              <Tag
+                v-for="(selected, nindex) in selectedList"
+                :key="nindex"
+                :name="selected[valueName]"
+                :closable="!disabled"
+                :fade="false"
+                @click.native.stop="handleOpen"
+                @on-close="deleteSeleted(nindex, selected[valueName], selectedList)"
+              >{{ selected[textName] }}</Tag>
+              <span
+                v-if="selectedList.length <= 0 && !currentSearch"
+                :placeholder="!currentSearch ? getPlaceholder : ''"
+                class="empty-placeholder"
+                style="line-height: 30px;"
+              ></span>
             </template>
             <span v-else-if="disabled || readonly || !currentSearch" :placeholder="!currentSearch ? getPlaceholder : ''" class="overflow empty-placeholder single-span">{{ selectedList[0] ? selectedList[0][textName] : '' }}</span>
-            <input v-if="!(disabled || readonly) && currentSearch" ref="input" v-model="searchKeyWord" class="search-input ivu-input" :style="setInputwidth(searchKeyWord)" :placeholder="selectedList.length == 0 ? getPlaceholder : ''" @input="changeSearch($event, searchKeyWord)" @focus="changeSearch($event, searchKeyWord)" @keyup.enter="onCreatenewOption(searchKeyWord)" @keydown="onKeyDowm" @keyup="onKeyUp" />
+            <input
+              v-if="!(disabled || readonly) && currentSearch"
+              ref="input"
+              v-model="searchKeyWord"
+              class="search-input ivu-input"
+              :style="setInputwidth(searchKeyWord)"
+              :placeholder="selectedList.length == 0 ? getPlaceholder : ''"
+              @input="changeSearch($event, searchKeyWord)"
+              @focus="changeSearch($event, searchKeyWord)"
+              @keyup.enter="onCreatenewOption(searchKeyWord)"
+              @keydown="onKeyDowm"
+              @keyup="onKeyUp"
+            />
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
@@ -33,8 +81,14 @@
               {{ addItem[showName ? showName : textName] }}
               <i class="tsfont-arrow-corner-left text-primary"></i>
             </li>
+
             <template v-for="(node, index) in nodeList">
-              <li v-show="!node._isHidden" :key="index" :class="setLicalss(node, index)" @click.stop="toggleSelect(node)">
+              <li
+                v-show="!node._isHidden"
+                :key="index"
+                :class="setLicalss(node, index)"
+                @click.stop="toggleSelect(node)"
+              >
                 <slot name="option" :item="node" :index="index"><div v-html="node.showtxt ? node.showtxt : node[showName ? showName : textName]"></div></slot>
               </li>
             </template>
@@ -281,7 +335,7 @@ export default {
         let params = { needPage: false };
         typeof _this.params == 'object' && Object.assign(params, _this.params);
         _this.nodeList = [];
-        let ajaxArr = { method: _this.ajaxType, url: _this.url};
+        let ajaxArr = { method: _this.ajaxType, url: _this.url };
         if (this.urlConfig) {
           Object.assign(ajaxArr, this.urlConfig);
         }
@@ -298,7 +352,7 @@ export default {
               _this.onChangeValue();
             }
             _this.initValueByNodeList();
-          } 
+          }
         });
       } else if (_this.dynamicUrl) {
         //dynamicUrl
@@ -335,13 +389,14 @@ export default {
         _this.nodeList.forEach(function(item) {
           ArrIndexOf(ary, item[_this.valueName]) >= 0 && _this.selectedList.push(item);
         });
-      } else if (_this.defaultValueIsFirst && ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
+      } else if (_this.defaultValueIsFirst && ary.length <= 0 && this.isRequired && _this.nodeList.length == 1) {
+        //如果必填，而且下拉值只有一个则默认选中第一个
         _this.selectedList.push(_this.nodeList[0]);
         ary = [_this.nodeList[0][this.valueName]];
-        this.multiple ? this.currentValue = [_this.nodeList[0][this.valueName]] : this.currentValue = _this.nodeList[0][this.valueName];
+        this.multiple ? (this.currentValue = [_this.nodeList[0][this.valueName]]) : (this.currentValue = _this.nodeList[0][this.valueName]);
         _this.onChangeValue();
       }
-    
+
       if (ary.length > _this.selectedList.length && this.allowCreate && !this.multiple) {
         //如果不是通过接口调用写死的单独做一次性回显的，在下次初始化时把值回显回去
         this.searchKeyWord = this.currentValue;
@@ -364,8 +419,7 @@ export default {
       _this.$emit('change-label', labelList);
       _this.initReadolyTitle();
     },
-    onCreatenewOption: function(val) {
-    },
+    onCreatenewOption: function(val) {},
     remoteMethod: function(query) {
       let _this = this;
       if (!_this.dynamicUrl) {
@@ -456,7 +510,8 @@ export default {
       });
       _this.updatePosition();
     },
-    dynamicInit() { //通过dynamicurl初始化数据
+    dynamicInit() {
+      //通过dynamicurl初始化数据
       let _this = this;
       this.hiddenLength = 0;
       let params = {};
@@ -466,13 +521,13 @@ export default {
         params[_this.idListName] = [this.value];
       }
       typeof _this.params == 'object' && Object.assign(params, _this.params);
-      let ajaxArr = { method: _this.ajaxType, url: _this.dynamicUrl};
+      let ajaxArr = { method: _this.ajaxType, url: _this.dynamicUrl };
       if (this.urlConfig) {
         Object.assign(ajaxArr, this.urlConfig);
       }
       let needdataLi = ['post', 'put'];
       ArrIndexOf(needdataLi, _this.ajaxType) < 0 ? Object.assign(ajaxArr, { params: params }) : Object.assign(ajaxArr, { data: params });
-      axios(ajaxArr).then(res => {  
+      axios(ajaxArr).then(res => {
         if (res && res.Status == 'OK') {
           //初始化数据时需要text值
           _this.selectedList = [];
@@ -491,12 +546,13 @@ export default {
               labelList.push(select[_this.textName]);
             });
           }
-          _this.$emit('change-label', labelList);              
+          _this.$emit('change-label', labelList);
           this.readonly && this.initReadolyTitle();
         }
       });
     },
-    dynamicSearch(query, isFirst) { //query:搜索的关键字，isFirst 是否第一次初始化下拉值，主要为了必填时只有一个下拉值时默认填充
+    dynamicSearch(query, isFirst) {
+      //query:搜索的关键字，isFirst 是否第一次初始化下拉值，主要为了必填时只有一个下拉值时默认填充
       let _this = this;
       this.hiddenLength = 0;
       //取消正在搜索的请求
@@ -506,10 +562,10 @@ export default {
       const CancelToken = axios.CancelToken;
       this.cancelAxios = CancelToken.source();
       _this.loading = true;
-      let params = {currentPage: 1, pageSize: 20};
+      let params = { currentPage: 1, pageSize: 20 };
       params[_this.keyword] = query ? query.trim() : '';
       typeof _this.params == 'object' && Object.assign(params, _this.params);
-      let ajaxArr = {method: _this.ajaxType, url: _this.dynamicUrl, cancelToken: _this.cancelAxios.token };
+      let ajaxArr = { method: _this.ajaxType, url: _this.dynamicUrl, cancelToken: _this.cancelAxios.token };
       if (this.urlConfig) {
         Object.assign(ajaxArr, this.urlConfig);
       }
@@ -526,11 +582,12 @@ export default {
           }
           _this.nodeList.splice(0, {});
           _this.updatePosition();
-          if (isFirst && (!_this.currentValue || _this.currentValue.length <= 0) && _this.isRequired && _this.nodeList.length == 1) { //如果必填，而且下拉值只有一个则默认选中第一个
+          if (isFirst && (!_this.currentValue || _this.currentValue.length <= 0) && _this.isRequired && _this.nodeList.length == 1) {
+            //如果必填，而且下拉值只有一个则默认选中第一个
             _this.selectedList.push(_this.nodeList[0]);
-            _this.multiple ? _this.currentValue = [_this.nodeList[0][_this.valueName]] : _this.currentValue = _this.nodeList[0][_this.valueName];
+            _this.multiple ? (_this.currentValue = [_this.nodeList[0][_this.valueName]]) : (_this.currentValue = _this.nodeList[0][_this.valueName]);
             if (!_this.multiple) {
-            //是单选,进行赋值处理
+              //是单选,进行赋值处理
               _this.searchKeyWord = _this.selectedList[0] ? _this.selectedList[0][_this.textName] : '';
             }
             _this.onChangeValue();
@@ -538,7 +595,8 @@ export default {
         }
       });
     },
-    setNodeList(res) { //统一处理接口返回的数据
+    setNodeList(res) {
+      //统一处理接口返回的数据
       let nodeList = res;
       if (this.rootName) {
         let rootAry = this.rootName.split('.');
@@ -698,7 +756,8 @@ export default {
       if (!isEnterSearch) {
         !this.multiple ? (this.searchKeyWord = this.selectedList.length > 0 ? this.selectedList[0][this.textName] : '') : (this.searchKeyWord = '');
       }
-      if (!this.multiple && this.dynamicUrl && this.selectedList.length > 0) { //如果是单选实时搜索在收起元素时，然后下拉里面的值为当前选中项
+      if (!this.multiple && this.dynamicUrl && this.selectedList.length > 0) {
+        //如果是单选实时搜索在收起元素时，然后下拉里面的值为当前选中项
         setTimeout(() => {
           // this.dynamicSearch('search', this.selectedList[0][this.textName]);
           this.selectedList.length > 0 && _this.nodeList && (_this.nodeList = _this.nodeList.filter(item => item[_this.valueName] == _this.selectedList[0][_this.valueName]));
@@ -1106,7 +1165,7 @@ function ArrIndexOf(arr, str) {
     .search-input {
       height: 28px;
       border: 0 none !important;
-      padding:0px 0px;
+      padding: 0px 0px;
     }
     &:hover {
       .clearBtn {
@@ -1129,7 +1188,7 @@ function ArrIndexOf(arr, str) {
   .tsform-select-disabled {
     .select-top {
       cursor: not-allowed;
-       /deep/ .ivu-tag .ivu-tag-text {
+      /deep/ .ivu-tag .ivu-tag-text {
         margin-right: 0px;
       }
     }

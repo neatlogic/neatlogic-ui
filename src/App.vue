@@ -1,5 +1,5 @@
 <template>
-  <TimeSelect v-bind="timeconfig"> </TimeSelect>
+  <TimeSelect v-bind="timeconfig"></TimeSelect>
 </template>
 <script>
 export default {
