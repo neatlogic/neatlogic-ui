@@ -1,13 +1,13 @@
 <template>
   <div :class="[prefixCls + '-confirm']" @keydown.tab.capture="handleTab">
     <i-button :class="timeClasses" size="small" type="text" :disabled="timeDisabled" v-if="showTime" @click="handleToggleTime">
-      {{labels.time}}
+      {{ labels.time }}
     </i-button>
-    <i-button size="small" @click.native="handleClear" @keydown.enter.native="handleClear">
-      {{labels.clear}}
+    <i-button size="small" @click.native="handleClear" @keydown.enter.native="handleClear" style="margin-right:10px;">
+      {{ labels.clear }}
     </i-button>
     <i-button size="small" type="primary" @click.native="handleSuccess" @keydown.enter.native="handleSuccess">
-      {{labels.ok}}
+      {{ labels.ok }}
     </i-button>
   </div>
 </template>

@@ -1,20 +1,43 @@
 <template>
-  <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" class="usercard-container" tabindex="-1" @click.stop>
-    <Poptip ref="Poptip" v-model="isshow" width="400" transfer>
-      <span class="usercard-rel" @click="getUserinfo(item.useruuid||item.userid)">
+  <div
+    v-click-outside:false="onClickOutside"
+    v-click-outside:false.mousedown="onClickOutside"
+    v-click-outside:false.touchstart="onClickOutside"
+    class="usercard-container"
+    tabindex="-1"
+    @click.stop
+  >
+    <Poptip
+      ref="Poptip"
+      v-model="isshow"
+      width="400"
+      transfer
+    >
+      <span class="usercard-rel" @click="getUserinfo(item.useruuid || item.userid)">
         <img :src="avatar[item.type || 'default']" class="usercard-smallicon" :alt="item.username" />
         <span>{{ item.username || userName || '暂无用户名' }}</span>
         <span v-if="item.unit">{{ item.unit }}</span>
       </span>
       <div slot="content" ref="dropdown">
-        <div class="clearfix"><div v-if="item.type && item.type != 'user' && userId" class="ts-angle-left text-href" @click.stop="gotoList(item.type || null)">{{ item.username }}</div><i class="ts-remove btn-close-usercard" @click.stop="close()"></i></div>
+        <div class="clearfix">
+          <div v-if="item.type && item.type != 'user' && userId" class="ts-angle-left text-href" @click.stop="gotoList(item.type || null)">{{ item.username }}</div>
+          <i class="ts-remove btn-close-usercard" @click.stop="close()"></i>
+        </div>
         <Loading v-if="!isLoad" loadingShow></Loading>
         <template v-else>
           <UserInfo v-if="userId" :uuid="userId" :userConfig="userConfig"></UserInfo>
           <div v-else-if="item.type == 'team'">
             <TsRow :gutter="0">
-              <Col v-for="(user,uindex) in userList" :key="uindex" span="8">
-              <div class="usercard-li overflow" @click="showUser(user)"><img :src="avatar['default']" class="usercard-smallicon" :alt="user.username" :title="user.userName" />{{ user.userName }}</div>
+              <Col v-for="(user, uindex) in userList" :key="uindex" span="8">
+              <div class="usercard-li overflow" @click="showUser(user)">
+                <img
+                  :src="avatar['default']"
+                  class="usercard-smallicon"
+                  :alt="user.username"
+                  :title="user.userName"
+                />
+                {{ user.userName }}
+              </div>
               </Col>
             </TsRow>
           </div>
@@ -39,7 +62,8 @@ export default {
   props: ['item'],
   data() {
     return {
-      avatar: {//头像不同类型映射的名字
+      avatar: {
+        //头像不同类型映射的名字
         default: avatar1,
         user: avatar1,
         role: avatar2,
@@ -52,7 +76,7 @@ export default {
       userConfig: {},
       userId: null, //当前组件的用户id，就算是分组角色组件，每次切换下一层也是只有一个userid
       userName: null,
-      userList: []//分组角色用
+      userList: [] //分组角色用
     };
   },
 
@@ -67,8 +91,7 @@ export default {
       this.getUserinfo(this.item.useruuid || this.item.userid);
     }
   },
-  beforeDestroy() {
-  },
+  beforeDestroy() {},
 
   methods: {
     getUserinfo(id) {
@@ -84,7 +107,7 @@ export default {
       if (this.userId) {
         let userUuid = id.indexOf('#') > -1 ? id.split('#')[1] : id;
         axios
-          .post('/api/rest/user/get', { userUuid: userUuid }, Object.assign({'headers': {'unConsole': 1}}))
+          .post('/api/rest/user/get', { userUuid: userUuid }, Object.assign({ headers: { unConsole: 1 } }))
           .then(res => {
             _this.isLoad = true;
             if (res && res.Status == 'OK') {
@@ -97,26 +120,28 @@ export default {
               _this.$set(_this.userConfig, 'userName', res.Return.userName || null);
             } else {
               _this.isExist = false;
-            } 
+            }
             //_this.$refs.Poptip.updatePopper();
-          }).catch(e => {
+          })
+          .catch(e => {
             _this.isLoad = true;
           });
       } else if (this.item.type == 'team') {
         _this.userId = null;
         axios
-          .post('/api/rest/team/user/list', { teamUuid: id }, {unConsole: 1})
+          .post('/api/rest/team/user/list', { teamUuid: id }, { unConsole: 1 })
           .then(res => {
             _this.isLoad = true;
             if (res && res.Status == 'OK') {
               _this.userList = res.Return.teamUserList || [];
-             
+
               _this.isExist = true;
             } else {
               _this.isExist = false;
-            } 
+            }
             this.$refs.dropdown.update();
-          }).catch(e => {
+          })
+          .catch(e => {
             _this.isLoad = true;
           });
       }
@@ -147,9 +172,7 @@ export default {
       }
     }
   },
-  computed: {
-
-  },
+  computed: {},
   watch: {
     isshow(val) {
       if (!val && this.item.type == 'team') {
@@ -161,7 +184,7 @@ export default {
 </script>
 <style lang="less" scoped>
 @user-prev: usercard;
-.@{user-prev}-rel{
+.@{user-prev}-rel {
   display: block;
   cursor: pointer;
 }
@@ -182,7 +205,7 @@ export default {
   }
 }
 
-.@{user-prev}-li{
+.@{user-prev}-li {
   padding-top: 4px;
   padding-bottom: 4px;
   cursor: pointer;

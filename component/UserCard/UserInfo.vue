@@ -42,7 +42,6 @@
 
 <script>
 import image from '../../static/images/default-avatar.png';
-import axios from '../../api/http.js';
 export default {
   name: 'UserInfo',
   components: {

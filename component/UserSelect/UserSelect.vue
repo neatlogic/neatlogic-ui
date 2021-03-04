@@ -3,17 +3,57 @@
     <span v-if="readonly" :class="readonlyClass" :title="readonlyTitle">
       <span v-for="(aitem, aindex) in selectedList" :key="aindex" class="userlist">{{ aitem.text }}</span>
     </span>
-    <div v-else v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="borderClass" :style="getStyle" class="userselect-body">
+    <div
+      v-else
+      v-click-outside:false="onClickOutside"
+      v-click-outside:false.mousedown="onClickOutside"
+      v-click-outside:false.touchstart="onClickOutside"
+      :class="borderClass"
+      :style="getStyle"
+      class="userselect-body"
+    >
       <input v-model="currentValue" type="hidden" />
-      <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start" :class="getClass">
-        <div ref="usertop" class="userselect-top ivu-input" :disabled="disabled" @click="focusInput()" @keydown.stop="handleKeydown">
+      <Dropdown
+        ref="dropdownContain"
+        style="width:100%"
+        trigger="custom"
+        :visible="isVisible"
+        :transfer="transfer"
+        placement="bottom-start"
+        :class="getClass"
+      >
+        <div
+          ref="usertop"
+          class="userselect-top ivu-input"
+          :disabled="disabled"
+          @click="focusInput()"
+          @keydown.stop="handleKeydown"
+        >
           <template v-if="multiple">
-            <Tag v-for="(user, aindex) in selectedList" :key="user.value" :name="user.value" :closable="!disabled" :fade="false" :title="user.text" @click.stop @on-close="deleteSeleted(aindex, user.value, selectedList)">
+            <Tag
+              v-for="(user, aindex) in selectedList"
+              :key="user.value"
+              :name="user.value"
+              :closable="!disabled"
+              :fade="false"
+              :title="user.text"
+              @click.stop
+              @on-close="deleteSeleted(aindex, user.value, selectedList)"
+            >
               <i v-if="isIcon && groupList.length > 1" :class="iconType(user.value)" style="opacity:.6;"></i>
               {{ user.text }}
             </Tag>
           </template>
-          <input ref="input" v-model="keyword" class="userselect-input ivu-input" :disabled="disabled" :style="setInputwidth(keyword)" :placeholder="selectedList.length <= 0 ? placeholder : ''" @input="changeSearch($event, keyword)" @focus="changeSearch($event, keyword)" />
+          <input
+            ref="input"
+            v-model="keyword"
+            class="userselect-input ivu-input"
+            :disabled="disabled"
+            :style="setInputwidth(keyword)"
+            :placeholder="selectedList.length <= 0 ? placeholder : ''"
+            @input="changeSearch($event, keyword)"
+            @focus="changeSearch($event, keyword)"
+          />
           <i v-if="clearable && selectedList && selectedList.length > 0" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click="clearValue"></i>
         </div>
         <DropdownMenu slot="list" ref="dropdown" class="userselect-dropdown">
@@ -25,8 +65,18 @@
                 {{ group.text }}
               </div>
               <ul v-if="group.dataList && group.dataList.length > 0">
-                <li v-for="(user, uindex) in group.dataList" :key="gindex + '_' + uindex" :class="setLicalss(user)" @click="toggleSelect(user)">
-                  <slot v-if="user.value !='......'" name="option" :row="user" :group="group">
+                <li
+                  v-for="(user, uindex) in group.dataList"
+                  :key="gindex + '_' + uindex"
+                  :class="setLicalss(user)"
+                  @click="toggleSelect(user)"
+                >
+                  <slot
+                    v-if="user.value != '......'"
+                    name="option"
+                    :row="user"
+                    :group="group"
+                  >
                     {{ user.text }}
                   </slot>
                   <div v-else>{{ user.text }}</div>
@@ -57,7 +107,7 @@ import { directive as ClickOutside } from '../../directives/v-click-outside-x';
 export default {
   name: 'UserSelect',
   tagComponent: 'TsForm',
-  directives: {ClickOutside },
+  directives: { ClickOutside },
   mixins: [formMixins, formScrollMixins],
   model: {
     prop: 'value',
@@ -151,7 +201,8 @@ export default {
     scrollParent: [Object, String], //因为 transfer 导致元素在滚出父容器时 下拉选项依然存在问题
     errorMessage: String,
     border: String, //控件的样式 border bottom none
-    total: { //下拉选项的数量
+    total: {
+      //下拉选项的数量
       type: Number,
       default: 18
     }
@@ -215,7 +266,7 @@ export default {
           text_length = text_length + 0.5;
         }
       }
-      this.readonlyTitle = width > (text_length * 14) ? null : str;
+      this.readonlyTitle = width > text_length * 14 ? null : str;
     },
     getUserlist(query) {
       //获取选中的值回显的
@@ -227,7 +278,7 @@ export default {
         _this.selectedList = [];
         return;
       }
-      
+
       if (this.defaultDataList && this.defaultDataList instanceof 'Array' && this.defaultDataList.length > 0) {
         //defaultDataList是数组时 ，默认值的初始化
         _this.selectedList = [];
@@ -340,7 +391,7 @@ export default {
       } else if (!this.multiple) {
         this.currentValue instanceof Array ? (this.actualValue = this.currentValue[0] || '') : (this.actualValue = this.currentValue);
       }
-      this.keyword = this.multiple ? '' : (this.selectedList.length > 0 ? this.selectedList[0].text : '');
+      this.keyword = this.multiple ? '' : this.selectedList.length > 0 ? this.selectedList[0].text : '';
       !isInit && this.onChangeValue(val);
     },
     clearValue() {
@@ -805,10 +856,10 @@ function getDataLength(list) {
       }
     }
   }
-    .tsform-select-disabled {
+  .tsform-select-disabled {
     .select-top {
       cursor: not-allowed;
-       /deep/ .ivu-tag .ivu-tag-text {
+      /deep/ .ivu-tag .ivu-tag-text {
         margin-right: 0px;
       }
     }

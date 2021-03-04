@@ -2,11 +2,32 @@
   <div :class="containPrev + 'container'">
     <div v-if="$slots.top" :class="border == 'border' ? containPrev + 'header input-border' : containPrev + 'header'">
       <slot name="top">
-        <Row :gutter="gutter" type="flex" justify="end" align="middle" class="top">
+        <Row
+          :gutter="gutter"
+          type="flex"
+          justify="end"
+          align="middle"
+          class="top"
+        >
           <Col v-if="$slots.topDefault" style="flex:1;"><slot name="topDefault"></slot></Col>
-          <Col v-if="$slots.topRight" span="4" :xxl="4" :xl="4"><slot name="topRight"></slot></Col>
-          <Col v-if="$slots.topFilter" span="4" :xxl="4" :xl="4"><slot name="topFilter"></slot></Col>
-          <Col v-if="$slots.topSearch" span="9" :xxl="7" :xl="8"><slot name="topSearch"></slot></Col>
+          <Col
+            v-if="$slots.topRight"
+            span="4"
+            :xxl="4"
+            :xl="4"
+          ><slot name="topRight"></slot></Col>
+          <Col
+            v-if="$slots.topFilter"
+            span="4"
+            :xxl="4"
+            :xl="4"
+          ><slot name="topFilter"></slot></Col>
+          <Col
+            v-if="$slots.topSearch"
+            span="9"
+            :xxl="7"
+            :xl="8"
+          ><slot name="topSearch"></slot></Col>
         </Row>
       </slot>
     </div>
@@ -21,7 +42,13 @@
     <div v-else :class="$slots.top?containPrev + 'body':containPrev + 'body notop'">
       <slot name="content"></slot>
     </div>
-    <div v-if="canFolded" class="btn-toggle text-action border-color bg-grey" :class="setBtnclass(isFolded)" :style="setTogglebtn(isFolded)" @click="toggleFolder()"></div>
+    <div
+      v-if="canFolded"
+      class="btn-toggle text-action border-color bg-grey"
+      :class="setBtnclass(isFolded)"
+      :style="setTogglebtn(isFolded)"
+      @click="toggleFolder()"
+    ></div>
   </div>
 </template>
 <script>

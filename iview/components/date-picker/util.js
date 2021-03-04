@@ -15,9 +15,9 @@ export const toDate = function(date) {
   return _date;
 };
 
-export const clearHours = function(time) {
+export const clearHours = function(time,isFulltime) {
   const cloneDate = new Date(time);
-  cloneDate.setHours(0, 0, 0, 0);
+  !isFulltime && cloneDate.setHours(0, 0, 0, 0);
   return cloneDate.getTime();
 };
 

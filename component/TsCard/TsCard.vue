@@ -40,7 +40,12 @@
             </template>
             <li v-if="min > 1" :class="cardPrev + 'more'">...</li>
             <template v-for="page in max">
-              <li v-if="page >= min && page <= max" :key="page" :class="currentPage == page ? cardPrev + 'pageli current' : cardPrev + 'pageli'" @click="updatePage(parseInt(page))">
+              <li
+                v-if="page >= min && page <= max"
+                :key="page"
+                :class="currentPage == page ? cardPrev + 'pageli current' : cardPrev + 'pageli'"
+                @click="updatePage(parseInt(page))"
+              >
                 <div :class="cardPrev + 'pagenum bg-op text-title'">{{ page }}</div>
               </li>
             </template>
@@ -63,13 +68,30 @@
           </ol>
         </div>
         <div v-else-if="pageType === 'number'" class="text-right">
-          <Page :total="rowNum" size="small" :current="currentPage" :page-size="pageSize" transfer show-elevator show-total show-sizer :page-size-opts="sizeList" @on-change="updatePage" @on-page-size-change="updateSize" />
+          <Page
+            :total="rowNum"
+            size="small"
+            :current="currentPage"
+            :page-size="pageSize"
+            transfer
+            show-elevator
+            show-total
+            show-sizer
+            :page-size-opts="sizeList"
+            @on-change="updatePage"
+            @on-page-size-change="updateSize"
+          />
         </div>
       </div>
       <!-- 圆点分页_end -->
       <!-- 下拉加载更多 -->
       <div v-else-if="pageType === 'scroll'" :class="{ [cardPrev + 'no-more']: isNoMore }">
-        <Scroll :on-reach-bottom="reachBottom" height="700" :distance-to-edge="-24" :loading-text="reachBottomText">
+        <Scroll
+          :on-reach-bottom="reachBottom"
+          height="700"
+          :distance-to-edge="-24"
+          :loading-text="reachBottomText"
+        >
           <ul :class="cardPrev + 'ul ivu-row'">
             <li v-for="(card, cindex) in cardList" :key="keyName ? card[keyName] : cindex" :class="setcardliClass()">
               <div :class="classname ? cardPrev + 'inner block-container ' + classname : cardPrev + 'inner block-container'">

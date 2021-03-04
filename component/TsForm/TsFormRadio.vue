@@ -1,8 +1,21 @@
 <template>
   <div class="form-li">
     <span v-if="readonly" class="tsform-readonly">{{ getText }}</span>
-    <RadioGroup v-else v-model="currentValue" :class="getClass" :type="radioType" :vertical="vertical" @on-change="onChangeValue">
-      <Radio v-for="(data, index) in nodeList" :key="index" :label="data[valueName]" :disabled="disabled || data.disabled || readonly" :class="{ 'tsform-radio-readonly': readonly }">
+    <RadioGroup
+      v-else
+      v-model="currentValue"
+      :class="getClass"
+      :type="radioType"
+      :vertical="vertical"
+      @on-change="onChangeValue"
+    >
+      <Radio
+        v-for="(data, index) in nodeList"
+        :key="index"
+        :label="data[valueName]"
+        :disabled="disabled || data.disabled || readonly"
+        :class="{ 'tsform-radio-readonly': readonly }"
+      >
         <span><slot name="label" :node="data" :index="index">{{ data[textName] }}</slot></span>
       </Radio>
     </RadioGroup>

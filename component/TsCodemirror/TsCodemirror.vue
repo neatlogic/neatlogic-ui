@@ -1,6 +1,16 @@
 <template>
   <div class="tscodemirror" :class="cmOptions.readOnly?'disabled':''">
-    <codemirror ref="myCode" v-model="content" :options="cmOptions" class="tscodemirror-code border-color" :class="classCodeStyle" :style="setHeight" @blur="onBlur" @focus="onFocus" @cursorActivity="cursorActivity"></codemirror>
+    <codemirror
+      ref="myCode"
+      v-model="content"
+      :options="cmOptions"
+      class="tscodemirror-code border-color"
+      :class="classCodeStyle"
+      :style="setHeight"
+      @blur="onBlur"
+      @focus="onFocus"
+      @cursorActivity="cursorActivity"
+    ></codemirror>
   </div>
 </template>
 <script>

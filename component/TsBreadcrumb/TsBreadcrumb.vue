@@ -1,6 +1,11 @@
 <template>
   <ul v-if="pathList" class="breadcrumb-container">
-    <li v-for="(path, index) in pathList" :key="index" :class="{ active: index == pathList.length - 1 }" @click="clickItem(index)">
+    <li
+      v-for="(path, index) in pathList"
+      :key="index"
+      :class="{ active: index == pathList.length - 1 }"
+      @click="clickItem(index)"
+    >
       <i v-if="path.icon" :class="[path.icon, 'text-grey']"></i>
       {{ path.text }}
     </li>

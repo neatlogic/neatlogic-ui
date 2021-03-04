@@ -10,7 +10,7 @@
     <transition name="transition-drop">
       <Drop @click.native="handleTransferClick" v-show="opened" :class="dropdownCls" :placement="placement" ref="drop" :data-transfer="transfer" :transfer="transfer" v-transfer-dom>
         <div>
-          <component :is="panel" ref="pickerPanel" :visible="visible" :showTime="type === 'datetime' || type === 'datetimerange'" :confirm="isConfirm" :selectionMode="selectionMode" :steps="steps" :format="format" :value="internalValue" :start-date="startDate" :split-panels="splitPanels" :show-week-numbers="showWeekNumbers" :picker-type="type" :multiple="multiple" :focused-date="focusedDate" :time-picker-options="timePickerOptions" v-bind="ownPickerProps" @on-pick="onPick" @on-pick-clear="handleClear" @on-pick-success="onPickSuccess" @on-pick-click="disableClickOutSide = true" @on-selection-mode-change="onSelectionModeChange"></component>
+          <component :is="panel" ref="pickerPanel" :visible="visible" :showTime="type === 'datetime' || type === 'datetimerange'" :type="type" :confirm="isConfirm" :selectionMode="selectionMode" :steps="steps" :format="format" :value="internalValue" :start-date="startDate" :split-panels="splitPanels" :show-week-numbers="showWeekNumbers" :picker-type="type" :multiple="multiple" :focused-date="focusedDate" :time-picker-options="timePickerOptions" v-bind="ownPickerProps" @on-pick="onPick" @on-pick-clear="handleClear" @on-pick-success="onPickSuccess" @on-pick-click="disableClickOutSide = true" @on-selection-mode-change="onSelectionModeChange"></component>
         </div>
       </Drop>
     </transition>
@@ -56,7 +56,6 @@ const extractTime = date => {
   if (!date) return [0, 0, 0];
   return [date.getHours(), date.getMinutes(), date.getSeconds()];
 };
-
 export default {
   mixins: [Emitter, mixinsForm],
   components: { iInput, Drop, Icon },
@@ -568,7 +567,6 @@ export default {
       const valueToTest = isArrayValue ? newDate : newDate[0];
       const isDisabled = disabledDateFn && disabledDateFn(valueToTest);
       const isValidDate = newDate.reduce((valid, date) => valid && date instanceof Date, true);
-
       if (newValue !== oldValue && !isDisabled && isValidDate) {
         this.emitChange(this.type);
         this.internalValue = newDate;

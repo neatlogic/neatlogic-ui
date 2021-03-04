@@ -2,7 +2,7 @@
   <div :class="classes">
     <div :class="[prefixCls + '-header']">
       <span v-for="day in headerDays" :key="day">
-        {{day}}
+        {{ day }}
       </span>
     </div>
     <span :class="getCellCls(cell)" v-for="(cell, i) in cells" :key="String(cell.date) + i" @click="handleClick(cell, $event)" @mouseenter="handleMouseMove(cell)">
@@ -26,6 +26,9 @@ export default {
     showWeekNumbers: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String
     }
   },
   data() {
@@ -71,8 +74,9 @@ export default {
         // Comment out this code to fix daylight saving time bug
         // https://www.cnblogs.com/hamsterPP/p/5415472.html
         if (cell.date instanceof Date) cell.date.setTime(cell.date.getTime() + cell.date.getTimezoneOffset() * 60000 + 480 * 60 * 1000);
-
-        const time = cell.date && clearHours(cell.date);
+        const nowTime = new Date();
+        const cellDate = new Date(cell.date);
+        const time = cell.date && clearHours(this.type && ['datetime', 'datetimerange'].includes(this.type) ? cellDate.setHours(nowTime.getHours(), nowTime.getMinutes(), nowTime.getSeconds(), nowTime.getMilliseconds()) : cell.date, this.type && this.type == 'datetimerange');
         const dateIsInCurrentMonth = cell.date && tableMonth === cell.date.getMonth();
         return {
           ...cell,

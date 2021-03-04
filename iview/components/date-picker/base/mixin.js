@@ -55,5 +55,6 @@ export default {
       const newDate = cell.date;
       this.$emit('on-change-range', newDate);
     }
+
   }
 };

@@ -1,8 +1,13 @@
 <template>
   <div :class="type == 'fix'?'':'part-loading'">
-    <Spin v-if="loadingShow" size="large" :fix="type == 'fix'?true:false" class="text-primary">
+    <Spin
+      v-if="loadingShow"
+      size="large"
+      :fix="getType(type)"
+      class="text-primary"
+    >
       <Icon type="ios-loading" size="18" class="loading"></Icon>
-      <div v-if="text">加载中</div>
+      <slot><div v-if="text">加载中</div></slot>
     </Spin>
   </div>
 </template>
@@ -32,7 +37,17 @@ export default {
   beforeMount() {},
   mounted() {},
   methods: {},
-  computed: {},
+  computed: {
+    getType() {
+      return function(type) {
+        let finalType = false;
+        if (type == 'fix') {
+          finalType = true;
+        }
+        return finalType;
+      };
+    }
+  },
   watch: {
   }
 };
