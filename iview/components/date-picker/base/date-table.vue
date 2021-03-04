@@ -26,6 +26,9 @@ export default {
     showWeekNumbers: {
       type: Boolean,
       default: false
+    },
+    type:{
+      type: String
     }
   },
   data() {
@@ -72,7 +75,7 @@ export default {
         // https://www.cnblogs.com/hamsterPP/p/5415472.html
         if (cell.date instanceof Date) cell.date.setTime(cell.date.getTime() + cell.date.getTimezoneOffset() * 60000 + 480 * 60 * 1000);
 
-        const time = cell.date && clearHours(cell.date);
+        const time = cell.date && (this.type && this.type=='datetimerange'? cell.date:clearHours(cell.date));
         const dateIsInCurrentMonth = cell.date && tableMonth === cell.date.getMonth();
         return {
           ...cell,

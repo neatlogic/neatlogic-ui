@@ -10,7 +10,7 @@
     <transition name="transition-drop">
       <Drop @click.native="handleTransferClick" v-show="opened" :class="dropdownCls" :placement="placement" ref="drop" :data-transfer="transfer" :transfer="transfer" v-transfer-dom>
         <div>
-          <component :is="panel" ref="pickerPanel" :visible="visible" :showTime="type === 'datetime' || type === 'datetimerange'" :confirm="isConfirm" :selectionMode="selectionMode" :steps="steps" :format="format" :value="internalValue" :start-date="startDate" :split-panels="splitPanels" :show-week-numbers="showWeekNumbers" :picker-type="type" :multiple="multiple" :focused-date="focusedDate" :time-picker-options="timePickerOptions" v-bind="ownPickerProps" @on-pick="onPick" @on-pick-clear="handleClear" @on-pick-success="onPickSuccess" @on-pick-click="disableClickOutSide = true" @on-selection-mode-change="onSelectionModeChange"></component>
+          <component :is="panel" ref="pickerPanel" :visible="visible" :showTime="type === 'datetime' || type === 'datetimerange'" :type="type" :confirm="isConfirm" :selectionMode="selectionMode" :steps="steps" :format="format" :value="internalValue" :start-date="startDate" :split-panels="splitPanels" :show-week-numbers="showWeekNumbers" :picker-type="type" :multiple="multiple" :focused-date="focusedDate" :time-picker-options="timePickerOptions" v-bind="ownPickerProps" @on-pick="onPick" @on-pick-clear="handleClear" @on-pick-success="onPickSuccess" @on-pick-click="disableClickOutSide = true" @on-selection-mode-change="onSelectionModeChange"></component>
         </div>
       </Drop>
     </transition>
