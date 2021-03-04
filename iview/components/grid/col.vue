@@ -8,7 +8,7 @@ import { findComponentUpward } from '../../utils/assist';
 const prefixCls = 'ivu-col';
 
 export default {
-  name: 'ICol',
+  name: 'iCol',
   props: {
     span: [Number, String],
     order: [Number, String],

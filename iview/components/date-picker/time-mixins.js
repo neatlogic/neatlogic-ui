@@ -21,6 +21,10 @@ export default {
     hideDisabledOptions: {
       type: Boolean,
       default: false
+    },
+    disabledDate:{
+      type: [Function,Boolean],
+      default:false
     }
   }
 };

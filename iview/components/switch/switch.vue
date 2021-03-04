@@ -21,7 +21,7 @@ import mixinsForm from '../../mixins/form';
 const prefixCls = 'ivu-switch';
 
 export default {
-  name: 'ISwitch',
+  name: 'iSwitch',
   mixins: [Emitter, mixinsForm],
   props: {
     value: {

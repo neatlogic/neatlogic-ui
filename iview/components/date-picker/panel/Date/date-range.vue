@@ -1,7 +1,7 @@
 <template>
   <div :class="classes" @mousedown.prevent>
     <div :class="[prefixCls + '-sidebar']" v-if="shortcuts.length">
-      <div :class="[prefixCls + '-shortcut']" v-for="shortcut in shortcuts" @click="handleShortcutClick(shortcut)">{{ shortcut.text }}</div>
+      <div :class="[prefixCls + '-shortcut']" v-for="(shortcut, sindex) in shortcuts" :key="sindex" @click="handleShortcutClick(shortcut)">{{ shortcut.text }}</div>
     </div>
     <div :class="panelBodyClasses">
       <div :class="[prefixCls + '-content', prefixCls + '-content-left']" v-show="!isTime">
@@ -20,7 +20,7 @@
             <Icon type="ios-arrow-forward"></Icon>
           </span>
         </div>
-        <component :is="leftPickerTable" ref="leftYearTable" v-if="currentView !== 'time'" :table-date="leftPanelDate" selection-mode="range" :disabled-date="disabledDate" :range-state="rangeState" :show-week-numbers="showWeekNumbers" :value="preSelecting.left ? [dates[0]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.left" @on-pick-click="handlePickClick"></component>
+        <component :is="leftPickerTable" ref="leftYearTable" v-if="currentView !== 'time'" :type="type" :table-date="leftPanelDate" selection-mode="range" :disabled-date="disabledDate" :range-state="rangeState" :show-week-numbers="showWeekNumbers" :value="preSelecting.left ? [dates[0]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.left" @on-pick-click="handlePickClick"></component>
       </div>
       <div :class="[prefixCls + '-content', prefixCls + '-content-right']" v-show="!isTime">
         <div :class="[datePrefixCls + '-header']" v-show="currentView !== 'time'">
@@ -38,10 +38,10 @@
             <Icon type="ios-arrow-forward"></Icon>
           </span>
         </div>
-        <component :is="rightPickerTable" ref="rightYearTable" v-if="currentView !== 'time'" :table-date="rightPanelDate" selection-mode="range" :range-state="rangeState" :disabled-date="disabledDate" :show-week-numbers="showWeekNumbers" :value="preSelecting.right ? [dates[dates.length - 1]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.right" @on-pick-click="handlePickClick"></component>
+        <component :is="rightPickerTable" ref="rightYearTable" v-if="currentView !== 'time'" :type="type" :table-date="rightPanelDate" selection-mode="range" :range-state="rangeState" :disabled-date="disabledDate" :show-week-numbers="showWeekNumbers" :value="preSelecting.right ? [dates[dates.length - 1]] : dates" :focused-date="focusedDate" @on-change-range="handleChangeRange" @on-pick="panelPickerHandlers.right" @on-pick-click="handlePickClick"></component>
       </div>
       <div :class="[prefixCls + '-content']" v-show="isTime">
-        <time-picker ref="timePicker" v-if="currentView === 'time'" :value="dates" :format="format" :time-disabled="timeDisabled" v-bind="timePickerOptions" @on-pick="handleRangePick" @on-pick-click="handlePickClick" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess" @on-pick-toggle-time="handleToggleTime"></time-picker>
+        <time-picker ref="timePicker" v-if="currentView === 'time'" :value="dates" :format="format" :time-disabled="timeDisabled" v-bind="timePickerOptions" :disabled-date="disabledDate" @on-pick="handleRangePick" @on-pick-click="handlePickClick" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess" @on-pick-toggle-time="handleToggleTime"></time-picker>
       </div>
       <Confirm v-if="confirm" :show-time="showTime" :is-time="isTime" :time-disabled="timeDisabled" @on-pick-toggle-time="handleToggleTime" @on-pick-clear="handlePickClear" @on-pick-success="handlePickSuccess"></Confirm>
     </div>
@@ -69,7 +69,6 @@ const dateSorter = (a, b) => {
   if (!a || !b) return 0;
   return a.getTime() - b.getTime();
 };
-
 export default {
   name: 'RangeDatePickerPanel',
   mixins: [Mixin, Locale, DateMixin],
@@ -79,6 +78,9 @@ export default {
     splitPanels: {
       type: Boolean,
       default: false
+    },
+    type: {
+      type: String
     }
   },
   data() {

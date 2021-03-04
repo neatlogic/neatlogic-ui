@@ -2,15 +2,35 @@
 <template>
   <div class="form-li">
     <div v-if="disabled" class="bg-grey border-color text-tip read-container">{{ showText }}</div>
-    <div v-else v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" :class="borderClass" :style="getStyle" @click.stop>
-      <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
+    <div
+      v-else
+      v-click-outside:false="onClickOutside"
+      v-click-outside:false.mousedown="onClickOutside"
+      v-click-outside:false.touchstart="onClickOutside"
+      :class="borderClass"
+      :style="getStyle"
+      @click.stop
+    >
+      <Dropdown
+        ref="dropdownContain"
+        style="width:100%"
+        trigger="custom"
+        :visible="isVisible"
+        :transfer="transfer"
+        placement="bottom-start"
+      >
         <div class="search-contain" @click="isVisible = !isVisible">
           <span class="search-input ivu-select-selection empty-placeholder" :placeholder="placeholder">{{ showText }}</span>
           <i :class="['ivu-select-arrow', { 'tsfont-down': !isVisible }, { 'tsfont-up': isVisible }]"></i>
           <i v-if="showText && clearable" class="clearBtn ivu-icon ivu-icon-ios-close-circle" @click="clearValue"></i>
         </div>
         <DropdownMenu slot="list" ref="dropdown" class="list-contain">
-          <li v-for="(item, index) in timeList" :key="index" :class="getliClass(item)" @click="onChange(item.value, item)">
+          <li
+            v-for="(item, index) in timeList"
+            :key="index"
+            :class="getliClass(item)"
+            @click="onChange(item.value, item)"
+          >
             {{ item.text }}
           </li>
           <template v-if="isMore">
@@ -18,8 +38,27 @@
             <li :class="getliClass(datetimerange)" :style="{'width': timerWidth}" @click="onChange(datetimerange.value, datetimerange)">
               {{ datetimerange.text }}
             </li>
-            <li v-if="showTimeRange" style="min-width: 225px;" :style="{'width': timerWidth}" @click.stop>
-              <TsFormDatePicker v-model="timeValue" border="border" :placement="placement" :type="type" :splitPanels="isRelative" :format="format" :value-type="valueType" :placeholder="placeholder" :separator="' '+separator+' '" @on-change="saveTimeRange" @on-ok="confirmTimeRange"></TsFormDatePicker>
+            <li
+              v-if="showTimeRange"
+              style="min-width: 225px;"
+              :style="{'width': timerWidth}"
+              @click.stop
+            >
+              <TsFormDatePicker 
+                v-model="timeValue" 
+                border="border" 
+                :placement="placement" 
+                :options="options" 
+                :type="type" 
+                :transfer="false" 
+                :splitPanels="isRelative" 
+                :format="format" 
+                :value-type="valueType" 
+                :placeholder="placeholder" 
+                :separator="' '+separator+' '" 
+                @on-change="saveTimeRange" 
+                @on-ok="confirmTimeRange"
+              ></TsFormDatePicker>
             </li>
           </template>
         </DropdownMenu>
@@ -31,7 +70,6 @@
   </div>
 </template>
 <script>
-import axios from '../../api/http.js';
 import TsFormDatePicker from '../TsForm/TsFormDatePicker';
 import TransferDom from '../../directives/transfer-dom';
 import { directive as ClickOutside } from '../../directives/v-click-outside-x';
@@ -118,6 +156,9 @@ export default {
     timerWidth: {
       type: [String, Number],
       default: 200      
+    },
+    options: {
+      type: [Object]
     }
   },
   data() {

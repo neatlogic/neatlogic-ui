@@ -1,6 +1,11 @@
 <template>
   <div>
-    <Input :placeholder="placeholder" prefix="i-icon ts-search" :clearable="clearable" @input="debounceInput" />
+    <Input
+      :placeholder="placeholder"
+      prefix="i-icon ts-search"
+      :clearable="clearable"
+      @input="debounceInput"
+    />
   </div>
 </template>
 

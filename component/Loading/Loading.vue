@@ -1,20 +1,16 @@
 <template>
-  <div>
-    <div v-if="type == 'fix'">
-      <Spin v-if="show" size="large" fix class="text-primary">
-        <Icon type="ios-loading" size="18" class="loading"></Icon>
-        <div>加载中</div>
-      </Spin>
-    </div>
-    <div v-else class="part-loading">
-      <Spin v-if="show" size="large" class="text-primary">
-        <Icon type="ios-loading" size="18" class="loading"></Icon>
-        <div>加载中</div>
-      </Spin>
-    </div>
+  <div :class="type == 'fix'?'':'part-loading'">
+    <Spin
+      v-if="loadingShow"
+      size="large"
+      :fix="getType(type)"
+      class="text-primary"
+    >
+      <Icon type="ios-loading" size="18" class="loading"></Icon>
+      <slot><div v-if="text">加载中</div></slot>
+    </Spin>
   </div>
 </template>
-
 <script>
 export default {
   name: 'Loading',
@@ -27,29 +23,32 @@ export default {
     loadingShow: {
       type: Boolean,
       default: false
+    },
+    text: {
+      type: [Boolean, String],
+      default: '加载中'      
     }
   },
   data() {
     return {
-      show: this.loadingShow,
-      loadingtype: this.type
     };
   },
-
   created() {},
-
   beforeMount() {},
-
   mounted() {},
-
   methods: {},
-
-  computed: {},
-
-  watch: {
-    loadingShow: function() {
-      this.show = this.loadingShow;
+  computed: {
+    getType() {
+      return function(type) {
+        let finalType = false;
+        if (type == 'fix') {
+          finalType = true;
+        }
+        return finalType;
+      };
     }
+  },
+  watch: {
   }
 };
 </script>

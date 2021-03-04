@@ -1,13 +1,12 @@
 <template lang="html">
-    <div :class="wrapperClasses">
-        <div :class="spinnerClasses">
-            <Spin fix>
-                <Icon type="ios-loading" size="18" :class="iconClasses"></Icon>
-                <div v-if="text" :class="textClasses">{{text}}</div>
-            </Spin>
-
-        </div>
+  <div :class="wrapperClasses">
+    <div :class="spinnerClasses">
+      <Spin fix>
+        <Icon type="ios-loading" size="18" :class="iconClasses"></Icon>
+        <div v-if="text" :class="textClasses">{{ text }}</div>
+      </Spin>
     </div>
+  </div>
 </template>
 
 <script>
@@ -17,8 +16,8 @@ import Icon from '../icon/icon.vue';
 const prefixCls = 'ivu-scroll';
 
 export default {
-  props: ['text', 'active', 'spinnerHeight'],
   components: { Spin, Icon },
+  props: ['text', 'active', 'spinnerHeight'],
   computed: {
     wrapperClasses() {
       return [

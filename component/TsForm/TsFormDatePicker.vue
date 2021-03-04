@@ -4,10 +4,61 @@
     <template v-else> {{ currentValue }}</template>
   </span>
   <div v-else :class="borderClass" class="form-li">
-    <DatePicker v-if="type != 'time' && type != 'timerange'" v-model="currentValue" :placement="placement" :class="getClass" :type="type" :format="getFormat" :readonly="readonly" :disabled="disabled" :size="size" :multiple="multiple" :placeholder="getPlaceholder" :value="currentValue" :clearable="getClearable" :split-panels="splitPanels" :style="getStyle" :transfer="transfer" :editable="false" :options="options" :confirm="confirm" :open="open" :separator="separator" @on-change="onChangeValue" @on-ok="onOk" @on-clear="onClear" @on-clickoutside="onClickoutside">
+    <DatePicker
+      v-if="type != 'time' && type != 'timerange'"
+      v-model="currentValue"
+      :placement="placement"
+      :class="getClass"
+      :type="type"
+      :format="getFormat"
+      :readonly="readonly"
+      :disabled="disabled"
+      :size="size"
+      :multiple="multiple"
+      :placeholder="getPlaceholder"
+      :value="currentValue"
+      :clearable="getClearable"
+      :split-panels="splitPanels"
+      :style="getStyle"
+      :transfer="transfer"
+      :editable="false"
+      :options="options"
+      :confirm="confirm"
+      :open="open"
+      :separator="separator"
+      @on-change="onChangeValue"
+      @on-ok="onOk"
+      @on-clear="onClear"
+      @on-clickoutside="onClickoutside"
+    >
       <slot></slot>
     </DatePicker>
-    <TimePicker v-else v-model="currentValue" :separator="separator" :placement="placement" :class="getClass" :type="type" :format="getFormat" :readonly="readonly" :disabled="disabled" :size="size" :multiple="multiple" :placeholder="getPlaceholder" :split-panels="splitPanels" :value="currentValue" :clearable="getClearable" :style="getStyle" :transfer="transfer" :editable="false" :confirm="confirm" :open="open" @on-change="onChangeValue" @on-ok="onOk" @on-clickoutside="onClickoutside" @on-clear="onClear">
+    <TimePicker
+      v-else
+      v-model="currentValue"
+      :separator="separator"
+      :placement="placement"
+      :class="getClass"
+      :type="type"
+      :format="getFormat"
+      :readonly="readonly"
+      :disabled="disabled"
+      :size="size"
+      :multiple="multiple"
+      :placeholder="getPlaceholder"
+      :split-panels="splitPanels"
+      :value="currentValue"
+      :clearable="getClearable"
+      :style="getStyle"
+      :transfer="transfer"
+      :editable="false"
+      :confirm="confirm"
+      :open="open"
+      @on-change="onChangeValue"
+      @on-ok="onOk"
+      @on-clickoutside="onClickoutside"
+      @on-clear="onClear"
+    >
       <slot></slot>
     </TimePicker>
     <div v-if="desc" class="text-tip">{{ desc }}</div>

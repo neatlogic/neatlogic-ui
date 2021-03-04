@@ -9,7 +9,7 @@ import { oneOf } from '../../utils/assist';
 const prefixCls = 'ivu-form';
 
 export default {
-  name: 'IForm',
+  name: 'iForm',
   props: {
     model: {
       type: Object

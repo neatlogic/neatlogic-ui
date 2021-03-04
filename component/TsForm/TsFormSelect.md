@@ -61,6 +61,8 @@ sperateText|String|-|否|多选只读分割线|-
 dealDataByUrl|Function|-|否|从新处理下拉数据|主要用于通过接口获取的数据如果需要从新处理一层时调用
 preIcon|String|-|否|-|-
 ajaxType|String|post|否|通过url拿去数据的时调用接口的类型|post get
+urlConfig|Object,Boolean|false|否|通过url拿去数据的时需要额外的参数，例如{headers: {'X-Requested-With': 'XMLHttpRequest'}}
+
 
 
 

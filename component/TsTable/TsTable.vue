@@ -46,7 +46,7 @@
                 <td v-if="canDrag" class="drag-container"></td>
                 <td v-for="(hitem, hindex) in getshowList" :key="hindex" :class="getClassName(bitem, hitem, bindex)">
                   <div :class="hitem.key == 'action' ? 'action-div' : ''" :style="setPostion(hitem.key)">
-                    <div v-if="hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
+                    <div v-if="hideAction && hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
                     <slot :name="hitem.key" :row="bitem">
                       <div v-if="hitem.key == 'selection'"></div>
                       <div v-else-if="hitem.key == 'action'">
@@ -72,7 +72,12 @@
         </table>
       </div>
       <!-- 用于做固定的表头_end -->
-      <div ref="tablemain" class="tstable-main" :style="setTableheight(tableheight)" @scroll.stop="scrollTable($event)">
+      <div
+        ref="tablemain"
+        class="tstable-main"
+        :style="setTableheight(tableheight)"
+        @scroll.stop="scrollTable($event)"
+      >
         <table ref="tstable" :class="'table-main tstable-body tstable-' + size + (border ? '' : ' tstable-noborder')">
           <colgroup>
             <col v-if="columnList && columnList.length" />
@@ -104,18 +109,37 @@
               </th>
             </tr>
           </thead>
-          <draggable v-if="getshowList.length > 0 && tbodyList.length > 0" :disabled="!canDrag" tag="tbody" :list="tbodyList" handle=".drag-handle" @mouseleave="clearActionwidth()" @update="dragUpdate">
+          <draggable
+            v-if="getshowList.length > 0 && tbodyList.length > 0"
+            :disabled="!canDrag"
+            tag="tbody"
+            :list="tbodyList"
+            handle=".drag-handle"
+            @mouseleave="clearActionwidth()"
+            @update="dragUpdate"
+          >
             <template v-for="(bitem, bindex) in tbodyList">
-              <tr :key="bitem[rowKey]||bindex" :class="setRowClass(bitem)" @click="clickTr(bitem)" @mouseenter="initActionwidth($event, bindex)" @mouseleave="toggleShowaction(bindex, 'show')">
+              <tr
+                :key="bitem[rowKey]||bindex"
+                :class="setRowClass(bitem)"
+                @click="clickTr(bitem)"
+                @mouseenter="initActionwidth($event, bindex)"
+                @mouseleave="toggleShowaction(bindex, 'show')"
+              >
                 <th v-if="columnList && columnList.length" :style="fixLeft">
                   <div>{{ columnList[bindex].displayName }}</div>
                 </th>
                 <td v-if="canDrag" class="drag-container drag-handle" style="cursor:move;">
                   <slot name="drag-handle"><i class="ts-bars"></i></slot>
                 </td>
-                <td v-for="(hitem, hindex) in getshowList" :key="hitem.uuid || hindex" :class="getClassName(bitem, hitem, bindex)" @click="clickTd($event, bitem, hitem)">
+                <td
+                  v-for="(hitem, hindex) in getshowList"
+                  :key="hitem.uuid || hindex"
+                  :class="getClassName(bitem, hitem, bindex)"
+                  @click="clickTd($event, bitem, hitem)"
+                >
                   <div :class="hitem.key == 'action' ? 'action-div' : ''" :style="setPostion(hitem.key)">
-                    <div v-if="hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
+                    <div v-if="hideAction && hitem.key == 'action'" class="action-bg action-bgimg" :style="setActionwidth"></div>
                     <slot :name="hitem.key" :row="bitem">
                       <div v-if="hitem.key == 'selection'" :class="getSection(bitem.isDisabled || false, selectList.indexOf(bitem[rowKey] || bindex) > -1 || false)" @click.stop="selectOne(bitem,bindex)"></div>
                       <div v-else-if="hitem.key == 'action'">
@@ -140,7 +164,16 @@
           </tbody>
         </table>
       </div>
-      <Poptip v-if="canEdit" placement="bottom-end" width="200" transfer class="btn-setting" popper-class="sort-drop" @on-popper-show="toggleDrop(true)" @on-popper-hide="toggleDrop(false)">
+      <Poptip
+        v-if="canEdit"
+        placement="bottom-end"
+        width="200"
+        transfer
+        class="btn-setting"
+        popper-class="sort-drop"
+        @on-popper-show="toggleDrop(true)"
+        @on-popper-hide="toggleDrop(false)"
+      >
         <div v-if="isshowdrop" class="ts-remove icon-setting"></div>
         <div v-else class="ts-list icon-setting"></div>
         <div slot="content">
@@ -150,7 +183,12 @@
               <div class="sort-name">列名</div>
               <div class="sort-show">显示</div>
             </div>
-            <draggable tag="ul" :list="thList" class="sort-group" handle=".sort-handle">
+            <draggable
+              tag="ul"
+              :list="thList"
+              class="sort-group"
+              handle=".sort-handle"
+            >
               <li v-for="li in thList.filter(d => d.key != 'action')" :key="li.key" :class="li.key != 'selection' ? 'sort-item' : 'sort-item disabled'">
                 <i class="ts-bars sort-handle"></i>
                 <span class="text">{{ li.title ? li.title : '_' }}</span>
@@ -164,7 +202,18 @@
       </Poptip>
     </div>
     <div v-if="rowNum > 0 && pageSize > 0" ref="tablepage" class="tstable-page">
-      <Page size="small" :show-sizer="showSizer" :show-total="showTotal" :total="rowNum" :current="currentPage" :page-size="pageSize" :page-size-opts="pageSizeOpts" :transfer="true" @on-change="getPage" @on-page-size-change="getPageSize" />
+      <Page
+        size="small"
+        :show-sizer="showSizer"
+        :show-total="showTotal"
+        :total="rowNum"
+        :current="currentPage"
+        :page-size="pageSize"
+        :page-size-opts="pageSizeOpts"
+        :transfer="true"
+        @on-change="getPage"
+        @on-page-size-change="getPageSize"
+      />
     </div>
   </div>
 </template>

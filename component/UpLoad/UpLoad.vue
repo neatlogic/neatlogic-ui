@@ -1,6 +1,23 @@
 <template>
   <div class="upload" :class="className">
-    <Upload ref="upload" :type="type" :format="format" :multiple="multiple" :data="filedata" :on-format-error="FormatError" :on-progress="progress" :before-upload="before" :on-success="success" :on-error="error" :action="action" :show-upload-list="false" :max-size="maxsize" :on-exceeded-size="exceeded" :default-file-list="defaultFileLIst" :headers="headerConfig">
+    <Upload
+      ref="upload"
+      :type="type"
+      :format="format"
+      :multiple="multiple"
+      :data="filedata"
+      :on-format-error="FormatError"
+      :on-progress="progress"
+      :before-upload="before"
+      :on-success="success"
+      :on-error="error"
+      :action="action"
+      :show-upload-list="false"
+      :max-size="maxsize"
+      :on-exceeded-size="exceeded"
+      :default-file-list="defaultFileLIst"
+      :headers="headerConfig"
+    >
       <div v-if="styleType == 'button'">
         <Button v-if="className == 'smallUpload'" icon="tsfont tsfont-upload">上传文件</Button>
       </div>
@@ -21,7 +38,13 @@
           <span class="file_name overflow">{{ item.name }}</span>
           <i class="ts-download file_down" title="下载" @click="fileDownload(item)"></i>
           <i class="ts-remove file_del" title="删除" @click="handleRemove(item)"></i>
-          <Progress v-if="item.showProgress" class="progress" :percent="percent(item.percentage)" :stroke-width="5" :status="fileStatus"></Progress>
+          <Progress
+            v-if="item.showProgress"
+            class="progress"
+            :percent="percent(item.percentage)"
+            :stroke-width="5"
+            :status="fileStatus"
+          ></Progress>
         </div>
         </Col>
       </TsRow>

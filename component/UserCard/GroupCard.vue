@@ -1,5 +1,10 @@
 <template>
-  <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" class="groupcard-container">
+  <div
+    v-click-outside:false="onClickOutside"
+    v-click-outside:false.mousedown="onClickOutside"
+    v-click-outside:false.touchstart="onClickOutside"
+    class="groupcard-container"
+  >
     <Poptip v-model="isshow" width="400" transfer>
       <span @click="getGroupinfo(uuid)">
         <span>{{ name || item.name }}</span>
@@ -36,8 +41,7 @@ import avatar from '../../static/images/default-avatar.png';
 export default {
   name: 'GroupCard',
   directives: { ClickOutside },
-  components: {
-  },
+  components: {},
   props: {
     uuid: [String, Number],
     name: [String],
@@ -58,10 +62,8 @@ export default {
   beforeCreate() {},
   created() {},
   beforeMount() {},
-  mounted() {
-  },
-  beforeDestroy() {
-  },
+  mounted() {},
+  beforeDestroy() {},
 
   methods: {
     getGroupinfo() {
@@ -73,16 +75,14 @@ export default {
       let _this = this;
       _this.isshow = false;
       _this.currentPage = page || _this.currentPage;
-      let param = {keyword: '', currentPage: _this.currentPage, pageSize: 12};
+      let param = { keyword: '', currentPage: _this.currentPage, pageSize: 12 };
       param[_this.type + 'Uuid'] = _this.uuid;
-      axios
-        .post('/api/rest/user/search', param)
-        .then(res => {
-          if (res && res.Status == 'OK') {
-            _this.isshow = true;
-            _this.$set(_this, 'groupList', res.Return);
-          }
-        });
+      axios.post('/api/rest/user/search', param).then(res => {
+        if (res && res.Status == 'OK') {
+          _this.isshow = true;
+          _this.$set(_this, 'groupList', res.Return);
+        }
+      });
     },
     close() {
       this.isshow = false;
@@ -91,7 +91,7 @@ export default {
       this.isshow = true;
     },
     onClickOutside(event) {
-      const $el = this.$refs.dropdown ? (this.$refs.dropdown || this.$refs.tooltip) || null : null;
+      const $el = this.$refs.dropdown ? this.$refs.dropdown || this.$refs.tooltip || null : null;
       if (!$el || $el === event.target || $el.contains(event.target)) {
         return;
       }
@@ -102,30 +102,29 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.btn-close-groupcard{
+.btn-close-groupcard {
   cursor: pointer;
   float: right;
 }
-.groupli-main{
+.groupli-main {
   width: 25%;
   float: left;
   padding: 2px 4px;
 }
-.groupli-body{
+.groupli-body {
   position: relative;
   padding-left: 30px;
   height: 30px;
-  .groupli-img{
+  .groupli-img {
     position: absolute;
     left: 2px;
     top: 2px;
   }
-  .groupli-name{
+  .groupli-name {
     line-height: 30px;
   }
 }
 .groupli-more {
   padding: 4px;
-
 }
 </style>

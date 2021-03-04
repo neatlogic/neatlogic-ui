@@ -1,6 +1,14 @@
 <template>
   <div class="ivu-cell-group" :class="{ level: level, group: isGroup }">
-    <LiItem v-for="(item, index) in currentList" :key="index" :liData="item" :textName="textName" :valueName="valueName" :childName="childName" :isGroup="isGroup"></LiItem>
+    <LiItem
+      v-for="(item, index) in currentList"
+      :key="index"
+      :liData="item"
+      :textName="textName"
+      :valueName="valueName"
+      :childName="childName"
+      :isGroup="isGroup"
+    ></LiItem>
   </div>
 </template>
 <script>
