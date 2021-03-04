@@ -2,7 +2,16 @@
   <div class="form-li">
     <div v-if="readonly" v-html="currentValue?currentValue:'-'"></div>
     <div v-else :class="getClass" :style="'width:' + width">
-      <ckeditor ref="tsckeditor" v-model="currentValue" :editor="editor" :config="editorConfig" tag-name="textarea" :disabled="readonly" :placeholder="placeholder" @blur="onBlur"></ckeditor>
+      <ckeditor
+        ref="tsckeditor"
+        v-model="currentValue"
+        :editor="editor"
+        :config="editorConfig"
+        tag-name="textarea"
+        :disabled="readonly"
+        :placeholder="placeholder"
+        @blur="onBlur"
+      ></ckeditor>
       <!-- <i class="ck-expandedbtn ts-angle-up text-action" @click="isHidebar = !isHidebar;"></i> -->
       <transition name="fade">
         <span v-show="validMesage!=''" class="form-error-tip">{{ validMesage }}</span>

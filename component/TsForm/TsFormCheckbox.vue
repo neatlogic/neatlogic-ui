@@ -9,8 +9,19 @@
       </template>
       <template v-else>-</template>
     </span>
-    <CheckboxGroup v-else v-model="currentValue" :class="getClass" :readonly="readonly" @on-change="onChangeValue">
-      <Checkbox v-for="(data, index) in nodeList" :key="index" :label="data[valueName]" :disabled="disabled || data.disabled"><slot name="label" :node="data" :index="index">{{ data[textName] }}</slot></Checkbox>
+    <CheckboxGroup
+      v-else
+      v-model="currentValue"
+      :class="getClass"
+      :readonly="readonly"
+      @on-change="onChangeValue"
+    >
+      <Checkbox
+        v-for="(data, index) in nodeList"
+        :key="index"
+        :label="data[valueName]"
+        :disabled="disabled || data.disabled"
+      ><slot name="label" :node="data" :index="index">{{ data[textName] }}</slot></Checkbox>
     </CheckboxGroup>
     <div v-if="desc" class="text-tip">{{ desc }}</div>
     <transition name="fade">

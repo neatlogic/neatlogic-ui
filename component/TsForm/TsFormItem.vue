@@ -1,6 +1,11 @@
 <template>
   <div :class="classes" :style="getWitdh">
-    <label :class="[prefixCls + '-label','overflow']" :for="labelFor" :style="labelStyles" :title="label.length>6?label:''">
+    <label
+      :class="[prefixCls + '-label','overflow']"
+      :for="labelFor"
+      :style="labelStyles"
+      :title="label.length>6?label:''"
+    >
       <FormSlot>{{ label }}</FormSlot>
     </label>
     <div :class="[prefixCls + '-content']" :style="contentStyles">

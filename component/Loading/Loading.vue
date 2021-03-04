@@ -1,6 +1,11 @@
 <template>
   <div :class="type == 'fix'?'':'part-loading'">
-    <Spin v-if="loadingShow" size="large" :fix="getType(type)" class="text-primary">
+    <Spin
+      v-if="loadingShow"
+      size="large"
+      :fix="getType(type)"
+      class="text-primary"
+    >
       <Icon type="ios-loading" size="18" class="loading"></Icon>
       <slot><div v-if="text">加载中</div></slot>
     </Spin>

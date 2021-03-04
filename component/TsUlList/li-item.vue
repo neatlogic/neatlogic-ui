@@ -12,7 +12,15 @@
     <div v-if="(liData[childName] && liData[childName].length > 0) || isGroup" class="ive-cell-child">
       <transition name="fade">
         <div v-show="open || isGroup">
-          <LiItem v-for="(citem, cindex) in liData[childName]" :key="cindex" :liData="citem" :textName="textName" :valueName="valueName" :childName="childName" :isGroup="isGroup"></LiItem>
+          <LiItem
+            v-for="(citem, cindex) in liData[childName]"
+            :key="cindex"
+            :liData="citem"
+            :textName="textName"
+            :valueName="valueName"
+            :childName="childName"
+            :isGroup="isGroup"
+          ></LiItem>
         </div>
       </transition>
     </div>

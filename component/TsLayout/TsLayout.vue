@@ -3,7 +3,13 @@
   <div class="body-row">
     <div class="rowtoggle">
       <!--分割布局-->
-      <Split v-if="isSplit" v-model="split" class="split" min="200px" max="200px">
+      <Split
+        v-if="isSplit"
+        v-model="split"
+        class="split"
+        min="200px"
+        max="200px"
+      >
         <div slot="left">
           <slot name="left"></slot>
         </div>
@@ -19,7 +25,12 @@
               <slot name="left"></slot>
             </div>
           </transition>
-          <span v-show="isHideleftbtn" class="hideLeft-btn" :style="{ left: BtnLeft }" @click="toggle">
+          <span
+            v-show="isHideleftbtn"
+            class="hideLeft-btn"
+            :style="{ left: BtnLeft }"
+            @click="toggle"
+          >
             <i :class="[rowstatus ? 'ts-caret-left' : 'ts-caret-right']"></i>
           </span>
           <div class="hideLeft-right">
@@ -31,7 +42,12 @@
       <div v-if="isRight">
         <div class="content" :style="{ 'padding-right': PaddingRight }">
           <div class="hideRight-left"></div>
-          <span v-show="isHiderightbtn" class="hideRight-btn" :style="{ right: BtnRight }" @click="toggleRight">
+          <span
+            v-show="isHiderightbtn"
+            class="hideRight-btn"
+            :style="{ right: BtnRight }"
+            @click="toggleRight"
+          >
             <i :class="[rightstatus ? 'ts-caret-right' : 'ts-caret-left']"></i>
           </span>
           <transition name="fade-right">

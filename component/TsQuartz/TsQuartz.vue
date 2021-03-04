@@ -1,6 +1,11 @@
 <template>
   <div>
-    <input v-model="currentValue" type="hidden" class="test" @change="onChangeValue" />
+    <input
+      v-model="currentValue"
+      type="hidden"
+      class="test"
+      @change="onChangeValue"
+    />
     <div v-if="desc" class="text-tip">{{ desc }}</div>
   </div>
 </template>

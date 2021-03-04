@@ -1,6 +1,12 @@
 <template>
   <div class="form-li">
-    <i-switch v-model="currentValue" :true-value="trueValue" :false-value="falseValue" :disabled="disabled" @on-change="onChangeValue" />
+    <i-switch
+      v-model="currentValue"
+      :true-value="trueValue"
+      :false-value="falseValue"
+      :disabled="disabled"
+      @on-change="onChangeValue"
+    />
     <div v-if="desc" class="text-tip">{{ desc }}</div>
   </div>
 </template>

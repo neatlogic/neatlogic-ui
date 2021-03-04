@@ -14,22 +14,73 @@
       <template v-else>{{ selectedList[0] ? selectedList[0][textName] : '-' }}</template>
     </span>
     <div v-else :class="borderClass" :style="getStyle">
-      <div v-click-outside:false="onClickOutside" v-click-outside:false.mousedown="onClickOutside" v-click-outside:false.touchstart="onClickOutside" class="select-body" :class="getClass">
-        <Dropdown ref="dropdownContain" style="width:100%" trigger="custom" :visible="isVisible" :transfer="transfer" placement="bottom-start">
+      <div
+        v-click-outside:false="onClickOutside"
+        v-click-outside:false.mousedown="onClickOutside"
+        v-click-outside:false.touchstart="onClickOutside"
+        class="select-body"
+        :class="getClass"
+      >
+        <Dropdown
+          ref="dropdownContain"
+          style="width:100%"
+          trigger="custom"
+          :visible="isVisible"
+          :transfer="transfer"
+          placement="bottom-start"
+        >
           <div tabindex="-1" class="ivu-input  select-top" @click="isVisible=!isVisible">
             <template v-if="multiple">
-              <Tag v-for="(selected, index) in selectedList" :key="index" :name="selected[valueName]" closable :fade="false" @on-close="removeItem($event, index, selected.nodeKey)">{{ selected[textName] }}</Tag>
-              <input v-if="search && url" v-model="searchKeyWord" type="text" :placeholder="placeholder" autocomplete="off" spellcheck="false" class="ivu-input search-input" @input="filterNode($event)" />
+              <Tag
+                v-for="(selected, index) in selectedList"
+                :key="index"
+                :name="selected[valueName]"
+                closable
+                :fade="false"
+                @on-close="removeItem($event, index, selected.nodeKey)"
+              >{{ selected[textName] }}</Tag>
+              <input
+                v-if="search && url"
+                v-model="searchKeyWord"
+                type="text"
+                :placeholder="placeholder"
+                autocomplete="off"
+                spellcheck="false"
+                class="ivu-input search-input"
+                @input="filterNode($event)"
+              />
             </template>
             <template v-else>
-              <input v-if="search && url" v-model="searchKeyWord" type="text" :placeholder="placeholder" autocomplete="off" spellcheck="false" class="ivu-input search-input" @input="filterNode($event)" />
+              <input
+                v-if="search && url"
+                v-model="searchKeyWord"
+                type="text"
+                :placeholder="placeholder"
+                autocomplete="off"
+                spellcheck="false"
+                class="ivu-input search-input"
+                @input="filterNode($event)"
+              />
               <span v-else class="overflow empty-placeholder single-span" :placeholder="placeholder"></span>
             </template>
             <i class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="clearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
           <DropdownMenu slot="list" ref="dropdown">
-            <Tree v-if="nodeList && nodeList.length>0" :ref="treeRef" class="tsFormTree dropdown-ul" :class="[{'single':!multiple} ]" :data="nodeList" :render="renderContent" :multiple="multiple || false" :show-checkbox="multiple || false" :check-strictly="true" :childrenKey="childrenKey" @on-select-change="onSelectChange" @on-check-change="onCheckChange"></Tree>
+            <Tree
+              v-if="nodeList && nodeList.length>0"
+              :ref="treeRef"
+              class="tsFormTree dropdown-ul"
+              :class="[{'single':!multiple} ]"
+              :data="nodeList"
+              :render="renderContent"
+              :multiple="multiple || false"
+              :show-checkbox="multiple || false"
+              :check-strictly="true"
+              :childrenKey="childrenKey"
+              @on-select-change="onSelectChange"
+              @on-check-change="onCheckChange"
+            ></Tree>
             <li v-else class="ivu-dropdown-item"><span class="text-tip">暂无数据</span></li>
           </DropdownMenu>
         </Dropdown>

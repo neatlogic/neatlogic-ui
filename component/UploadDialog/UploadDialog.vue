@@ -1,14 +1,37 @@
 <template>
   <span>
     <span class="import-text" @click="showDialog">导入</span>
-    <TsDialog type="modal" :isShow.sync="isModalShow" height="320px" className="upload-dialog" @on-close="hideDialog">
+    <TsDialog
+      type="modal"
+      :isShow.sync="isModalShow"
+      height="320px"
+      className="upload-dialog"
+      @on-close="hideDialog"
+    >
       <template v-slot:header>
         <div>导入文件</div>
       </template>
       <template v-slot>
         <div class="dialog-content">
           <div class="left-container">
-            <Upload ref="upload" class="upload-fieldset" :class="{'upload-fieldset-small':fileList.length}" :action="actionUrl" :headers="headerConfig" :multiple="multiple" :show-upload-list="false" type="drag" :format="formatList" :accept="'.'+formatList.join(',.')" :max-size="maxSize * 1024" :before-upload="handleBeforeUpload" :on-progress="handleProgress" :on-success="handleSuccess" :on-error="handleError" :data="filedata">
+            <Upload
+              ref="upload"
+              class="upload-fieldset"
+              :class="{'upload-fieldset-small':fileList.length}"
+              :action="actionUrl"
+              :headers="headerConfig"
+              :multiple="multiple"
+              :show-upload-list="false"
+              type="drag"
+              :format="formatList"
+              :accept="'.'+formatList.join(',.')"
+              :max-size="maxSize * 1024"
+              :before-upload="handleBeforeUpload"
+              :on-progress="handleProgress"
+              :on-success="handleSuccess"
+              :on-error="handleError"
+              :data="filedata"
+            >
               <div class="drag-area bg-block">
                 <div class="upload-icon"><img src="./upload-icon.png" alt="导入图标"></div>
                 <div class="upload-tip text-default">拖曳文件到此处或点击上传</div>
@@ -23,16 +46,39 @@
               </Tooltip>
               <p class="file-size text-tip">{{ item.file.size | bytesSize }}</p>
               <div class="upload-status">
-                <i-circle v-if="item.status == 'OK'" stroke-color="#25b865" :trail-color="isDarkMode?'#4f515a':'#eaeef2'" :percent="100" :size="26">
+                <i-circle
+                  v-if="item.status == 'OK'"
+                  stroke-color="#25b865"
+                  :trail-color="isDarkMode?'#4f515a':'#eaeef2'"
+                  :percent="100"
+                  :size="26"
+                >
                   <i class="tsfont-check"></i>
                 </i-circle>
-                <i-circle v-else-if="item.status == 'ERROR'" stroke-color="#f71010" :trail-color="isDarkMode?'#4f515a':'#eaeef2'" :percent="100" :size="26">
+                <i-circle
+                  v-else-if="item.status == 'ERROR'"
+                  stroke-color="#f71010"
+                  :trail-color="isDarkMode?'#4f515a':'#eaeef2'"
+                  :percent="100"
+                  :size="26"
+                >
                   <i class="tsfont-close"></i>
                 </i-circle>
-                <i-circle v-else-if="item.status == 0" :trail-color="isDarkMode?'#4f515a':'#eaeef2'" :percent="item.status" :size="26">
+                <i-circle
+                  v-else-if="item.status == 0"
+                  :trail-color="isDarkMode?'#4f515a':'#eaeef2'"
+                  :percent="item.status"
+                  :size="26"
+                >
                   <i class="ts-refresh"></i>
                 </i-circle>
-                <i-circle v-else :trail-color="isDarkMode?'#4f515a':'#eaeef2'" :percent="item.status" :size="26" class="uploading">
+                <i-circle
+                  v-else
+                  :trail-color="isDarkMode?'#4f515a':'#eaeef2'"
+                  :percent="item.status"
+                  :size="26"
+                  class="uploading"
+                >
                   <span class="tips">{{ Math.round(item.status) }}</span>
                 </i-circle>
               </div>

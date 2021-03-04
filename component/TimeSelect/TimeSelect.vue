@@ -70,7 +70,6 @@
   </div>
 </template>
 <script>
-import axios from '../../api/http.js';
 import TsFormDatePicker from '../TsForm/TsFormDatePicker';
 import TransferDom from '../../directives/transfer-dom';
 import { directive as ClickOutside } from '../../directives/v-click-outside-x';
