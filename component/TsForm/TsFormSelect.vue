@@ -41,16 +41,21 @@
             @focus="onSelectFocus"
             @blur="onSelectBlur"
           >
-            <template v-if="multiple">
+            <template v-if="multiple && selectAll && (selectedList.length == nodeList.length)">
+              <span v-html="selectAllText"></span>
+            </template>
+            <template v-else-if="multiple">
               <Tag
                 v-for="(selected, nindex) in selectedList"
                 :key="nindex"
+                :style="(maxTagCount && selectedList.length>maxTagCount && nindex>=maxTagCount) ?'display:none':''"
                 :name="selected[valueName]"
                 :closable="!disabled"
                 :fade="false"
                 @click.native.stop="handleOpen"
                 @on-close="deleteSeleted(nindex, selected[valueName], selectedList)"
               >{{ selected[textName] }}</Tag>
+              <Tag v-if="maxTagCount && selectedList.length>maxTagCount" class="ivu-select-max-tag" @click.native.stop="handleOpen">+{{ selectedList.length - maxTagCount }}...</Tag>
               <span
                 v-if="selectedList.length <= 0 && !currentSearch"
                 :placeholder="!currentSearch ? getPlaceholder : ''"
@@ -75,14 +80,24 @@
             <i v-if="!dynamicUrl" class="ivu-icon tsfont-down ivu-select-arrow"></i>
             <i v-if="getClearable" class="clearBtn text-icon ivu-icon ivu-icon-ios-close-circle" @click.stop="clearValue"></i>
           </div>
-          <DropdownMenu v-if="!(disabled || readonly)" slot="list" ref="dropdown" :class="{'multiple':multiple,'single':!multiple}">
+          <DropdownMenu
+            v-if="!(disabled || readonly)"
+            slot="list"
+            ref="dropdown"
+            :class="{'multiple':multiple,'single':!multiple}"
+          >
             <slot name="first-ul"></slot>
             <li v-if="allowCreate && addItem" class="ivu-dropdown-item overflow" @click.stop="toggleSelect(addItem)">
               {{ addItem[showName ? showName : textName] }}
               <i class="tsfont-arrow-corner-left text-primary"></i>
             </li>
-            <li v-if="selectAll && !dynamicUrl && multiple" :class="setLicalss()" @click.stop="toggleSelectAll()">全选<span class="text-grey small-tip">(选中所有选项)</span></li>
-           <template v-for="(node, index) in nodeList">
+            <li
+              v-if="selectAll && !dynamicUrl && multiple"
+              :class="setLicalss()"
+              @click.stop="toggleSelectAll()"
+              v-html="selectAllText"
+            ></li>
+            <template v-for="(node, index) in nodeList">
               <li
                 v-show="!node._isHidden"
                 :key="index"
@@ -261,7 +276,15 @@ export default {
       type: [Object, Boolean],
       default: false
     },
-    onCreateOption: Function
+    onCreateOption: Function,
+    selectAllText: {
+      type: String,
+      default: '所有'      
+    },
+    maxTagCount: {
+      type: [Number, Boolean],
+      default: false
+    }
   },
   data: function() {
     let _this = this;
@@ -739,6 +762,12 @@ export default {
     toggleSelectAll() { //全选
       let selectli = [];
       let value = [];
+      //如果是那种手动赋值默认选中所有的
+      if (!this.isSelectAll) {
+        if (this.selectAll && (this.selectedList.length == this.nodeList.length)) {
+          this.isSelectAll = true;
+        }
+      }
       if (!this.isSelectAll) {
         this.nodeList.forEach(item => {
           if (item && item._disabled) {
@@ -983,7 +1012,7 @@ export default {
             classtxt = classtxt + ' ivu-dropdown-item-disabled';
           }
         } else {
-          this.isSelectAll && (classtxt = classtxt + ' selected');
+          this.selectAll && (this.selectedList.length == this.nodeList.length) && (classtxt = classtxt + ' selected');
         }
         return classtxt;
       };
