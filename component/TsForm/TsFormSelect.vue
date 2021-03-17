@@ -28,7 +28,7 @@
           trigger="custom"
           :visible="isVisible"
           :transfer="transfer"
-          placement="bottom-start"
+          :placement="placement?placement:'bottom-start'"
         >
           <div
             ref="usertop"
@@ -284,6 +284,10 @@ export default {
     maxTagCount: {
       type: [Number, Boolean],
       default: false
+    },
+    placement: {
+      type: [String, Boolean],
+      default: false      
     }
   },
   data: function() {
