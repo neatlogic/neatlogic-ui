@@ -1,6 +1,6 @@
 {
   "name": "techsure-ui",
-  "version": "1.0.17",
+  "version": "1.0.18",
   "private": false,
   "main": "dist/techsure-ui.umd.min.js",
   "author": "techsure",

@@ -5,40 +5,40 @@
 @css-prefix-iconfont    : ivu-icon;
 
 // Color
-@primary-color          : #2d8cf0;
-@info-color             : #2db7f5;
-@success-color          : #19be6b;
+@primary-color          : #1690ff;
+@info-color             : #1690ff;
+@success-color          : #15bf81;
 @processing-color       : @primary-color;
-@warning-color          : #ff9900;
-@error-color            : #ed4014;
+@warning-color          : #ffba5a;
+@error-color            : #ff6666;
 @normal-color           : #e6ebf1;
-@link-color             : #2D8cF0;
+@link-color             : #1690ff;
 @link-hover-color       : tint(@link-color, 20%);
 @link-active-color      : shade(@link-color, 5%);
 @selected-color         : fade(@primary-color, 90%);
 @tooltip-color          : #fff;
 @subsidiary-color       : #808695;
-@rate-star-color        : #f5a623;
+@rate-star-color        : #ffba5a;
 @white: #fff;
-@black: #000;
+@black: #212121;
 
 // Base
-@body-background        : #fff;
-@component-background   : #fff;
-@font-family            : "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+@body-background        : @white;
+@component-background   : @white;
+@font-family            : PingFangSC, 'helvetica neue', 'hiragino sans gb', arial, 'microsoft yahei ui', 'microsoft yahei', simsun, sans-serif;
 @code-family            : Consolas,Menlo,Courier,monospace;
-@title-color            : #17233d;
-@text-color             : #515a6e;
+@title-color            : #757575;
+@text-color             : #212121;
 @text-color-secondary: fade(@black, 45%);
-@heading-color: fade(#000, 85%);
+@heading-color: fade(@black, 85%);
 @heading-color-dark: fade(@white, 100%);
-@font-size-base         : 14px;
+@font-size-base         : 13px;
 @font-size-small        : 12px;
 @font-size-large        : @font-size-base + 2px;
 @line-height-base       : 1.5;
 @line-height-computed   : floor((@font-size-base * @line-height-base));
-@border-radius-base     : 6px;
-@border-radius-small    : 4px;
+@border-radius-base     : 4px;
+@border-radius-small    : 3px;
 @cursor-disabled        : not-allowed;
 
 // vertical paddings
@@ -48,7 +48,7 @@
 @padding-xs: 8px; // small items
 
 // Border color
-@border-color-base      : #dcdee2;  // outside
+@border-color-base      : #DBDBDB;  // outside
 @border-color-split     : #e8eaec;  // inside
 @border-width-base      : 1px;            // width of the border for a component
 @border-style-base      : solid;          // style of a components border
@@ -162,33 +162,28 @@
 @tag-font-size          : 12px;
 
 // Media queries breakpoints
-// Extra small screen / phone
-@screen-xs              : 480px;
-@screen-xs-min          : @screen-xs;
-@screen-xs-max          : (@screen-xs-min - 1);
-
 // Small screen / tablet
-@screen-sm              : 576px;
+@screen-sm              : 800px;
 @screen-sm-min          : @screen-sm;
 @screen-sm-max          : (@screen-sm-min - 1);
 
 // Medium screen / desktop
-@screen-md              : 768px;
+@screen-md              : 1024px;
 @screen-md-min          : @screen-md;
 @screen-md-max          : (@screen-md-min - 1);
 
 // Large screen / wide desktop
-@screen-lg              : 992px;
+@screen-lg              : 1280px;
 @screen-lg-min          : @screen-lg;
 @screen-lg-max          : (@screen-lg-min - 1);
 
 // Extra large screen / full hd
-@screen-xl              : 1200px;
+@screen-xl              : 1400px;
 @screen-xl-min          : @screen-xl;
 @screen-xl-max          : (@screen-xl-min - 1);
 
 // Extra extra large screen / large descktop
-@screen-xxl             : 1600px;
+@screen-xxl             : 1920px;
 @screen-xxl-min         : @screen-xxl;
 @screen-xxl-max         : (@screen-xxl-min - 1);
 
