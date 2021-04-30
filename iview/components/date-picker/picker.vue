@@ -616,7 +616,6 @@ export default {
       const parser = (TYPE_VALUE_RESOLVER_MAP[type] || TYPE_VALUE_RESOLVER_MAP['default']).parser;
       const format = this.format || DEFAULT_FORMATS[type];
       const multipleParser = TYPE_VALUE_RESOLVER_MAP['multiple'].parser;
-
       if (val && type === 'time' && !(val instanceof Date)) {
         val = parser(val, format, this.separator);
       } else if (this.multiple && val) {
@@ -643,13 +642,12 @@ export default {
       } else if (typeof val === 'string' && type.indexOf('time') !== 0) {
         val = parser(val, format) || null;
       }
-
       return isRange || this.multiple ? val || [] : [val];
     },
     formatDate(value) {
       const format = DEFAULT_FORMATS[this.type];
 
-      if (this.multiple) {
+      if (this.multiple&& this.type=="date") {
         const formatter = TYPE_VALUE_RESOLVER_MAP.multiple.formatter;
         return formatter(value, this.format || format, this.separator);
       } else {
@@ -658,7 +656,7 @@ export default {
       }
     },
     onPick(dates, visible = false, type) {
-      if (this.multiple) {
+      if (this.multiple && this.type=="date") {
         const pickedTimeStamp = dates.getTime();
         const indexOfPickedDate = this.internalValue.findIndex(date => date && date.getTime() === pickedTimeStamp);
         const allDates = [...this.internalValue, dates].filter(Boolean);

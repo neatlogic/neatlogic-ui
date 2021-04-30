@@ -7,17 +7,22 @@ yarn install
 
 ### Compiles and hot-reloads for development
 ```
-yarn serve
+yarn run serve
 ```
 
 ### Compiles and minifies for production
 ```
-yarn build
+yarn run build
+```
+
+### publish the project as a node_modlue
+```
+npm run lib => npm publish
 ```
 
 ### Lints and fixes files
 ```
-yarn lint
+yarn run lint
 ```
 
 ### Customize configuration

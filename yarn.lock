@@ -1010,6 +1010,11 @@
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/@types/json-schema/-/json-schema-7.0.6.tgz#f4c7ec43e81b319a9815115031709f26987891f0"
   integrity sha1-9MfsQ+gbMZqYFRFQMXCfJph4kfA=
 
+"@types/json-schema@^7.0.6":
+  version "7.0.7"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/@types/json-schema/-/json-schema-7.0.7.tgz#98a993516c859eb0d5c4c8f098317a9ea68db9ad"
+  integrity sha1-mKmTUWyFnrDVxMjwmDF6nqaNua0=
+
 "@types/mime@*":
   version "2.0.3"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
@@ -1584,6 +1589,16 @@ ajv@^6.1.0, ajv@^6.10.0, ajv@^6.10.2, ajv@^6.12.3, ajv@^6.12.4:
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
 
+ajv@^6.12.5:
+  version "6.12.6"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/ajv/-/ajv-6.12.6.tgz#baf5a62e802b07d977034586f8c3baf5adf26df4"
+  integrity sha1-uvWmLoArB9l3A0WG+MO69a3ybfQ=
+  dependencies:
+    fast-deep-equal "^3.1.1"
+    fast-json-stable-stringify "^2.0.0"
+    json-schema-traverse "^0.4.1"
+    uri-js "^4.2.2"
+
 alphanum-sort@^1.0.0:
   version "1.0.2"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/alphanum-sort/-/alphanum-sort-1.0.2.tgz#97a1119649b211ad33691d9f9f486a8ec9fbe0a3"
@@ -1820,6 +1835,13 @@ aws4@^1.8.0:
   version "1.10.1"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/aws4/-/aws4-1.10.1.tgz#e1e82e4f3e999e2cfd61b161280d16a111f86428"
   integrity sha1-4eguTz6Zniz9YbFhKA0WoRH4ZCg=
+
+axios@^0.19.0:
+  version "0.19.2"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
+  integrity sha1-PqNsXYgY0NX4qKl6bTa4bNwAyyc=
+  dependencies:
+    follow-redirects "1.5.10"
 
 babel-eslint@^10.1.0:
   version "10.1.0"
@@ -2246,6 +2268,11 @@ camelcase@^6.0.0:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/camelcase/-/camelcase-6.0.0.tgz#5259f7c30e35e278f1bdc2a4d91230b37cad981e"
   integrity sha1-Uln3ww414njxvcKk2RIws3ytmB4=
 
+camelcase@^6.2.0:
+  version "6.2.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/camelcase/-/camelcase-6.2.0.tgz#924af881c9d525ac9d87f40d964e5cea982a1809"
+  integrity sha1-kkr4gcnVJaydh/QNlk5c6pgqGAk=
+
 caniuse-api@^3.0.0:
   version "3.0.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/caniuse-api/-/caniuse-api-3.0.0.tgz#5e4d90e2274961d46291997df599e3ed008ee4c0"
@@ -2466,6 +2493,11 @@ clone@^1.0.2:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
+clone@^2.1.1:
+  version "2.1.2"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/clone/-/clone-2.1.2.tgz#1b7f4b9f591f1e8f83670401600345a02887435f"
+  integrity sha1-G39Ln1kfHo+DZwQBYANFoCiHQ18=
+
 coa@^2.0.2:
   version "2.0.2"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/coa/-/coa-2.0.2.tgz#43f6c21151b4ef2bf57187db0d73de229e3e7ec3"
@@ -2474,6 +2506,11 @@ coa@^2.0.2:
     "@types/q" "^1.5.1"
     chalk "^2.4.1"
     q "^1.1.2"
+
+codemirror@^5.41.0:
+  version "5.61.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/codemirror/-/codemirror-5.61.0.tgz#318e5b034a707207948b92ffc2862195e8fdb08e"
+  integrity sha1-MY5bA0pwcgeUi5L/woYhlej9sI4=
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -2527,6 +2564,11 @@ colorette@^1.2.1:
   version "1.2.1"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/colorette/-/colorette-1.2.1.tgz#4d0b921325c14faf92633086a536db6e89564b1b"
   integrity sha1-TQuSEyXBT6+SYzCGpTbbbolWSxs=
+
+colorette@^1.2.2:
+  version "1.2.2"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/colorette/-/colorette-1.2.2.tgz#cbcc79d5e99caea2dbf10eb3a26fd8b3e6acfa94"
+  integrity sha1-y8x51emcrqLb8Q6zom/Ys+as+pQ=
 
 combined-stream@^1.0.6, combined-stream@~1.0.6:
   version "1.0.8"
@@ -2645,6 +2687,13 @@ cookie@0.4.0:
   version "0.4.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/cookie/-/cookie-0.4.0.tgz#beb437e7022b3b6d49019d088665303ebe9c14ba"
   integrity sha1-vrQ35wIrO21JAZ0IhmUwPr6cFLo=
+
+copy-anything@^2.0.1:
+  version "2.0.3"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/copy-anything/-/copy-anything-2.0.3.tgz#842407ba02466b0df844819bbe3baebbe5d45d87"
+  integrity sha1-hCQHugJGaw34RIGbvjuuu+XUXYc=
+  dependencies:
+    is-what "^3.12.0"
 
 copy-concurrently@^1.0.0:
   version "1.0.5"
@@ -2818,6 +2867,23 @@ css-loader@^3.5.3:
     schema-utils "^2.7.0"
     semver "^6.3.0"
 
+css-loader@^5.0.1:
+  version "5.2.4"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/css-loader/-/css-loader-5.2.4.tgz#e985dcbce339812cb6104ef3670f08f9893a1536"
+  integrity sha1-6YXcvOM5gSy2EE7zZw8I+Yk6FTY=
+  dependencies:
+    camelcase "^6.2.0"
+    icss-utils "^5.1.0"
+    loader-utils "^2.0.0"
+    postcss "^8.2.10"
+    postcss-modules-extract-imports "^3.0.0"
+    postcss-modules-local-by-default "^4.0.0"
+    postcss-modules-scope "^3.0.0"
+    postcss-modules-values "^4.0.0"
+    postcss-value-parser "^4.1.0"
+    schema-utils "^3.0.0"
+    semver "^7.3.5"
+
 css-select-base-adapter@^0.1.1:
   version "0.1.1"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/css-select-base-adapter/-/css-select-base-adapter-0.1.1.tgz#3b2ff4972cc362ab88561507a95408a1432135d7"
@@ -2973,6 +3039,13 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3:
   dependencies:
     ms "2.0.0"
 
+debug@=3.1.0:
+  version "3.1.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
+  integrity sha1-W7WgZyYotkFJVmuhaBnmFRjGcmE=
+  dependencies:
+    ms "2.0.0"
+
 debug@^3.1.1, debug@^3.2.5:
   version "3.2.6"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/debug/-/debug-3.2.6.tgz#e83d17de16d8a7efb7717edbe5fb10135eee629b"
@@ -3115,6 +3188,11 @@ detect-node@^2.0.4:
   version "2.0.4"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/detect-node/-/detect-node-2.0.4.tgz#014ee8f8f669c5c58023da64b8179c083a28c46c"
   integrity sha1-AU7o+PZpxcWAI9pkuBecCDooxGw=
+
+diff-match-patch@^1.0.0:
+  version "1.0.5"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/diff-match-patch/-/diff-match-patch-1.0.5.tgz#abb584d5f10cd1196dfc55aa03701592ae3f7b37"
+  integrity sha1-q7WE1fEM0Rlt/FWqA3AVkq4/ezc=
 
 diffie-hellman@^5.0.0:
   version "5.0.3"
@@ -3342,6 +3420,13 @@ entities@^2.0.0:
   version "2.0.3"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/entities/-/entities-2.0.3.tgz#5c487e5742ab93c15abb5da22759b8590ec03b7f"
   integrity sha1-XEh+V0Krk8Fau12iJ1m4WQ7AO38=
+
+errno@^0.1.1:
+  version "0.1.8"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/errno/-/errno-0.1.8.tgz#8bb3e9c7d463be4976ff888f76b4809ebc2e811f"
+  integrity sha1-i7Ppx9Rjvkl2/4iPdrSAnrwugR8=
+  dependencies:
+    prr "~1.0.1"
 
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"
@@ -3928,6 +4013,13 @@ flush-write-stream@^1.0.0:
     inherits "^2.0.3"
     readable-stream "^2.3.6"
 
+follow-redirects@1.5.10:
+  version "1.5.10"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/follow-redirects/-/follow-redirects-1.5.10.tgz#7b7a9f9aea2fdff36786a94ff643ed07f4ff5e2a"
+  integrity sha1-e3qfmuov3/NnhqlP9kPtB/T/Xio=
+  dependencies:
+    debug "=3.1.0"
+
 follow-redirects@^1.0.0:
   version "1.13.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
@@ -4477,6 +4569,11 @@ icss-utils@^4.0.0, icss-utils@^4.1.1:
   dependencies:
     postcss "^7.0.14"
 
+icss-utils@^5.0.0, icss-utils@^5.1.0:
+  version "5.1.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/icss-utils/-/icss-utils-5.1.0.tgz#c6be6858abd013d768e98366ae47e25d5887b1ae"
+  integrity sha1-xr5oWKvQE9do6YNmrkfiXViHsa4=
+
 ieee754@^1.1.4:
   version "1.1.13"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/ieee754/-/ieee754-1.1.13.tgz#ec168558e95aa181fd87d37f55c32bbcb6708b84"
@@ -4496,6 +4593,11 @@ ignore@^4.0.3, ignore@^4.0.6:
   version "4.0.6"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha1-dQ49tYYgh7RzfrrIIH/9HvJ7Jfw=
+
+image-size@~0.5.0:
+  version "0.5.5"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
+  integrity sha1-Cd/Uq50g4p6xw+gLiZA3jfnjy5w=
 
 import-cwd@^2.0.0:
   version "2.1.0"
@@ -4891,6 +4993,11 @@ is-typedarray@~1.0.0:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
   integrity sha1-5HnICFjfDBsR3dppQPlgEfzaSpo=
 
+is-what@^3.12.0:
+  version "3.14.1"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/is-what/-/is-what-3.14.1.tgz#e1222f46ddda85dead0fd1c9df131760e77755c1"
+  integrity sha1-4SIvRt3ahd6tD9HJ3xMXYOd3VcE=
+
 is-windows@^1.0.2:
   version "1.0.2"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
@@ -5108,6 +5215,31 @@ launch-editor@^2.2.1:
     chalk "^2.3.0"
     shell-quote "^1.6.1"
 
+less-loader@^5.0.0:
+  version "5.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/less-loader/-/less-loader-5.0.0.tgz#498dde3a6c6c4f887458ee9ed3f086a12ad1b466"
+  integrity sha1-SY3eOmxsT4h0WO6e0/CGoSrRtGY=
+  dependencies:
+    clone "^2.1.1"
+    loader-utils "^1.1.0"
+    pify "^4.0.1"
+
+less@^3.0.4:
+  version "3.13.1"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/less/-/less-3.13.1.tgz#0ebc91d2a0e9c0c6735b83d496b0ab0583077909"
+  integrity sha1-DryR0qDpwMZzW4PUlrCrBYMHeQk=
+  dependencies:
+    copy-anything "^2.0.1"
+    tslib "^1.10.0"
+  optionalDependencies:
+    errno "^0.1.1"
+    graceful-fs "^4.1.2"
+    image-size "~0.5.0"
+    make-dir "^2.1.0"
+    mime "^1.4.1"
+    native-request "^1.0.5"
+    source-map "~0.6.0"
+
 leven@^3.1.0:
   version "3.1.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/leven/-/leven-3.1.0.tgz#77891de834064cccba82ae7842bb6b14a13ed7f2"
@@ -5164,6 +5296,15 @@ loader-utils@^1.0.2, loader-utils@^1.1.0, loader-utils@^1.2.3, loader-utils@^1.4
     big.js "^5.2.2"
     emojis-list "^3.0.0"
     json5 "^1.0.1"
+
+loader-utils@^2.0.0:
+  version "2.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/loader-utils/-/loader-utils-2.0.0.tgz#e4cace5b816d425a166b5f097e10cd12b36064b0"
+  integrity sha1-5MrOW4FtQloWa18JfhDNErNgZLA=
+  dependencies:
+    big.js "^5.2.2"
+    emojis-list "^3.0.0"
+    json5 "^2.1.2"
 
 locate-path@^3.0.0:
   version "3.0.0"
@@ -5259,7 +5400,14 @@ lru-cache@^5.1.1:
   dependencies:
     yallist "^3.0.2"
 
-make-dir@^2.0.0:
+lru-cache@^6.0.0:
+  version "6.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/lru-cache/-/lru-cache-6.0.0.tgz#6d6fe6570ebd96aaf90fcad1dafa3b2566db3a94"
+  integrity sha1-bW/mVw69lqr5D8rR2vo7JWbbOpQ=
+  dependencies:
+    yallist "^4.0.0"
+
+make-dir@^2.0.0, make-dir@^2.1.0:
   version "2.1.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/make-dir/-/make-dir-2.1.0.tgz#5f0310e18b8be898cc07009295a30ae41e91e6f5"
   integrity sha1-XwMQ4YuL6JjMBwCSlaMK5B6R5vU=
@@ -5392,7 +5540,7 @@ mime-types@^2.1.12, mime-types@~2.1.17, mime-types@~2.1.19, mime-types@~2.1.24:
   dependencies:
     mime-db "1.44.0"
 
-mime@1.6.0:
+mime@1.6.0, mime@^1.4.1:
   version "1.6.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/mime/-/mime-1.6.0.tgz#32cd9e5c64553bd58d19a568af452acff04981b1"
   integrity sha1-Ms2eXGRVO9WNGaVor0Uqz/BJgbE=
@@ -5562,6 +5710,11 @@ nan@^2.12.1:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha1-174036MQW5FJTDFHCJMV7/iHSwE=
 
+nanoid@^3.1.22:
+  version "3.1.22"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/nanoid/-/nanoid-3.1.22.tgz#b35f8fb7d151990a8aebd5aa5015c03cf726f844"
+  integrity sha1-s1+Pt9FRmQqK69WqUBXAPPcm+EQ=
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -5578,6 +5731,11 @@ nanomatch@^1.2.9:
     regex-not "^1.0.0"
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
+
+native-request@^1.0.5:
+  version "1.0.8"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/native-request/-/native-request-1.0.8.tgz#8f66bf606e0f7ea27c0e5995eb2f5d03e33ae6fb"
+  integrity sha1-j2a/YG4PfqJ8DlmV6y9dA+M65vs=
 
 natural-compare@^1.4.0:
   version "1.4.0"
@@ -6345,6 +6503,11 @@ postcss-modules-extract-imports@^2.0.0:
   dependencies:
     postcss "^7.0.5"
 
+postcss-modules-extract-imports@^3.0.0:
+  version "3.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-modules-extract-imports/-/postcss-modules-extract-imports-3.0.0.tgz#cda1f047c0ae80c97dbe28c3e76a43b88025741d"
+  integrity sha1-zaHwR8CugMl9vijD52pDuIAldB0=
+
 postcss-modules-local-by-default@^3.0.2:
   version "3.0.3"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-modules-local-by-default/-/postcss-modules-local-by-default-3.0.3.tgz#bb14e0cc78279d504dbdcbfd7e0ca28993ffbbb0"
@@ -6352,6 +6515,15 @@ postcss-modules-local-by-default@^3.0.2:
   dependencies:
     icss-utils "^4.1.1"
     postcss "^7.0.32"
+    postcss-selector-parser "^6.0.2"
+    postcss-value-parser "^4.1.0"
+
+postcss-modules-local-by-default@^4.0.0:
+  version "4.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-modules-local-by-default/-/postcss-modules-local-by-default-4.0.0.tgz#ebbb54fae1598eecfdf691a02b3ff3b390a5a51c"
+  integrity sha1-67tU+uFZjuz99pGgKz/zs5ClpRw=
+  dependencies:
+    icss-utils "^5.0.0"
     postcss-selector-parser "^6.0.2"
     postcss-value-parser "^4.1.0"
 
@@ -6363,6 +6535,13 @@ postcss-modules-scope@^2.2.0:
     postcss "^7.0.6"
     postcss-selector-parser "^6.0.0"
 
+postcss-modules-scope@^3.0.0:
+  version "3.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-modules-scope/-/postcss-modules-scope-3.0.0.tgz#9ef3151456d3bbfa120ca44898dfca6f2fa01f06"
+  integrity sha1-nvMVFFbTu/oSDKRImN/Kby+gHwY=
+  dependencies:
+    postcss-selector-parser "^6.0.4"
+
 postcss-modules-values@^3.0.0:
   version "3.0.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-modules-values/-/postcss-modules-values-3.0.0.tgz#5b5000d6ebae29b4255301b4a3a54574423e7f10"
@@ -6370,6 +6549,13 @@ postcss-modules-values@^3.0.0:
   dependencies:
     icss-utils "^4.0.0"
     postcss "^7.0.6"
+
+postcss-modules-values@^4.0.0:
+  version "4.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-modules-values/-/postcss-modules-values-4.0.0.tgz#d7c5e7e68c3bb3c9b27cbf48ca0bb3ffb4602c9c"
+  integrity sha1-18Xn5ow7s8myfL9Iyguz/7RgLJw=
+  dependencies:
+    icss-utils "^5.0.0"
 
 postcss-normalize-charset@^4.0.1:
   version "4.0.1"
@@ -6499,6 +6685,14 @@ postcss-selector-parser@^6.0.0, postcss-selector-parser@^6.0.2:
     indexes-of "^1.0.1"
     uniq "^1.0.1"
 
+postcss-selector-parser@^6.0.4:
+  version "6.0.5"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-selector-parser/-/postcss-selector-parser-6.0.5.tgz#042d74e137db83e6f294712096cb413f5aa612c4"
+  integrity sha1-BC104Tfbg+bylHEglstBP1qmEsQ=
+  dependencies:
+    cssesc "^3.0.0"
+    util-deprecate "^1.0.2"
+
 postcss-svgo@^4.0.2:
   version "4.0.2"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss-svgo/-/postcss-svgo-4.0.2.tgz#17b997bc711b333bab143aaed3b8d3d6e3d38258"
@@ -6536,6 +6730,15 @@ postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.27, postcss@^7.0.3
     chalk "^2.4.2"
     source-map "^0.6.1"
     supports-color "^6.1.0"
+
+postcss@^8.2.10:
+  version "8.2.13"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/postcss/-/postcss-8.2.13.tgz#dbe043e26e3c068e45113b1ed6375d2d37e2129f"
+  integrity sha1-2+BD4m48Bo5FETse1jddLTfiEp8=
+  dependencies:
+    colorette "^1.2.2"
+    nanoid "^3.1.22"
+    source-map "^0.6.1"
 
 prelude-ls@~1.1.2:
   version "1.1.2"
@@ -7070,6 +7273,15 @@ schema-utils@^2.0.0, schema-utils@^2.5.0, schema-utils@^2.6.5, schema-utils@^2.6
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
 
+schema-utils@^3.0.0:
+  version "3.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/schema-utils/-/schema-utils-3.0.0.tgz#67502f6aa2b66a2d4032b4279a2944978a0913ef"
+  integrity sha1-Z1AvaqK2ai1AMrQnmilEl4oJE+8=
+  dependencies:
+    "@types/json-schema" "^7.0.6"
+    ajv "^6.12.5"
+    ajv-keywords "^3.5.2"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
@@ -7096,6 +7308,13 @@ semver@^6.0.0, semver@^6.1.0, semver@^6.1.2, semver@^6.3.0:
   version "6.3.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha1-7gpkyK9ejO6mdoexM3YeG+y9HT0=
+
+semver@^7.3.5:
+  version "7.3.5"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/semver/-/semver-7.3.5.tgz#0b621c879348d8998e4b0e4be94b3f12e6018ef7"
+  integrity sha1-C2Ich5NI2JmOSw5L6Us/EuYBjvc=
+  dependencies:
+    lru-cache "^6.0.0"
 
 send@0.17.1:
   version "0.17.1"
@@ -7301,6 +7520,11 @@ sort-keys@^1.0.0:
   integrity sha1-RBttTTRnmPG05J6JIK37oOVD+a0=
   dependencies:
     is-plain-obj "^1.0.0"
+
+sortablejs@1.10.2:
+  version "1.10.2"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/sortablejs/-/sortablejs-1.10.2.tgz#6e40364d913f98b85a14f6678f92b5c1221f5290"
+  integrity sha1-bkA2TZE/mLhaFPZnj5K1wSIfUpA=
 
 source-list-map@^2.0.0:
   version "2.0.1"
@@ -7601,6 +7825,14 @@ strip-json-comments@^3.0.1:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/strip-json-comments/-/strip-json-comments-3.1.1.tgz#31f1281b3832630434831c310c01cccda8cbe006"
   integrity sha1-MfEoGzgyYwQ0gxwxDAHMzajL4AY=
 
+style-loader@^2.0.0:
+  version "2.0.0"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/style-loader/-/style-loader-2.0.0.tgz#9669602fd4690740eaaec137799a03addbbc393c"
+  integrity sha1-lmlgL9RpB0DqrsE3eZoDrdu8OTw=
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
+
 stylehacks@^4.0.0:
   version "4.0.3"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/stylehacks/-/stylehacks-4.0.3.tgz#6718fcaf4d1e07d8a1318690881e8d96726a71d5"
@@ -7854,6 +8086,11 @@ ts-pnp@^1.1.6:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha1-pQCtCEsHmPHDBxrzkeZZEshrypI=
 
+tslib@^1.10.0:
+  version "1.14.1"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
+  integrity sha1-zy04vcNKE0vK8QkcQfZhni9nLQA=
+
 tslib@^1.9.0:
   version "1.13.0"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
@@ -8051,7 +8288,7 @@ use@^3.1.0:
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
   integrity sha1-1QyMrHmhn7wg8pEfVuuXP04QBw8=
 
-util-deprecate@^1.0.1, util-deprecate@~1.0.1:
+util-deprecate@^1.0.1, util-deprecate@^1.0.2, util-deprecate@~1.0.1:
   version "1.0.2"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
   integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
@@ -8140,24 +8377,18 @@ verror@1.10.0:
     core-util-is "1.0.2"
     extsprintf "^1.2.0"
 
-view-design@^4.3.2:
-  version "4.3.2"
-  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/view-design/-/view-design-4.3.2.tgz#6f081c673b7742039bb38a3a51938efabb60d0a2"
-  integrity sha1-bwgcZzt3QgObs4o6UZOO+rtg0KI=
-  dependencies:
-    async-validator "^3.3.0"
-    deepmerge "^2.2.1"
-    element-resize-detector "^1.2.0"
-    js-calendar "^1.2.3"
-    lodash.throttle "^4.1.1"
-    popper.js "^1.14.6"
-    tinycolor2 "^1.4.1"
-    v-click-outside-x "^3.7.1"
-
 vm-browserify@^1.0.1:
   version "1.1.2"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha1-eGQcSIuObKkadfUR56OzKobl3aA=
+
+vue-codemirror@^4.0.6:
+  version "4.0.6"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/vue-codemirror/-/vue-codemirror-4.0.6.tgz#b786bb80d8d762a93aab8e46f79a81006f0437c4"
+  integrity sha1-t4a7gNjXYqk6q45G95qBAG8EN8Q=
+  dependencies:
+    codemirror "^5.41.0"
+    diff-match-patch "^1.0.0"
 
 vue-eslint-parser@^7.0.0:
   version "7.1.0"
@@ -8224,6 +8455,13 @@ vue@^2.6.11:
   version "2.6.12"
   resolved "http://192.168.0.88:9008/nexus/repository/npm-group/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha1-9evU+mvShpQD4pqJau1JBEVskSM=
+
+vuedraggable@^2.23.2:
+  version "2.24.3"
+  resolved "http://192.168.0.88:9008/nexus/repository/npm-group/vuedraggable/-/vuedraggable-2.24.3.tgz#43c93849b746a24ce503e123d5b259c701ba0d19"
+  integrity sha1-Q8k4SbdGokzlA+Ej1bJZxwG6DRk=
+  dependencies:
+    sortablejs "1.10.2"
 
 watchpack-chokidar2@^2.0.0:
   version "2.0.0"

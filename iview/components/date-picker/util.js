@@ -230,6 +230,7 @@ export const TYPE_VALUE_RESOLVER_MAP = {
   },
   multiple: {
     formatter: (value, format) => {
+      console.log(value.filter(Boolean).map(date => formatDate(date, format)).join(','));
       return value.filter(Boolean).map(date => formatDate(date, format)).join(',');
     },
     parser: (value, format) => {
@@ -238,7 +239,6 @@ export const TYPE_VALUE_RESOLVER_MAP = {
         if (value instanceof Date) { return value; }
         
         if (typeof value === 'string') { value = value.trim(); } else if (typeof value !== 'number' && !value) { value = ''; }
-        
         return parseDate(value, format);
       });
     }

@@ -1,38 +1,49 @@
 <template>
   <div>
-    <TsFormSelect v-model="selectedv" v-bind="pluginConfig" :dataList="componentList" />
+    <TsFormDatePicker
+      v-model="value"
+      transfer
+      width="100%"
+      v-bind="getSetting"
+    ></TsFormDatePicker>
   </div>
-  
 </template>
 <script>
 export default {
   data() {
     return {
-      pluginConfig: {
-        clearable: false,
-        border: 'bottom',
-        width: 180,
-        placeholder: '请选择插件',
-        multiple: true,
-        height: 32,
-        selectAll: true,
-        maxTagCount: 1
-      },
-      componentList: [{
-        text: '124',
-        value: 123
-      }, {
-        text: '122222',
-        value: 12
-      }, {
-        text: '122232',
-        value: 132
-      }, {
-        text: '122',
-        value: 12555
-      }],
-      selectedv: [123, 12, 132, 12555]
+      value: '',
+      config: { 'config': { 'defaultValue': '', 'valueType': 'timestamp', 'format': 'yyyy-MM-dd HH:mm:ss', 'type': 'datetimerange', 'sperateText': '、' }, 'controller': 'date', 'defaultExpression': 'between', 'expressionList': [{ 'expression': 'between', 'expressionEs': " %s between '%s' and '%s' ", 'expressionName': '属于', 'isShowConditionValue': 1 }, { 'expression': 'is-null', 'expressionEs': " %s = '' ", 'expressionName': '为空', 'isShowConditionValue': 0 }, { 'expression': 'is-not-null', 'expressionEs': " not %s = '' ", 'expressionName': '不为空', 'isShowConditionValue': 0 }], 'freemarkerTemplate': '${DATA.starttime}', 'isEditable': 1, 'label': '上报时间', 'name': 'starttime', 'paramType': 'date', 'paramTypeName': '日期', 'type': 'common', 'handler': 'formdate' }
     };
+  },
+  computed: {
+    getSetting() {
+      let setting = this.config.config;
+      let json = setting;
+      if (setting.styleType) {
+        //format的处理
+        let styleType = this.config.config.styleType || '-';
+        json.format = this.config.config.showType.replace(/\-/g, styleType);
+      }
+
+      //type的处理
+      if (!setting.type && setting.showType && setting.showType.indexOf(' HH') >= 0) {
+        json.type = 'datetime';
+      } else if (!setting.type && setting.showType) {
+        setting.showType == 'yyyy' && (json.type = 'year');
+        setting.showType == 'yyyy-MM' && (json.type = 'month');
+        setting.showType == 'yyyy-MM-dd' && (json.type = 'date');
+      }
+
+      //valueType的处理
+      if (!setting.valueType) {
+        json.valueType = 'format';
+      }
+      json.width = '100%';
+      json.desc = '';
+      json.isRequired = false;
+      return json;
+    }
   }
 };
 </script>

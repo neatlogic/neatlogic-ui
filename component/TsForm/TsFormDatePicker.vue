@@ -1,7 +1,7 @@
 <template>
   <span v-if="readonly" :class="readonlyClass " :title="readonlyTitle">
     <template v-if="type.indexOf('range')>=0 && (currentValue instanceof Array)"> {{ currentValue[0] }} - {{ currentValue[1] }}</template>
-    <template v-else> {{ currentValue }}</template>
+    <template v-else> {{ currentValue || '-' }}</template>
   </span>
   <div v-else :class="borderClass" class="form-li">
     <DatePicker
@@ -14,9 +14,8 @@
       :readonly="readonly"
       :disabled="disabled"
       :size="size"
-      :multiple="multiple"
+      :multiple="currentMultiple"
       :placeholder="getPlaceholder"
-      :value="currentValue"
       :clearable="getClearable"
       :split-panels="splitPanels"
       :style="getStyle"
@@ -63,7 +62,14 @@
     </TimePicker>
     <div v-if="desc" class="text-tip">{{ desc }}</div>
     <transition name="fade">
-      <span v-if="validMesage != ''" class="form-error-tip" v-html="validMesage"></span>
+      <slot name="validMessage">
+        <span
+          v-if="validMesage != ''"
+          class="form-error-tip"
+          :title="validMesage"
+          v-html="validMesage"
+        ></span>
+      </slot>
     </transition>
   </div>
 </template>
@@ -91,6 +97,10 @@ export default {
       //默认为false  是否可以选择多个日期
       type: Boolean,
       default: false
+    },
+    clearable: {
+      type: Boolean,
+      default: true
     },
     disabled: {
       //true  false  默认为false
@@ -143,7 +153,7 @@ export default {
     desc: String,
     readonlyClass: {
       type: String,
-      default: 'tsform-readonly'
+      default: 'text-grey tsform-readonly'
     },
     scrollParent: [Object, String],
     options: [Object], //选择器额外配置，比如不可选日期与快捷选项，具体项详见下表 1、不可选  disabledDate：Funtion（value）{return Boolean}  2、shortcuts ：[{text:string, value:function(){return value}，onClick :function(){}}]
@@ -159,8 +169,9 @@ export default {
       default: null
     },
     separator: {
+      //分隔符
       type: String,
-      default: '-'      
+      default: '-'          
     },
     placement: {
       type: String,
@@ -169,10 +180,12 @@ export default {
   },
   data() {
     let _this = this;
+    let value = _this.getCurrentValue();
     return {
-      currentValue: _this.getCurrentValue(),
+      currentMultiple: value.multiple,
       validMesage: _this.errorMessage || '',
       currentValidList: _this.filterValid(_this.validateList) || [],
+      currentValue: value.value,
       readonlyTitle: null
     };
   },
@@ -185,22 +198,29 @@ export default {
       let _this = this;
       let format = formatSeting(_this.type, _this.format);
       let valueType = this.valueType;
-
+      let value = null;
+      let multiple = _this.multiple;
       if (typeof _this.value == 'number') {
-        return _this.changeDateFormat(new Date(_this.value), format, true, valueType);
+        value = _this.changeDateFormat(new Date(_this.value), format, true, valueType);
       } else if (_this.value instanceof Array) {
         let arry = [];
         arry = _this.value.map(function(item) {
           if (typeof item == 'number') {
             return _this.changeDateFormat(new Date(item), format, true, valueType);
+          } else if (format.indexOf('yyyy') >= 0 && !_this.readonly) {
+            return new Date(_this.changeDateFormat(new Date(item), format, true, valueType));
           } else {
             return item;
           }
         });
-        return arry;
+        value = arry;
       } else {
-        return _this.value;
+        value = _this.value;
       }
+      if (value instanceof Array) {
+        multiple = true;
+      }
+      return {value: value, multiple: multiple};
     },
     onChangeValue() {
       let _this = this;
@@ -233,7 +253,7 @@ export default {
           return _this.changeDateFormat(item, format, false, _this.valueType);
         });
       } else {
-        return _this.currentValue;
+        return _this.currentValue === '' ? null : _this.currentValue;
       }
     },
     onOk() {
@@ -253,7 +273,7 @@ export default {
       if (this.type.indexOf('range') >= 0 && this.currentValue instanceof Array) {
         str = this.currentValue[0] + ' - ' + this.currentValue[1];
       } else {
-        str = this.currentValue;
+        str = this.currentValue || '';
       }
       for (var i = 0; i < str.length; i++) {
         if (str.charCodeAt(i) > 256) {
@@ -366,7 +386,7 @@ export default {
     },
     getClearable: function() {
       let _this = this;
-      let clearable = true;
+      let clearable = _this.clearable;
       _this.validateList &&
         _this.validateList.forEach(item => {
           typeof item == 'string' && item == 'required' && !_this.multiple && (clearable = false);
@@ -409,11 +429,15 @@ export default {
       let _this = this;
       if (newValue instanceof Array) {
         if (JSON.stringify(newValue) != JSON.stringify(this.getFormatValue())) {
-          _this.currentValue = _this.getCurrentValue();
+          let value = _this.getCurrentValue();
+          _this.currentValue = value.value;
+          _this.currentMultiple = value.multiple;
           _this.validMesage = '';
         }
       } else if (newValue != this.getFormatValue()) {
-        _this.currentValue = _this.getCurrentValue();
+        let value = _this.getCurrentValue();
+        _this.currentValue = value.value;
+        _this.currentMultiple = value.multiple;
         _this.validMesage = '';
       }
     },
