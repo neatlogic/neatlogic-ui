@@ -49,7 +49,7 @@ export default {
       default: () => []
     },
     date: {
-      type: [Date]
+      type: [Date,String]
     }
   },
   data() {
