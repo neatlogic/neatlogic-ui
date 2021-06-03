@@ -16,6 +16,7 @@
       :autosize="type == 'textarea' ? autosize : ''"
       :clearable="getClearable"
       :icon="suffix"
+      :showRemain="showRemain"
       @on-change="onChangeValue"
       @on-focus="onFocusValue"
       @on-enter="onEnterValue"
@@ -113,7 +114,11 @@ export default {
     errorMessage: String, //从外部设置校验信息
     prepend: String,
     append: String,
-    suffix: String
+    suffix: String,
+    showRemain: {//在开启showWordLimit前提下，显示剩余字数，默认是显示已输入数/总数，将此参数设为true只显示剩余字数
+      type: Boolean,
+      default: false
+    }
   },
   data: function() {
     let _this = this;

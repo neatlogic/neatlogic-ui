@@ -10,7 +10,8 @@
       <span v-else-if="showSuffix" class="ivu-input-suffix">
         <slot name="suffix"><i v-if="suffix" class="ivu-icon" :class="['ivu-icon-' + suffix]"></i></slot>
       </span>
-      <span v-else-if="showWordLimit" class="ivu-input-word-count">{{ textLength }}/{{ upperLimit }}</span>
+      <span v-else-if="showWordLimit && !showRemain" class="ivu-input-word-count">{{ textLength }}/{{ upperLimit }}</span>
+      <span v-else-if="showWordLimit && showRemain" class="ivu-input-word-count">{{Math.max(parseInt(upperLimit) -  parseInt(textLength),0) }}</span>
       <span v-else-if="password" class="ivu-input-suffix" @click="handleToggleShowPassword">
         <i v-if="showPassword" class="ivu-icon ivu-icon-ios-eye-off-outline"></i>
         <i v-else class="ivu-icon ivu-icon-ios-eye-outline"></i>
@@ -33,7 +34,8 @@
     <template v-else>
       <textarea :id="elementId" ref="textarea" :wrap="wrap" :autocomplete="autocomplete" :spellcheck="spellcheck" :class="textareaClasses" :style="textareaStyles" :placeholder="placeholder" :disabled="itemDisabled" :rows="rows" :maxlength="maxlength" :readonly="readonly" :name="name" :value="currentValue" :autofocus="autofocus" @keyup.enter="handleEnter" @keyup="handleKeyup" @keypress="handleKeypress" @keydown="handleKeydown" @focus="handleFocus" @blur="handleBlur" @compositionstart="handleComposition" @compositionupdate="handleComposition" @compositionend="handleComposition" @input="handleInput">
             </textarea>
-      <span v-if="showWordLimit" class="ivu-input-word-count">{{ textLength }}/{{ upperLimit }}</span>
+      <span v-if="showWordLimit&& !showRemain" class="ivu-input-word-count">{{ textLength }}/{{ upperLimit }}</span>
+      <span v-else-if="showWordLimit&& showRemain" class="ivu-input-word-count">{{Math.max(parseInt(upperLimit) -  parseInt(textLength),0) }}</span>
     </template>
   </div>
 </template>
@@ -148,6 +150,10 @@ export default {
     password: {
       type: Boolean,
       default: false
+    },
+    showRemain:{//在开启showWordLimit前提下，显示剩余字数，默认是显示已输入数/总数，将此参数设为true只显示剩余字数
+      type: Boolean,
+      default: true      
     }
   },
   data() {

@@ -230,7 +230,6 @@ export const TYPE_VALUE_RESOLVER_MAP = {
   },
   multiple: {
     formatter: (value, format) => {
-      console.log(value.filter(Boolean).map(date => formatDate(date, format)).join(','));
       return value.filter(Boolean).map(date => formatDate(date, format)).join(',');
     },
     parser: (value, format) => {
