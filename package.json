@@ -11,6 +11,10 @@
     "lib": "vue-cli-service build --target lib --name techsure-ui component/index.js",
     "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
   },
+  "repository": {
+    "type": "git",
+    "url": "http://192.168.0.82:7070/codedriver/codedriver-webs/webs-ui.git"
+  },
   "dependencies": {
     "async-validator": "^3.3.0",
     "axios": "^0.19.0",

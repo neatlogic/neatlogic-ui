@@ -12,5 +12,4 @@ logs/
 /node_modules
 Test.vue
 .history
-/dist
 App.vue
