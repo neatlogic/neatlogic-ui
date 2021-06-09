@@ -5,7 +5,7 @@
   "main": "dist/techsure-ui.umd.min.js",
   "author": "techsure",
   "scripts": {
-    "serve": "node --max_old_space_size=4096 node_modules/.bin/vue-cli-service serve --open",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix",
     "lib": "vue-cli-service build --target lib --name techsure-ui component/index.js",
