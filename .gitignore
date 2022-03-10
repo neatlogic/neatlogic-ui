@@ -13,3 +13,4 @@ logs/
 Test.vue
 .history
 App.vue
+/dist
