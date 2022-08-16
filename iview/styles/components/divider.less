@@ -24,7 +24,9 @@
     }
     &-horizontal&-with-text-center,
     &-horizontal&-with-text-left,
-    &-horizontal&-with-text-right {
+    &-horizontal&-with-text-right,
+    &-horizontal&-with-text-start,
+    &-horizontal&-with-text-end {
         display: table;
         white-space: nowrap;
         text-align: center;
@@ -47,7 +49,9 @@
 
     &-horizontal&-small&-with-text-center,
     &-horizontal&-small&-with-text-left,
-    &-horizontal&-small&-with-text-right{
+    &-horizontal&-small&-with-text-right,
+    &-horizontal&-small&-with-text-start,
+    &-horizontal&-small&-with-text-end{
         font-size: @font-size-base;
         margin: 8px 0;
     }
@@ -57,6 +61,20 @@
         .@{divider-prefix-cls}-inner-text {
             display: inline-block;
             padding: 0 10px;
+        }
+    }
+
+    &-horizontal&-with-text-start{
+        .@{divider-prefix-cls}-inner-text {
+            display: inline-block;
+            padding: 0 10px 0 0;
+        }
+    }
+
+    &-horizontal&-with-text-end{
+        .@{divider-prefix-cls}-inner-text {
+            display: inline-block;
+            padding: 0 0 0 10px;
         }
     }
 
@@ -82,6 +100,29 @@
         }
     }
 
+    &-horizontal&-with-text-start {
+        &:before {
+            top: 50%;
+            width: 0%;
+        }
+        &:after {
+            top: 50%;
+            width: 100%;
+        }
+    }
+
+    &-horizontal&-with-text-end {
+        &:before {
+            top: 50%;
+            width: 100%;
+        }
+        &:after {
+            top: 50%;
+            width: 0%;
+        }
+    }
+
+
     &-inner-text {
         display: inline-block;
         padding: 0 24px;
@@ -93,7 +134,9 @@
     }
     &-horizontal&-with-text&-dashed,
     &-horizontal&-with-text-left&-dashed,
-    &-horizontal&-with-text-right&-dashed {
+    &-horizontal&-with-text-right&-dashed,
+    &-horizontal&-with-text-start&-dashed,
+    &-horizontal&-with-text-end&-dashed {
         border-top: 0;
         &:before,
         &:after {
