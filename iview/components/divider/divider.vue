@@ -25,7 +25,7 @@ export default {
       type: String,
       default: 'center',
       validator(value) {
-        return oneOf(value, ['left', 'right', 'center']);
+        return oneOf(value, ['left', 'right', 'center','start','end']);
       }
     },
     dashed: {
