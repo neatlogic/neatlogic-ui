@@ -1,6 +1,16 @@
 <template>
   <li :class="classes">
-    {{ data.label }}
+    <Tooltip
+      placement="top-start"
+      max-width="300"
+      transfer
+      theme="light"
+      style="width: 100%"
+      :content="data.label"
+      :disabled="!data.label || !!(data.label && data.label.length < 20)"
+    >
+      <div class="overflow tip-label">{{ data.label }}</div>
+    </Tooltip>
     <Icon v-if="showArrow" :type="arrowType" :custom="customArrowType" :size="arrowSize" />
     <i v-if="showLoading" class="ivu-icon ivu-icon-ios-loading ivu-load-loop ivu-cascader-menu-item-loading"></i>
   </li>
@@ -70,3 +80,8 @@ export default {
   }
 };
 </script>
+<style lang="less" scoped>
+.tip-label {
+  max-width: 300px;
+}
+</style>

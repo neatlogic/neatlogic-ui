@@ -206,8 +206,10 @@ export default {
     updateSelected(init = false, changeOnSelectDataChange = false) {
       // #2793 changeOnSelectDataChange used for changeOnSelect when data changed and set value
       if (!this.changeOnSelect || init || changeOnSelectDataChange) {
-        this.broadcast('Caspanel', 'on-find-selected', {
-          value: this.currentValue
+        this.$nextTick(() => {
+          this.broadcast('Caspanel', 'on-find-selected', {
+            value: this.currentValue
+          });
         });
       }
     },
