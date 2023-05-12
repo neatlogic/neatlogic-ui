@@ -1,14 +1,14 @@
 {
-  "name": "techsure-ui",
-  "version": "1.1.8",
+  "name": "neatlogic-ui",
+  "version": "1.0.0",
   "private": false,
-  "main": "dist/techsure-ui.umd.min.js",
-  "author": "techsure",
+  "main": "dist/neatlogic-ui.umd.min.js",
+  "author": "neatlogic",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix",
-    "lib": "vue-cli-service build --target lib --name techsure-ui component/index.js",
+    "lib": "vue-cli-service build --target lib --name neatlogic-ui component/index.js",
     "fix-memory-limit": "cross-env LIMIT=4096 increase-memory-limit"
   },
   "repository": {
