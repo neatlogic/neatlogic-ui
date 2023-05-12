@@ -277,8 +277,10 @@ export default {
     },
     handleProgress(e, file) {
       const _file = this.getFile(file);
-      this.onProgress(e, _file, this.fileList);
-      _file.percentage = e.percent || 0;
+      if(_file) {
+        this.onProgress(e, _file, this.fileList);
+        _file.percentage = e.percent || 0;
+      }
     },
     handleSuccess(res, file) {
       const _file = this.getFile(file);
@@ -298,12 +300,11 @@ export default {
     handleError(err, response, file) {
       const _file = this.getFile(file);
       const fileList = this.fileList;
-
-      _file.status = 'fail';
-
-      fileList.splice(fileList.indexOf(_file), 1);
-
-      this.onError(err, response, file);
+      if (_file) {
+         _file.status = 'fail';
+        fileList.splice(fileList.indexOf(_file), 1);
+        this.onError(err, response, file);
+      } 
     },
     handleRemove(file) {
       const fileList = this.fileList;
