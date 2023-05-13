@@ -13,7 +13,7 @@ module.exports = {
       }
     }
   },
-  publicPath: '/techsure/',
+  publicPath: '/neatlogic/',
   assetsDir: 'resource',
   productionSourceMap: false,
   runtimeCompiler: true,
