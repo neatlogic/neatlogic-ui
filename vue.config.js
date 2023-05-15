@@ -9,7 +9,9 @@ module.exports = {
   css: {
     loaderOptions: {
       less: {
-        javascriptEnabled: true
+        lessOptions: {
+          javascriptEnabled: true
+        }
       }
     }
   },
@@ -23,18 +25,13 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.module
-      .rule('vue')
-      .use('vue-path-injector')
-      .loader(require.resolve('./vue-path-injector.js'))
-      .after('vue-loader')
-      .end();
-    config.module
+    config.module.rule('vue').use('vue-path-injector').loader(require.resolve('./vue-path-injector.js')).after('vue-loader').end();
+    /*config.module
       .rule('images')
       .use('url-loader')
       .loader('url-loader')
-      .tap(options => Object.assign(options, { limit: 102400 }));
-      
+      .tap(options => Object.assign(options, { limit: 102400 }));*/
+
     config.resolve.alias.set('@static', resolve('static'));
     config.resolve.alias.set('@component', resolve('component'));
     config.resolve.alias.set('@directives', resolve('directives'));
@@ -47,7 +44,7 @@ module.exports = {
     open: true,
     port: '8080',
     https: false,
-    hotOnly: false,
-    disableHostCheck: true
+    hot: false
+    //disableHostCheck: true
   }
 };
