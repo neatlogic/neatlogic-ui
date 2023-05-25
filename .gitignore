@@ -14,3 +14,4 @@ Test.vue
 .history
 App.vue
 /dist
+package-lock.json
