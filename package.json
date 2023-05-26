@@ -1,6 +1,6 @@
 {
   "name": "neatlogic-ui",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "private": false,
   "main": "dist/neatlogic-ui.umd.min.js",
   "author": "neatlogic",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://192.168.0.82:7070/codedriver/codedriver-webs/webs-ui.git"
+    "url": "http://192.168.0.82:7070/neatlogic/codedriver-webs/webs-ui.git"
   },
   "dependencies": {
     "async-validator": "^3.3.0",
