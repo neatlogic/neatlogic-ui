@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://192.168.0.82:7070/neatlogic/codedriver-webs/webs-ui.git"
+    "url": "https://gitee.com/neat-logic/neatlogic-ui.git"
   },
   "dependencies": {
     "async-validator": "^3.3.0",
@@ -64,9 +64,6 @@
     "not dead",
     "not ie <= 8"
   ],
-  "publishConfig": {
-    "registry":"https://registry.npmjs.org"
-  },
   "description": "## Project setup ``` yarn install ```",
   "keywords": [],
   "license": "ISC"
