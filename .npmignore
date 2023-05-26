@@ -22,4 +22,5 @@ vue-path-injector.js
 *.html
 README.md
 yarn.lock
+package-lock.json
 package.json
