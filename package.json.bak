@@ -65,6 +65,7 @@
     "not ie <= 8"
   ],
   "publishConfig": {
+    //"registry": "http://192.168.0.88:9008/nexus/repository/npm-private/"
     "registry":"https://registry.npmjs.org"
   },
   "description": "## Project setup ``` yarn install ```",

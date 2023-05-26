@@ -1,29 +1,8 @@
-# sdk
+中文 / [English](README.en.md)
 
-## Project setup
-```
-yarn install
-```
+## 关于
 
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
+neatlogic-ui是neatlogic前端UI框架，基于iView4.x源码进行二次开发封装而成，主要封装了各种表单常用插件，也支持iView的某些原生插件，并在样式上做了适配。
 
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### publish the project as a node_modlue
-```
-npm run lib => npm publish
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+## 安装
+```npm i neatlogic-ui```
