@@ -3,7 +3,8 @@
     <div ref="reference" :class="wrapClasses" @click="toggleVisible">
       <input :name="name" :value="currentValue" type="hidden">
       <Icon :type="arrowType" :custom="customArrowType" :size="arrowSize" :class="arrowClasses"></Icon>
-      <div ref="input" :tabindex="itemDisabled ? undefined : 0" :class="inputClasses" @keydown.tab="onTab" @keydown.esc="onEscape" @keydown.up="onArrow" @keydown.down="onArrow">
+      <div ref="input" :tabindex="itemDisabled ? undefined : 0" :class="inputClasses" @keydown.tab="onTab"
+        @keydown.esc="onEscape" @keydown.up="onArrow" @keydown.down="onArrow">
         <div :class="[prefixCls + '-color']">
           <div v-show="value === '' && !visible" :class="[prefixCls + '-color-empty']">
             <i :class="[iconPrefixCls, iconPrefixCls + '-ios-close']"></i>
@@ -13,12 +14,14 @@
       </div>
     </div>
     <transition name="transition-drop">
-      <Drop v-show="visible" ref="drop" v-transfer-dom :placement="placement" :data-transfer="transfer" :transfer="transfer" :class="dropClasses">
+      <Drop v-show="visible" ref="drop" v-transfer-dom :placement="placement" :data-transfer="transfer"
+        :transfer="transfer" :class="dropClasses" :eventsEnabled="eventsEnabled">
         <transition name="fade">
           <div v-if="visible" :class="[prefixCls + '-picker']">
             <div :class="[prefixCls + '-picker-wrapper']">
               <div :class="[prefixCls + '-picker-panel']">
-                <Saturation ref="saturation" v-model="saturationColors" :focused="visible" @change="childChange" @keydown.native.tab="handleFirstTab"></Saturation>
+                <Saturation ref="saturation" v-model="saturationColors" :focused="visible" @change="childChange"
+                  @keydown.native.tab="handleFirstTab"></Saturation>
               </div>
               <div v-if="hue" :class="[prefixCls + '-picker-hue-slider']">
                 <Hue v-model="saturationColors" @change="childChange"></Hue>
@@ -26,18 +29,24 @@
               <div v-if="alpha" :class="[prefixCls + '-picker-alpha-slider']">
                 <Alpha v-model="saturationColors" @change="childChange"></Alpha>
               </div>
-              <recommend-colors v-if="colors.length" :list="colors" :class="[prefixCls + '-picker-colors']" @picker-color="handleSelectColor"></recommend-colors>
-              <recommend-colors v-if="!colors.length && recommend" :list="recommendedColor" :class="[prefixCls + '-picker-colors']" @picker-color="handleSelectColor"></recommend-colors>
+              <recommend-colors v-if="colors.length" :list="colors" :class="[prefixCls + '-picker-colors']"
+                @picker-color="handleSelectColor"></recommend-colors>
+              <recommend-colors v-if="!colors.length && recommend" :list="recommendedColor"
+                :class="[prefixCls + '-picker-colors']" @picker-color="handleSelectColor"></recommend-colors>
             </div>
             <div :class="[prefixCls + '-confirm']">
               <span :class="confirmColorClasses">
                 <template v-if="editable">
-                  <i-input :value="formatColor" size="small" @on-enter="handleEditColor" @on-blur="handleEditColor"></i-input>
+                  <i-input ref="editColorInput" :value="formatColor" size="small" @on-enter="handleEditColor"
+                    @on-blur="handleEditColor"></i-input>
                 </template>
                 <template v-else>{{ formatColor }}</template>
               </span>
-              <i-button ref="clear" :tabindex="0" size="small" @click.native="handleClear" @keydown.enter="handleClear" @keydown.native.esc="closer">{{ t('i.datepicker.clear') }}</i-button>
-              <i-button ref="ok" :tabindex="0" size="small" type="primary" @click.native="handleSuccess" @keydown.native.tab="handleLastTab" @keydown.enter="handleSuccess" @keydown.native.esc="closer">{{ t('i.datepicker.ok') }}</i-button>
+              <i-button ref="clear" :tabindex="0" size="small" :style="getButtonStyle" @click.native="handleClear"
+                @keydown.enter="handleClear" @keydown.native.esc="closer">{{ t('i.datepicker.clear') }}</i-button>
+              <i-button ref="ok" :style="getButtonStyle" :tabindex="0" size="small" type="primary"
+                @click.native="handleSuccess" @keydown.native.tab="handleLastTab" @keydown.enter="handleSuccess"
+                @keydown.native.esc="closer">{{ t('i.datepicker.ok') }}</i-button>
             </div>
           </div>
         </transition>
@@ -150,13 +159,18 @@ export default {
     },
     transferClassName: {
       type: String
+    },
+    // 4.6.0
+    eventsEnabled: {
+      type: Boolean,
+      default: false
     }
   },
 
   data() {
     return {
-      val: changeColor(this.value),
-      currentValue: this.value,
+      val: changeColor(this.value || ''),
+      currentValue: this.value || '',
       dragging: false,
       visible: false,
       recommendedColor: ['#2d8cf0', '#19be6b', '#ff9900', '#ed4014', '#00b5ff', '#19c919', '#f9e31c', '#ea1a1a', '#9b1dea', '#00c2b1', '#ac7a33', '#1d35ea', '#8bc34a', '#f16b62', '#ea4ca3', '#0d94aa', '#febd79', '#5d4037', '#00bcd4', '#f06292', '#cddc39', '#607d8b', '#000000', '#ffffff']
@@ -175,7 +189,9 @@ export default {
     handleClose(event) {
       if (this.visible) {
         if (this.dragging || event.type === 'mousedown') {
-          event.preventDefault();
+          if (this.$refs.editColorInput && event.target !== this.$refs.editColorInput.$el.querySelector('input')) {
+            event.preventDefault(); // 修复 ColorPicker 在和 Select 等组件共同使用时，颜色输入框无法激活的问题。
+          }
           return;
         }
 
@@ -398,15 +414,22 @@ export default {
         }
       }
       return size;
+    },
+    getButtonStyle() {
+      // transfer为true时，按钮和input对不齐的问题，同时添加右边间隙
+      if (this.transfer) {
+        return 'margin-top: 4px;margin-right: 6px;';
+      }
+      return 'margin-right: 6px;';
     }
   },
 
   watch: {
     value(newVal) {
-      this.val = changeColor(newVal);
+      this.val = changeColor(newVal || '');
     },
     visible(val) {
-      this.val = changeColor(this.value);
+      this.val = changeColor(this.value || '');
       this.$refs.drop[val ? 'update' : 'destroy']();
       this.$emit('on-open-change', Boolean(val));
     }
