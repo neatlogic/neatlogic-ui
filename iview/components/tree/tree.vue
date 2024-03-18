@@ -112,7 +112,7 @@ export default {
       let childrenKey = this.childrenKey;
       const flatTree = [];
       function flattenChildren(node, parent) {
-        node.nodeKey = keyCounter++;
+        node.nodeKey = node.nodeKey || keyCounter++;
         flatTree[node.nodeKey] = { node: node, nodeKey: node.nodeKey };
         if (typeof parent != 'undefined') {
           flatTree[node.nodeKey].parent = parent.nodeKey;
