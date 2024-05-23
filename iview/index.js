@@ -233,7 +233,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 }
 
 const api = {
-  version: process.env.VERSION, // eslint-disable-line no-undef
+  version: '3.0.0', // eslint-disable-line no-undef
   install,
   Circle,
   Switch,
