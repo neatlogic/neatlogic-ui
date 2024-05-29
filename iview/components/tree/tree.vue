@@ -78,7 +78,7 @@ export default {
     return {
       prefixCls: prefixCls,
       stateTree: this.data,
-      flatState: [],
+      flatState: {},
       contextMenuVisible: false,
       contextMenuStyles: {
         top: 0,
@@ -113,9 +113,13 @@ export default {
       const flatTree = [];
       function flattenChildren(node, parent) {
         node.nodeKey = node.nodeKey || keyCounter++;
+        node.nodeKey = node.nodeKey.toString();
         flatTree[node.nodeKey] = { node: node, nodeKey: node.nodeKey };
         if (typeof parent != 'undefined') {
           flatTree[node.nodeKey].parent = parent.nodeKey;
+          if(!flatTree[parent.nodeKey][childrenKey]){
+            flatTree[parent.nodeKey][childrenKey] = [];
+          }
           flatTree[parent.nodeKey][childrenKey].push(node.nodeKey);
         }
 
@@ -172,15 +176,36 @@ export default {
 
     getSelectedNodes() {
       /* public API */
-      return this.flatState.filter(obj => obj.node.selected).map(obj => obj.node);
+      const selectList = [];
+      for(let key in this.flatState){
+        if(this.flatState[key].node.selected){
+          selectList.push(this.flatState[key].node);
+        }
+      }
+      return selectList;
+      //return this.flatState.filter(obj => obj.node.selected).map(obj => obj.node);
     },
     getCheckedNodes() {
       /* public API */
-      return this.flatState.filter(obj => obj.node.checked).map(obj => obj.node);
+      const selectList = [];
+      for(let key in this.flatState){
+        if(this.flatState[key].node.checked){
+          selectList.push(this.flatState[key].node);
+        }
+      }
+      return selectList;
+      //return this.flatState.filter(obj => obj.node.checked).map(obj => obj.node);
     },
     getCheckedAndIndeterminateNodes() {
       /* public API */
-      return this.flatState.filter(obj => obj.node.checked || obj.node.indeterminate).map(obj => obj.node);
+       const selectList = [];
+      for(let key in this.flatState){
+        if(this.flatState[key].node.checked || this.flatState[key].node.indeterminate){
+          selectList.push(this.flatState[key].node);
+        }
+      }
+      return selectList;
+      //return this.flatState.filter(obj => obj.node.checked || obj.node.indeterminate).map(obj => obj.node);
     },
     updateTreeDown(node, changes = {}) {
       if (this.checkStrictly) return;
@@ -199,8 +224,13 @@ export default {
       const node = this.flatState[nodeKey].node;
       if (!this.multiple) {
         // reset previously selected node
-        const currentSelectedKey = this.flatState.findIndex(obj => obj.node.selected);
-        if (currentSelectedKey >= 0 && currentSelectedKey !== nodeKey) this.$set(this.flatState[currentSelectedKey].node, 'selected', false);
+        let currentSelectedKey = null;
+        for(let key in this.flatState){
+          if(this.flatState[key].node.selected){
+              currentSelectedKey = this.flatState[key].node.nodeKey;
+          }
+        }
+        if (currentSelectedKey && currentSelectedKey != nodeKey) this.$set(this.flatState[currentSelectedKey].node, 'selected', false);
       }
       this.$set(node, 'selected', !node.selected);
 
