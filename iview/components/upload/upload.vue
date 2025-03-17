@@ -231,11 +231,11 @@ export default {
         }
       }
 
-      this.handleStart(file);
+      const _file = this.handleStart(file);
       let formData = new FormData();
       formData.append(this.name, file);
 
-      ajax({
+      _file.xhr = ajax({
         headers: this.headers,
         withCredentials: this.withCredentials,
         file: file,
@@ -252,6 +252,7 @@ export default {
           this.handleError(err, response, file);
         }
       });
+      return _file;
     },
     handleStart(file) {
       file.uid = Date.now() + this.tempIndex++;
@@ -265,6 +266,7 @@ export default {
       };
 
       this.fileList.push(_file);
+      return _file;
     },
     getFile(file) {
       const fileList = this.fileList;
@@ -308,8 +310,17 @@ export default {
     },
     handleRemove(file) {
       const fileList = this.fileList;
+       if(file && file.xhr) {
+            file.xhr.abort();
+        }
       fileList.splice(fileList.indexOf(file), 1);
       this.onRemove(file, fileList);
+    },
+    handleCancelAjax(file) {
+      // 处理取消上传
+      if(file && file.xhr && file.status == 'uploading') {
+        file.xhr.abort();
+      }
     },
     handlePreview(file) {
       if (file.status === 'finished') {
@@ -317,6 +328,11 @@ export default {
       }
     },
     clearFiles() {
+      this.fileList.forEach(file => {
+        if(file && file.xhr) {
+            file.xhr.abort();
+        }
+      });
       this.fileList = [];
     }
   },

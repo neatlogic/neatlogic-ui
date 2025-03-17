@@ -33,19 +33,19 @@
     <div class="upload_block">
       <TsRow>
         <Col v-for="(item, index) in uploadList" :key="index" :span="rowSpan">
-        <div class="upload_item">
-          <span class="ts-link"></span>
-          <span class="file_name overflow">{{ item.name }}</span>
-          <i class="ts-download file_down" title="下载" @click="fileDownload(item)"></i>
-          <i class="ts-remove file_del" title="删除" @click="handleRemove(item)"></i>
-          <Progress
-            v-if="item.showProgress"
-            class="progress"
-            :percent="percent(item.percentage)"
-            :stroke-width="5"
-            :status="fileStatus"
-          ></Progress>
-        </div>
+          <div class="upload_item">
+            <span class="ts-link"></span>
+            <span class="file_name overflow">{{ item.name }}</span>
+            <i class="ts-download file_down" title="下载" @click="fileDownload(item)"></i>
+            <i class="ts-remove file_del" title="删除" @click="handleRemove(item)"></i>
+            <Progress
+              v-if="item.showProgress"
+              class="progress"
+              :percent="percent(item.percentage)"
+              :stroke-width="5"
+              :status="fileStatus"
+            ></Progress>
+          </div>
         </Col>
       </TsRow>
     </div>

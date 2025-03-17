@@ -29,15 +29,15 @@
           <div v-else-if="item.type == 'team'">
             <TsRow :gutter="0">
               <Col v-for="(user, uindex) in userList" :key="uindex" span="8">
-              <div class="usercard-li overflow" @click="showUser(user)">
-                <img
-                  :src="avatar['default']"
-                  class="usercard-smallicon"
-                  :alt="user.username"
-                  :title="user.userName"
-                />
-                {{ user.userName }}
-              </div>
+                <div class="usercard-li overflow" @click="showUser(user)">
+                  <img
+                    :src="avatar['default']"
+                    class="usercard-smallicon"
+                    :alt="user.username"
+                    :title="user.userName"
+                  />
+                  {{ user.userName }}
+                </div>
               </Col>
             </TsRow>
           </div>
