@@ -81,4 +81,5 @@ export default function upload(option) {
     }
   }
   xhr.send(formData);
+  return xhr; // 返回xhr对象，可用于中断上传
 }

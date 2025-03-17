@@ -1,6 +1,6 @@
 {
   "name": "neatlogic-ui",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": false,
   "main": "dist/neatlogic-ui.umd.min.js",
   "author": "neatlogic",
